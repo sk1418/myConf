@@ -23,21 +23,18 @@ COMMON_DIR="$ROOT_DIR/common"
 HOST_DIR="$ROOT_DIR/$ME"
 MY_DOTFILES="$HOST_DIR/dotfiles"
 MY_Arch="$HOST_DIR/arch"
-GIT_DIR="$HOME/MyStuff/myCodes/dotfiles"
 
 PRINT_SEP(){
   echo "----------------------------------------------"
 }
 #===========================
 # backup common config files 
-# also cp to git dir
 #===========================
-BACKUP_COMMON_AND_GIT(){
+BACKUP_COMMON(){
   PRINT_SEP
-  echo "backing up common configs and to GIT dir"
+  echo "backing up common configs"
   PRINT_SEP
   mkdir -p $COMMON_DIR >/dev/null 2>&1
-  mkdir -p $GIT_DIR >/dev/null 2>&1
   COMMON_FILES=(.Xdefaults
 								.Xresources
 								.zshrc
@@ -49,7 +46,6 @@ BACKUP_COMMON_AND_GIT(){
 								.ctags)
   for f in ${COMMON_FILES[@]}; do
     cp -f $HOME/$f $COMMON_DIR
-    #cp -f $HOME/$f $GIT_DIR
   done
   echo "done!"
 }
@@ -116,7 +112,7 @@ BACKUP_CUPS_CONFIG(){
 }
 
 
-BACKUP_COMMON_AND_GIT
+BACKUP_COMMON
 BACKUP_HOST_CONFIG
 BACKUP_ARCH_CONFIG
 BACKUP_CUPS_CONFIG
