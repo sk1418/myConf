@@ -3,7 +3,7 @@
 ##############################################
 #
 # the script backups some configuration files
-# to current directory
+# to current directory depending on the Hostname
 #
 ##############################################
 
@@ -42,6 +42,7 @@ BACKUP_COMMON(){
 								.tmux.conf
 								.vimrc
 								.Xmodmap
+								.profile
 								base.vimrc
 								.ctags)
   for f in ${COMMON_FILES[@]}; do
