@@ -1,0 +1,104 @@
+[ui]
+username = Kai Yuan
+Editor = vim
+merge = vimdiff
+
+[http_proxy]
+host = http://localhost:8888
+
+[auth]
+
+7p.prefix=hg.7p-dev.com
+7p.username=yuank
+7p.cert=/home/kent/Desktop/Projects/7p-dev-com.cer
+
+bb.prefix=bitbucket.org
+bb.username=sk1418
+
+git.prefix=github.com
+git.username=sk1418
+
+[web]
+cacerts = /etc/ssl/certs/ca-certificates.crt
+#cacerts=/home/kent/Desktop/Projects/7p-dev-com.cer
+[hostfingerprints]
+hg.7p-dev.com=e9:ad:c1:28:ad:6d:c4:e6:0e:22:a1:d6:35:29:19:cd:b8:e5:00:7d
+
+[extensions]
+hgext.convert=
+extdiff =
+graphlog=
+# record: allows partially commit a file
+record=
+
+#purges all files and directories not being tracked by Mercurial in the current repository.
+# hg purge --print just show the list
+purge=
+
+# foo^  : parent of rev foo
+# foo^1 : 2nd parent of rev foo
+parentrevspec =
+
+# Ability to add shortcut to any url as url scheme (protocol)
+#schemes = 
+
+# pull, update, merge, ci  in one step
+fetch = 
+
+progress =
+color =
+bookmarks =
+prompt = ~/lib/hg-prompt/prompt.py
+
+hggit =
+
+[progress]
+delay = 1.0
+
+
+
+[auth]
+7pdev.prefix   = https://hg.7p-dev.com
+7pdev.username = yuank
+7pdev.password = BvUzTJM0zC
+
+[merge-tools]
+vimdiff.executable = vim
+#vimdiff.args = -d $output $other
+vimdiff.args = -d  $output $other 
+
+
+[diff]
+git = True
+
+
+[extdiff]
+cmd.vdiff = vim
+opts.vdiff = -f '+next' '+execute "DirDiff" argv(1) argv(0)'
+
+[defaults]
+#rebase = --keepbranches
+
+[alias]
+#  just push the current branch.
+pushbr = push --branch .
+cim    = commit -m'Merged'
+cm     = commit -m
+cam    = commit -Am
+
+[color]
+status.modified = cyan
+status.added = green
+status.removed = red
+status.deleted = yellow bold underline
+status.unknown = magenta bold underline
+status.ignored = black bold
+diff.diffline = none
+diff.extended = cyan
+diff.file_a = red
+diff.file_b = green
+diff.hunk = yellow bold
+diff.deleted = red
+diff.inserted = green
+diff.changed = white
+diff.trailingwhitespace = white_background
