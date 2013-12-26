@@ -182,16 +182,9 @@ autoload colors
 
 #====[ Prompt ]========================================================# {{{
 
-function hg_prompt_info {
-    hg prompt --angle-brackets "\
-< on %{$fg[magenta]%}<branch>%{$reset_color%}>\
-< at %{$fg[yellow]%}<bookmark>%{$reset_color%}>\
-%{$fg[green]%}<status|modified|unknown><update>%{$reset_color%}<
-patches: <patches|join( → )|pre_applied(%{$fg[yellow]%})|post_applied(%{$reset_color%})|pre_unapplied(%{$fg_bold[black]%})|post_unapplied(%{$reset_color%})>>" 2>/dev/null
-}
 
-PROMPT='%{$bg[blue]%}%{$fg_bold[white]%}%M%{$reset_color%} %{$fg_bold[red]%}%*% %{$fg_bold[yellow]%} %/
-%{$fg[green]%}%n%B$ $(hg_prompt_info)$(git_super_status) '
+#zsh prompt
+source $MY_ZSH_DIR/promptrc
 
 #git prompt
 source $MY_LIB_DIR/git-prompt/zshrc.sh
