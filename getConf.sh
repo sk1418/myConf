@@ -95,7 +95,8 @@ BACKUP_ARCH_CONFIG(){
   for f in ${ARCH_FILES[@]}; do
     cp -f $f  "$MY_Arch/systemd/confs/" > /dev/null 2>&1
   done
-  rsync -arv /etc/modules-load.d "$MY_Arch/systemd/" 
+  sudo rsync -arv /etc/modules-load.d "$MY_Arch/systemd/" 
+  sudo chown -R $USER "$MY_Arch/systemd"
   echo "done!"
 }
 
