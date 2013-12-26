@@ -8,21 +8,13 @@ host = http://localhost:8888
 
 [auth]
 
-7p.prefix=hg.7p-dev.com
-7p.username=yuank
-7p.cert=/home/kent/Desktop/Projects/7p-dev-com.cer
 
 bb.prefix=bitbucket.org
 bb.username=sk1418
 
-git.prefix=github.com
-git.username=sk1418
 
 [web]
 cacerts = /etc/ssl/certs/ca-certificates.crt
-#cacerts=/home/kent/Desktop/Projects/7p-dev-com.cer
-[hostfingerprints]
-hg.7p-dev.com=e9:ad:c1:28:ad:6d:c4:e6:0e:22:a1:d6:35:29:19:cd:b8:e5:00:7d
 
 [extensions]
 hgext.convert=
@@ -57,10 +49,6 @@ delay = 1.0
 
 
 
-[auth]
-7pdev.prefix   = https://hg.7p-dev.com
-7pdev.username = yuank
-7pdev.password = BvUzTJM0zC
 
 [merge-tools]
 vimdiff.executable = vim
