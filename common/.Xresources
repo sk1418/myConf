@@ -9,13 +9,10 @@ Xcursor.theme:          Obsidian
 
 !green fg
 !*foreground: #91f373
-
 !URxvt*foreground: #59cd36
 
 !bg dark
 !*background: #0c0c0c
-
-
 !*cursorColor: #ACEA5C
 
 ! }}}
@@ -40,118 +37,7 @@ Xcursor.theme:          Obsidian
 !*color15: #eeeeec
 ! }}}
 
-! thayer molokai inspired colors {{{ !
-*color0: #1b1d1e
-
-*color8: #505354
-
-*color1: #f92672
-
-*color9: #ff5995
-
-*color2: #82b414
-
-*color10: #b6e354
-
-*color3: #fd971f
-
-*color11: #feed6c
-
-*color4: #56c2d6
-
-*color12: #8cedff
-
-*color5: #8c54fe
-
-*color13: #9e6ffe
-
-*color6: #465457
-
-*color14: #899ca1
-
-*color7: #ccccc6
-
-*color15: #f8f8f2
-!
-!}}}
-
-
-!  RXVT-unicode {{{
-
-!urxvt setting
-!Xft.dpi:96
-URxvt.iconFile: /home/kent/MyStuff/GUI/customIcons/icons/terminal.svg
-
-URxvt.geometry: 90x30
-
-URxvt.scrollBar: True
-
-URxvt.scrollstyle: next
-
-URxvt.scrollBar_right: True
-
-! Use shift+pageup/down to scroll in screen
-
-URxvt.secondaryScroll:  True
-
-URxvt.scrollTtyOutput: False
-
-URxvt.scrollTtyKeypress: True
-
-URxvt.scrollWithBuffer: True
-!set the artificial transparency of the v.t.
-
-!terminal background
-!URxvt.backgroundPixmap: /home/kent/MyStuff/GUI/ArtMaterial/wallpaper/terminalBG.png;geom:tile
-!URxvt.inheritPixmap: True
-!URxvt.tintColor: lightgray
-
-!URxvt.fadeColor:        honeydew3
-
-!URxvt.troughColor:      sienna
-
-!URxvt.borderLess:       True
-
-!URxvt.cursorUnderline:  True
-
-!URxvt.cursorColor:      green
-
-URxvt.colorBD: Wheat
-
-!URxvt.colorUL: white
-!URxvt.shading: 30
-!URxvt.fading: 30
-
-URxvt*underlineURLs:    true
-
-
-URxvt.saveLines: 1500
-!allow double click to select URL
-
-
-!this makes urxvt to start faster??
-
-URxvt.preeditType: Root
-URxvt*termName: rxvt-256color
-!URxvt*meta8:true
-!urgent notification
-!URxvt.urgentOnBell:     True
-
-!URxvt.keysym.M-v:       command:paste
-
-URxvt.keysym.Delete:       \033[3~
-
-!italicFont and boldItalicFont undefined
-
-!URxvt.font:xft:Luxi Mono:regular:antialias=True:pixelsize=15, 
-URxvt*font: xft:Monaco:medium:autohint=True:size=12.5:antialias=True,  xft:DejaVu Sans Mono:book:autohint=True:size=12,  xft:Microsoft YaHei:pixelsize=16:antialias=True
-
-
-URxvt*boldFont: xft:Monaco:bold:autohint=True:size=12:antialias=True,  xft:DejaVu Sans Mono:bold:autohint=True:size=12,  xft:WenQuanYi Bitmap Song:pixelsize=16:antialias=False
-
-! }}}
-
-!! Solarized color scheme for the X Window System
+!! Solarized color scheme for the X Window System/*{{{*/
 !!
 !! http://ethanschoonover.com/solarized
 !
@@ -221,3 +107,83 @@ URxvt*boldFont: xft:Monaco:bold:autohint=True:size=12:antialias=True,  xft:DejaV
 *color13:                 S_violet
 *color14:                 S_base1
 *color15:                 S_base3
+
+!}}}
+!  RXVT-unicode {{{
+
+!urxvt setting
+!Xft.dpi:96
+URxvt.iconFile: /home/kent/MyStuff/GUI/customIcons/icons/terminal.svg
+
+URxvt.geometry: 90x30
+
+URxvt.scrollBar: True
+
+URxvt.scrollstyle: next
+
+URxvt.scrollBar_right: True
+
+URxvt.inputMethod: fcitx
+
+! Use shift+pageup/down to scroll in screen
+
+URxvt.secondaryScroll:  True
+
+URxvt.scrollTtyOutput: False
+
+URxvt.scrollTtyKeypress: True
+
+URxvt.scrollWithBuffer: True
+!set the artificial transparency of the v.t.
+
+!terminal background
+!URxvt.backgroundPixmap: /home/kent/MyStuff/GUI/ArtMaterial/wallpaper/terminalBG.png;geom:tile
+!URxvt.inheritPixmap: True
+!URxvt.tintColor: lightgray
+
+!URxvt.fadeColor:        honeydew3
+
+!URxvt.troughColor:      sienna
+
+!URxvt.borderLess:       True
+
+!URxvt.cursorUnderline:  True
+
+!URxvt.cursorColor:      green
+
+URxvt.colorBD: Wheat
+
+!URxvt.colorUL: white
+!URxvt.shading: 30
+!URxvt.fading: 30
+
+URxvt*underlineURLs:    true
+
+
+URxvt.saveLines: 1500
+!allow double click to select URL
+
+
+!this makes urxvt to start faster??
+
+URxvt.preeditType: Root
+URxvt*termName: rxvt-256color
+!URxvt*meta8:true
+!urgent notification
+!URxvt.urgentOnBell:     True
+
+!URxvt.keysym.M-v:       command:paste
+
+URxvt.keysym.Delete:       \033[3~
+
+!italicFont and boldItalicFont undefined
+
+!URxvt.font:xft:Luxi Mono:regular:antialias=True:pixelsize=15, 
+URxvt*font: xft:Monaco:medium:autohint=True:size=12.5:antialias=True,  xft:DejaVu Sans Mono:book:autohint=True:size=12,  xft:WenQuanYi Micro Hei:pixelsize=16:antialias=True
+
+
+!URxvt*boldFont: xft:Monaco:bold:autohint=True:size=12:antialias=True,  xft:DejaVu Sans Mono:bold:autohint=True:size=12,  xft:WenQuanYi Bitmap Song:pixelsize=16:antialias=False
+URxvt*boldFont: xft:Monaco:bold:autohint=True:size=12:antialias=True,  xft:DejaVu Sans Mono:bold:autohint=True:size=12,  xft:WenQuanYi Micro Hei:bold:pixelsize=16:antialias=False
+
+! }}}
+

@@ -152,14 +152,24 @@ zstyle ':completion:*:hosts' hosts $hosts
 
 
 #====[ Color and Terminal ]========================================================# {{{
+#set 256color for TERM
+case "$TERM" in
+    'xterm') TERM=xterm-256color;;
+    'screen') TERM=screen-256color;;
+    'Eterm') TERM=Eterm-256color;;
+esac
+export TERM
 
-if [[ ("$TERM" = *256color || "$TERM" = screen* ) && -f $MY_ZSH_DIR/.lscolor256 ]]; then
+DIR_COLOR=$MY_LIB_DIR/dircolors/dircolors.ansi-universal
+DIR_COLOR256=$MY_LIB_DIR/dircolors/dircolors.256dark
+
+if [[ ("$TERM" = *256color || "$TERM" = screen* ) && -f $DIR_COLOR256 ]]; then
     #use prefefined colors
-    eval $(dircolors -b $MY_ZSH_DIR/.lscolor256)
+    eval $(dircolors -b $DIR_COLOR256)
     use_256color=1
     export TERMCAP=${TERMCAP/Co\#8/Co\#256}
 else
-    [[ -f $MY_ZSH_DIR/.lscolor ]] && eval $(dircolors -b $MY_ZSH_DIR/.lscolor)
+    [[ -f $DIR_COLOR ]] && eval $(dircolors -b $DIR_COLOR)
 fi
 
 autoload colors 
