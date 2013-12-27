@@ -492,10 +492,15 @@ if $DISPLAY == ""
     colorscheme desert
 else
     set t_Co=256
-    "colorscheme last256
-	let g:solarized_termcolors = 256
-	let g:solarized_termtrans = 1
-	colorscheme solarized
+	"solarized color looks not good in diff mode
+	if &diff
+		colorscheme last256
+	else
+		"colorscheme last256
+		let g:solarized_termcolors = 256
+		let g:solarized_termtrans = 1
+		colorscheme solarized
+	endif
 endif
 set gfn=Monaco\ 12
 set gfw=WenQuanYi\ Micro\ Hei\ 12
