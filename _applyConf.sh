@@ -12,12 +12,12 @@ __backup_and_apply(){
 	targetDir="$1"
 	for file in $(ls -a $targetDir)
 	do
-        if [[ -f "$targetDir/$file" ]]
+		if [[ -f "$targetDir/$file" ]]
 		then
 			echo "appling $file ..."
 			mv "$HOME/$file" "$BACKUP" > /dev/null 2>&1
 			cp "$targetDir/$file" $HOME
-        fi
+		fi
 	done
 
 }

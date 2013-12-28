@@ -1,3 +1,7 @@
+#========================================
+# common variable and functions for 
+# getConf and applyConf scripts
+#========================================
 
 #get current path
 script_path="${BASH_SOURCE[0]}"
