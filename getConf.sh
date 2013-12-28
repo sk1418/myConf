@@ -7,33 +7,15 @@
 #
 ##############################################
 
-#get current path
-script_path="${BASH_SOURCE[0]}"
-if ([ -L "${script_path}" ]) then
-  while ([ -L "${script_path}" ]) do script_path=$(readlink "${script_path}"); done
-fi
-pushd . > /dev/null
-cd $(dirname ${script_path}) > /dev/null
-script_path=$(pwd)
+source var.sh
 
-ME=$(hostname)
-
-ROOT_DIR=$script_path
-COMMON_DIR="$ROOT_DIR/common"
-HOST_DIR="$ROOT_DIR/$ME"
-MY_DOTFILES="$HOST_DIR/dotfiles"
-MY_Arch="$HOST_DIR/arch"
-
-PRINT_SEP(){
-  echo "----------------------------------------------"
-}
 #===========================
 # backup common config files 
 #===========================
-BACKUP_COMMON(){
-  PRINT_SEP
+backup_common(){
+  print_sep
   echo "backing up common configs"
-  PRINT_SEP
+  print_sep
   mkdir -p $COMMON_DIR >/dev/null 2>&1
   COMMON_FILES=(.Xdefaults
 								.Xresources
@@ -45,7 +27,8 @@ BACKUP_COMMON(){
 								.profile
 								base.vimrc
 								.ctags)
-  for f in ${COMMON_FILES[@]}; do
+  for f in ${COMMON_FILES[@]}
+ 	do
     cp -f $HOME/$f $COMMON_DIR
   done
   echo "done!"
@@ -55,10 +38,10 @@ BACKUP_COMMON(){
 #======================
 # host specific configurations
 #======================
-BACKUP_HOST_CONFIG(){
-  PRINT_SEP
+backup_host_config(){
+  print_sep
   mkdir -p $MY_DOTFILES > /dev/null 2>&1
-  PRINT_SEP
+  print_sep
   HOST_FILES=(.bashrc
 							.xinitrc 
 							.hgrc
@@ -77,10 +60,10 @@ BACKUP_HOST_CONFIG(){
 #======================
 # Arch config files
 #======================
-BACKUP_ARCH_CONFIG(){
-  PRINT_SEP
+backup_arch_config(){
+  print_sep
   echo "$ME - Arch configurations {/etc/confs, systemd modules}"
-  PRINT_SEP
+  print_sep
   mkdir -p $MY_Arch > /dev/null 2>&1
   mkdir -p "$MY_Arch/systemd/confs" > /dev/null 2>&1
 
@@ -103,10 +86,10 @@ BACKUP_ARCH_CONFIG(){
 #======================
 # CUPS config
 #======================
-BACKUP_CUPS_CONFIG(){
-  PRINT_SEP
+backup_cups_config(){
+  print_sep
   echo "$ME  /etc/cups root password needed[sudo]"
-  PRINT_SEP
+  print_sep
   mkdir -p $HOST_DIR/cups > /dev/null 2>&1
   sudo cp -rf /etc/cups/* $HOST_DIR/cups/
   sudo chown -R $USER $HOST_DIR/cups
@@ -114,9 +97,9 @@ BACKUP_CUPS_CONFIG(){
 }
 
 
-BACKUP_COMMON
-BACKUP_HOST_CONFIG
-BACKUP_ARCH_CONFIG
-BACKUP_CUPS_CONFIG
+backup_common
+backup_host_config
+backup_arch_config
+backup_cups_config
 
 # vim:ts=2 sw=2
