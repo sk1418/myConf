@@ -97,9 +97,24 @@ backup_cups_config(){
 }
 
 
+#======================
+# /etc
+#======================
+backup_etc_config(){
+	print_sep
+	echo "$ME /etc "
+	print_sep
+	mkdir -p $HOST_DIR/etc > /dev/null 2>&1
+	sudo cp /etc/mtab $HOST_DIR/etc/
+	sudo cp /etc/fstab $HOST_DIR/etc/
+	sudo chown -R $USER $HOST_DIR/etc
+	echo "done!"
+}
+
 backup_common
 backup_host_config
 backup_arch_config
+backup_etc_config
 backup_cups_config
 
 # vim:ts=2 sw=2
