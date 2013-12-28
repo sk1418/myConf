@@ -45,3 +45,5 @@ mkdir -p $BACKUP
 apply_common
 apply_host_cfg
 echo "old configurations were backuped on $BACKUP"
+
+# vim:ts=2 sw=2
