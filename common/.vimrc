@@ -492,15 +492,11 @@ if $DISPLAY == ""
     colorscheme desert
 else
     set t_Co=256
-	"solarized color looks not good in diff mode
-	if &diff
-		colorscheme last256
-	else
-		"colorscheme last256
-		let g:solarized_termcolors = 256
-		let g:solarized_termtrans = 1
-		colorscheme solarized
-	endif
+	colorscheme last256
+	" below are solarized settings
+	"let g:solarized_termcolors = 256
+	"let g:solarized_termtrans = 1
+	"colorscheme solarized
 endif
 set gfn=Monaco\ 12
 set gfw=WenQuanYi\ Micro\ Hei\ 12
@@ -509,7 +505,7 @@ set gfw=WenQuanYi\ Micro\ Hei\ 12
 
 "-------[ Status bar ]----------------------------------------{{{
 
-set statusline =%1*%F%*%m%r%h%w "filename
+set statusline =%1*%F%*%m%r%h%w"filename
 set statusline+=\ [%Y:%{&ff}:%{&fenc!=''?&fenc:&enc}:] "filetype,encoding
 set statusline+=\ [ASCII:%b]  " ascii 
 set statusline+=\ [row:%l/%1*%L%*\ %1*%p%%%*\ \ col:%v] 
@@ -517,10 +513,10 @@ set statusline+=\ [row:%l/%1*%L%*\ %1*%p%%%*\ \ col:%v]
 "hi User1 ctermbg=
 
 "color in terminal
-hi User1 cterm=bold cterm=italic  ctermfg=green 
+hi User1 cterm=bold cterm=italic ctermfg=107
 
 "color in gvim
-hi User1  gui=bold guifg=black guibg=#5B89C7
+hi User1  gui=bold guifg=#000000 guibg=#5B89C7
 "set statusline=%F%m%r%h%w\ [FORMAT=%{&ff}G\ [TYPE=%Y]\ [ASCII=\%03.3b]\ [HEX=\%02.2B]\ [POS=%04l,%04v][%p%%]\ [LEN=%L]
 set laststatus=2
 "hi Pmenu guibg=#444444 ctermfg=white ctermbg=darkgray
@@ -541,11 +537,11 @@ set cul "highlighting cusor line
 "===========================================================================
 let showmarks_enable=0
 "lower case marker hl
-hi ShowMarksHLl ctermfg=black ctermbg=green cterm=bold guifg=blue guibg=lightblue gui=bold
+hi ShowMarksHLl ctermfg=16 ctermbg=107 cterm=bold guifg=blue guibg=lightblue gui=bold
 "upper case marker hl
-hi ShowMarksHLu ctermfg=black ctermbg=green cterm=bold guifg=blue guibg=lightblue gui=bold
+hi ShowMarksHLu ctermfg=16 ctermbg=107 cterm=bold guifg=blue guibg=lightblue gui=bold
 "other marker hl
-hi ShowMarksHLo ctermfg=black ctermbg=green cterm=bold guifg=blue guibg=lightblue gui=bold
+hi ShowMarksHLo ctermfg=16 ctermbg=107 cterm=bold guifg=blue guibg=lightblue gui=bold
 "when multi markers on sameline
 "hi ShowMarksHLm ctermfg=black ctermbg=green cterm=bold guifg=blue guibg=lightblue gui=bold
 let showmarks_include = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
