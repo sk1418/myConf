@@ -513,7 +513,7 @@ set statusline+=\ [row:%l/%1*%L%*\ %1*%p%%%*\ \ col:%v]
 "hi User1 ctermbg=
 
 "color in terminal
-hi User1 cterm=bold cterm=italic ctermfg=107
+hi User1 cterm=bold cterm=italic ctermfg=67
 
 "color in gvim
 hi User1  gui=bold guifg=#000000 guibg=#5B89C7
