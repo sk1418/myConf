@@ -53,6 +53,9 @@ backup_host_config(){
 	done
 	rsync -arv --exclude=".zsh_*"  $HOME/.zsh $MY_DOTFILES/
 	# rsync -arv $HOME/.vim $MY_DOTFILES/ #don't sync .vim/backups for privcy reason
+	#cp ssh config and keep directory structure
+	mkdir -p $MY_DOTFILES/.ssh
+	cp  $HOME/.ssh/config  $MY_DOTFILES/.ssh/config	> /dev/null 2>&1
 	echo "done!"
 }
 
