@@ -17,7 +17,6 @@
 	tags = tag -l
 	branches = branch -a
 	remotes = remote -v
-	graft = cherry-pick -x
 	l   = log -18 --color=always --all --topo-order --pretty='format:%Cgreen%h%Creset %s%Cred%d%Creset %C(black bold)(by %an)%Creset'
     ll  = log     --color=always --all --topo-order --pretty='format:%Cgreen%h%Creset %s%Cred%d%Creset %C(black bold)(by %an)%Creset'
     gl  = log -12 --color=always --all --graph --topo-order --pretty='format:%Cgreen%h%Creset %s %C(black bold)(by %an)%Creset%C(yellow bold)%d%Creset%n'
@@ -31,21 +30,29 @@
 	stat = status
     st = status
 	unstage = reset HEAD
-	df = diffall
+	df = difftool -d
 
 [push]
     default = current
 
 [merge]
 	tool = mygitmergetool
+
+[mergetool]
+	prompt = false
+
 [mergetool "mygitmergetool"]
 	cmd = $HOME/lib/gitmergetool vim $BASE $LOCAL $REMOTE $MERGED
+	prompt = false
 	trustExitCode = true
 	keepBackup = false
 	
 [diff]
 	tool = myGitVimDiff
 
+[difftool]
+	prompt = false
+	dir-diff = true
+
 [difftool "myGitVimDiff"]
 	cmd = vim -f '+next' '+execute \"DirDiff\" argv(1) argv(0)' $LOCAL $REMOTE
-	prompt = false
