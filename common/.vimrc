@@ -59,15 +59,11 @@ set splitright
 
 set concealcursor=nc "hide concealed chars in N & C mode
 "}}}
-
-
 "-------[ Tags ]----------------------------------------{{{
 
 " search tags file from opened file directory up to / (root)
 set tags+=./tags;/,
 "}}}
-
-
 "-------[ Folding Settings ]----------------------------------------{{{
 set foldmethod=marker
 set foldlevel=100 " Don't autofold anything (but I can still fold manually)
@@ -77,8 +73,6 @@ set foldopen-=undo " don't open folds when you undo stuff
 let g:xml_syntax_folding=1
 autocmd FileType java,javascript,vim,xml,html,xhtml set fdm=syntax
 "}}}
-
-
 "-------[ Auto-Completion Settings ]----------------------------------------{{{
 "leave autocompletion setting to neocomplete plugin
 
@@ -88,7 +82,6 @@ set completeopt=longest,menuone
 "inoremap <expr> <c-n> pumvisible() ? "\<c-n>" : "\<c-n>\<c-r>=pumvisible() ? \"\\<down>\" : \"\\<cr>\""
 "inoremap <expr> <m-;> pumvisible() ? "\<c-n>" : "\<c-x>\<c-o>\<c-n>\<c-p>\<c-r>=pumvisible() ? \"\\<down>\" : \"\\<cr>\""
 "}}}
-
 "-------[ Filetype settings ]----------------------------------------{{{
 
 "====================
@@ -116,9 +109,6 @@ autocmd FileType help wincmd L
 autocmd FileType java set tags+=$HOME/.jdkTags
 autocmd FileType java hi link javaDocComment String
 "}}}
-
-
-
 "-------[ key mappying ]----------------------------------------{{{
 
 " set mapleader
@@ -186,8 +176,6 @@ nnoremap <C-l> <C-w>l
 " moving cursor out of (right of ) autoClosed brackets
 "inoremap <c-l> <esc>%%a
 "}}}
-
-
 "-------[ abbreviation ]----------------------------------------{{{
 "
 " Date time
@@ -205,8 +193,6 @@ if has("autocmd")
     autocmd bufwritepost .vimrc source $MYVIMRC
 endif
 "}}}
-
-
 "-------[ Bundles ]----------------------------------------{{{
 
 filetype off
@@ -271,8 +257,6 @@ Bundle 'Shougo/neocomplete'
 Bundle 'Shougo/neosnippet'
 filetype plugin indent on  
 "}}}
-
-
 "-------[ plugin mappings/settings ]-------------------------------------{{{
 
 "-----------[ vim-cycle plugin ]------------{{{
@@ -483,9 +467,7 @@ let g:vimwiki_list = [{'path': '~/vimwiki/',
 "
 "command! -nargs=* -complete=file Ack call Ack(<q-args>)
 "}}}
-
-
-"-------[color scheme ]----------------------------------------{{{
+"-------[ color scheme ]--{{{
 
 set background=dark
 if $DISPLAY == ""
@@ -501,8 +483,6 @@ endif
 set gfn=Monaco\ 12
 set gfw=WenQuanYi\ Micro\ Hei\ 12
 "}}}
-
-
 "-------[ Status bar ]----------------------------------------{{{
 
 set statusline =%1*%F%*%m%r%h%w"filename
@@ -526,8 +506,6 @@ set laststatus=2
 set cul "highlighting cusor line
 "hi CursorLine   cterm=NONE ctermbg=black guibg=gray8
 "}}}
-
-
 "-------[ plugins need color settings ]-------------------------------------{{{
 
 
@@ -570,8 +548,6 @@ let g:indentLine_color_gui='darkgray'
 let g:indentLine_noConcealCursor='true'
 "nnoremap <Leader>in = :IndentLinesToggle<cr>
 "}}}
-
-
 "-------[ Functions ]-------------------------------------{{{
 
 " function for autocmd python filetype
@@ -684,7 +660,6 @@ function! SearchWiki()
   execute 'silent! Ack! -i "' . pat . '" ' . g:wikiDir . '**/*.wiki'
 endfunction
 nnoremap <leader><leader>s :call SearchWiki()<cr>
-"}}}
 
 
 " Disable one diff window during a three-way diff allowing you to cut out the
@@ -710,6 +685,6 @@ nmap <silent> <leader>dl :call DiffToggle(1)<cr>
 nmap <silent> <leader>dc :call DiffToggle(2)<cr>
 nmap <silent> <leader>dr :call DiffToggle(3)<cr>
 
+"}}}
 
-
-" vim: fdm=marker 
+" vim: fdm=marker
