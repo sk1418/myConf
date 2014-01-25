@@ -251,6 +251,7 @@ Bundle 'Yggdroot/indentLine'
 Bundle 'sk1418/QFGrep'
 Bundle 'sk1418/HowMuch'
 Bundle 'sk1418/Join'
+Bundle 'sk1418/blockit'
 Bundle 'bootleq/vim-cycle'
 Bundle 'Shougo/neocomplete'
 
