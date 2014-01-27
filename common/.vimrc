@@ -211,7 +211,8 @@ Bundle 'L9'
 Bundle 'mileszs/ack.vim'
 Bundle 'othree/xml.vim'
 Bundle 'vim-scripts/Align'
-Bundle 'Townk/vim-autoclose'
+"Bundle 'Townk/vim-autoclose'
+Bundle 'Raimondi/delimitMate'
 Bundle 'vim-scripts/cecutil'
 Bundle 'vim-scripts/DirDiff.vim'
 Bundle 'vim-scripts/DrawIt'
@@ -321,11 +322,11 @@ nnoremap <F2> :NERDTreeToggle<cr>
 
 
 "-----------[ AutoClose plugin     ]------------{{{
-nnoremap <Leader>ac :AutoCloseToggle<CR>
-" with this variable true(default), <space> was imapped. it disables abbrevation 
-let g:AutoCloseExpandSpace = 0
-"disable autoclose handle popup menu
-let g:AutoClosePumvisible ={"ESC":"\<ESC>"}
+"nnoremap <Leader>ac :AutoCloseToggle<CR>
+"" with this variable true(default), <space> was imapped. it disables abbrevation 
+"let g:AutoCloseExpandSpace = 0
+""disable autoclose handle popup menu
+"let g:AutoClosePumvisible ={"ESC":"\<ESC>"}
 "}}}
 
 "-----------[ Gundo plugin      ]------------{{{
