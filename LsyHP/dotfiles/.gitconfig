@@ -20,10 +20,14 @@
 	branches = branch -a
 	remotes = remote -v
 	graft = cherry-pick -x
-	l   = log -18 --color=always --all --topo-order --pretty='format:%Cgreen%h%Creset %s%Cred%d%Creset %C(black bold)(by %an)%Creset'
-    ll  = log     --color=always --all --topo-order --pretty='format:%Cgreen%h%Creset %s%Cred%d%Creset %C(black bold)(by %an)%Creset'
-    gl  = log -12 --color=always --all --graph --topo-order --pretty='format:%Cgreen%h%Creset %s %C(black bold)(by %an)%Creset%C(yellow bold)%d%Creset%n'
-    gll = log     --color=always --all --graph --topo-order --pretty='format:%Cgreen%h%Creset %s %C(black bold)(%cr by %an)%Creset%C(yellow bold)%d%Creset%n'
+
+	l   = log -14 --color=always --all --topo-order --pretty='format:%Cgreen%h%Creset %s%Cred%d%Creset %C(bold)(by %an)%Creset'
+    ll  = log     --color=always --all --topo-order --pretty='format:%Cgreen%h%Creset %s%Cred%d%Creset %C(bold)(by %an)%Creset'
+    gl  = log -14 --color=always --all --graph --topo-order --pretty='format:%Cgreen%h%Creset %s %C(bold)(%an)%Creset%C(red bold)%d%Creset%n'
+    gll = log     --color=always --all --graph --topo-order --pretty='format:%Cgreen%h%Creset %s %C(bold)(%cr by %an)%Creset%C(red bold)%d%Creset%n'
+
+	#changed file of a commit
+	cc = show --name-only
 
 	pull = pull --ff-only
     up = merge --ff-only
