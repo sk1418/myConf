@@ -261,6 +261,11 @@ filetype plugin indent on
 "}}}
 "-------[ plugin mappings/settings ]-------------------------------------{{{
 
+
+"-----------[ syntastic plugin ]------------{{{
+"syntastic is nice, but not for java
+ let g:syntastic_ignore_files = ['\.java$']
+"}}}
 "-----------[ vim-cycle plugin ]------------{{{
 let g:cycle_default_groups = [
           \   [['true', 'false']],
