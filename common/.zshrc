@@ -491,6 +491,7 @@ mkdir -p /tmp/test
 #environment variables
 source $MY_ZSH_DIR/variables.zsh
 
-
+alias nexusOn="sudo mkdir -p /media/nexus5 && sudo mtpfs -o allow_other /media/nexus5"
+alias nexusOff="sudo umount  /media/nexus5"
 ### END OF FILE #################################################################
 # vim: filetype=zsh fdm=marker autoindent expandtab shiftwidth=4 
