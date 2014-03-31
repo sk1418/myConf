@@ -48,6 +48,7 @@ set wildmode=full,longest,full
 set backup
 set backupdir=$HOME/.vim/backups
 set display=lastline " show complete content, without @ 
+set ttimeoutlen=100
 "set dictionary +=/usr/share/dict/cracklib-small "enable the dictionary
 
 "file encodings
