@@ -493,7 +493,7 @@ set gfw=WenQuanYi\ Micro\ Hei\ 12
 "}}}
 "-------[ Status bar ]----------------------------------------{{{
 
-set statusline =%1*%F%*%m%r%h%w"filename
+set statusline =%1*%F%*%m%r%h%w "filename
 set statusline+=\ [%Y:%{&ff}:%{&fenc!=''?&fenc:&enc}:] "filetype,encoding
 set statusline+=\ [ASCII:%b]  " ascii 
 set statusline+=\ [row:%l/%1*%L%*\ %1*%p%%%*\ \ col:%v] 
