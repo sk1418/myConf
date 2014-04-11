@@ -215,7 +215,6 @@ Bundle 'vim-scripts/Align'
 "Bundle 'Townk/vim-autoclose'
 Bundle 'Raimondi/delimitMate'
 Bundle 'vim-scripts/cecutil'
-Bundle 'vim-scripts/DirDiff.vim'
 Bundle 'vim-scripts/DrawIt'
 Bundle 'mbbill/fencview'
 Bundle 'sjl/gundo.vim'
@@ -250,6 +249,8 @@ Bundle 'tpope/vim-markdown'
 Bundle 'scrooloose/syntastic'
 Bundle 'kien/ctrlp.vim'
 Bundle 'Yggdroot/indentLine'
+
+Bundle 'sk1418/DirDiff.vim'
 Bundle 'sk1418/QFGrep'
 Bundle 'sk1418/HowMuch'
 Bundle 'sk1418/Join'
@@ -493,7 +494,7 @@ set gfw=WenQuanYi\ Micro\ Hei\ 12
 "}}}
 "-------[ Status bar ]----------------------------------------{{{
 
-set statusline =%1*%F%*%m%r%h%w "filename
+set statusline =%1*%F%*%m%r%h%w"filename
 set statusline+=\ [%Y:%{&ff}:%{&fenc!=''?&fenc:&enc}:] "filetype,encoding
 set statusline+=\ [ASCII:%b]  " ascii 
 set statusline+=\ [row:%l/%1*%L%*\ %1*%p%%%*\ \ col:%v] 
