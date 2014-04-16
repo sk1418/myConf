@@ -231,7 +231,7 @@ Bundle 'honza/vim-snippets'
 Bundle 'tpope/vim-surround'
 Bundle 'tpope/vim-fugitive'
 Bundle 'majutsushi/tagbar'
-Bundle 'vim-scripts/FuzzyFinder'
+"Bundle 'vim-scripts/FuzzyFinder'
 Bundle 'Lokaltog/vim-easymotion'
 "
 "Bundle 'Mark%1238'
