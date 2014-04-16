@@ -344,9 +344,9 @@ nnoremap <Leader>u :GundoToggle<CR>
 "-----------[ FuzzyFinder  ]------------{{{
 
 "keep fuzzyfinder for file, it is handy for search arbitrary directory
-noremap <Leader>ff :FufFile<cr> 
-nnoremap <Leader>ft :FufTag<cr>
-nnoremap <Leader>fh :FufHelp<cr>
+"noremap <Leader>ff :FufFile<cr> 
+"nnoremap <Leader>ft :FufTag<cr>
+"nnoremap <Leader>fh :FufHelp<cr>
 
 "}}}
 
