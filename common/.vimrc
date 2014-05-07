@@ -201,64 +201,64 @@ set runtimepath+=~/.vim/bundle/vundle
 call vundle#rc()
 
 " color schemes
-Bundle 'gmarik/vundle'
+Plugin 'gmarik/vundle'
 
-Bundle 'fugalh/desert.vim'
-Bundle 'vim-scripts/desert256.vim'
-Bundle 'sk1418/last256'
-Bundle 'altercation/vim-colors-solarized'
-Bundle 'L9'
-"Bundle 'nathanaelkane/vim-indent-guides'
-Bundle 'mileszs/ack.vim'
-Bundle 'othree/xml.vim'
-Bundle 'vim-scripts/Align'
-"Bundle 'Townk/vim-autoclose'
-Bundle 'Raimondi/delimitMate'
-Bundle 'vim-scripts/cecutil'
-Bundle 'vim-scripts/DrawIt'
-Bundle 'mbbill/fencview'
-Bundle 'sjl/gundo.vim'
-Bundle 'vim-scripts/matchit.zip'
-Bundle 'vim-scripts/mru.vim'
-Bundle 'scrooloose/nerdtree'
-Bundle 'scrooloose/nerdcommenter'
-Bundle 'tpope/vim-repeat'
+Plugin 'fugalh/desert.vim'
+Plugin 'vim-scripts/desert256.vim'
+Plugin 'sk1418/last256'
+Plugin 'altercation/vim-colors-solarized'
+Plugin 'L9'
+"Plugin 'nathanaelkane/vim-indent-guides'
+Plugin 'mileszs/ack.vim'
+Plugin 'othree/xml.vim'
+Plugin 'vim-scripts/Align'
+"Plugin 'Townk/vim-autoclose'
+Plugin 'Raimondi/delimitMate'
+Plugin 'vim-scripts/cecutil'
+Plugin 'vim-scripts/DrawIt'
+Plugin 'mbbill/fencview'
+Plugin 'sjl/gundo.vim'
+Plugin 'vim-scripts/matchit.zip'
+Plugin 'vim-scripts/mru.vim'
+Plugin 'scrooloose/nerdtree'
+Plugin 'scrooloose/nerdcommenter'
+Plugin 'tpope/vim-repeat'
 
 
 "dependencies for snipmate
-Bundle 'honza/vim-snippets'
+Plugin 'honza/vim-snippets'
 
-Bundle 'tpope/vim-surround'
-Bundle 'tpope/vim-fugitive'
-Bundle 'majutsushi/tagbar'
-"Bundle 'vim-scripts/FuzzyFinder'
-Bundle 'Lokaltog/vim-easymotion'
+Plugin 'tpope/vim-surround'
+Plugin 'tpope/vim-fugitive'
+Plugin 'majutsushi/tagbar'
+"Plugin 'vim-scripts/FuzzyFinder'
+Plugin 'Lokaltog/vim-easymotion'
 "
-"Bundle 'Mark%1238'
-Bundle 'vim-scripts/ShowMarks'
-"Bundle 'vim-scripts/Conque-Shell'
-Bundle 'kana/vim-scratch'
-Bundle 'vim-scripts/fcitx.vim'
+"Plugin 'Mark%1238'
+Plugin 'vim-scripts/ShowMarks'
+"Plugin 'vim-scripts/Conque-Shell'
+Plugin 'kana/vim-scratch'
+Plugin 'vim-scripts/fcitx.vim'
 
-Bundle 'mattn/calendar-vim'
-Bundle 'vim-scripts/vimwiki'
-Bundle 'tpope/vim-markdown'
+Plugin 'mattn/calendar-vim'
+Plugin 'vim-scripts/vimwiki'
+Plugin 'tpope/vim-markdown'
 
-"Bundle 'lilydjwg/colorizer'
-"Bundle 'vim-scripts/lilypink'
-Bundle 'scrooloose/syntastic'
-Bundle 'kien/ctrlp.vim'
-Bundle 'Yggdroot/indentLine'
+"Plugin 'lilydjwg/colorizer'
+"Plugin 'vim-scripts/lilypink'
+Plugin 'scrooloose/syntastic'
+Plugin 'kien/ctrlp.vim'
+Plugin 'Yggdroot/indentLine'
 
-Bundle 'sk1418/DirDiff.vim'
-Bundle 'sk1418/QFGrep'
-Bundle 'sk1418/HowMuch'
-Bundle 'sk1418/Join'
-Bundle 'sk1418/blockit'
-Bundle 'bootleq/vim-cycle'
-Bundle 'Shougo/neocomplete'
+Plugin 'sk1418/DirDiff.vim'
+Plugin 'sk1418/QFGrep'
+Plugin 'sk1418/HowMuch'
+Plugin 'sk1418/Join'
+Plugin 'sk1418/blockit'
+Plugin 'bootleq/vim-cycle'
+Plugin 'Shougo/neocomplete'
 
-Bundle 'Shougo/neosnippet'
+Plugin 'Shougo/neosnippet'
 filetype plugin indent on  
 "}}}
 "-------[ plugin mappings/settings ]-------------------------------------{{{
@@ -360,7 +360,7 @@ let g:ctrlp_custom_ignore = {
   \ }
 
 nnoremap <Leader>fb :CtrlPBuffer<cr>
-"nnoremap <Leader>fr :CtrlPMRU<cr>
+nnoremap <Leader>ft :CtrlPTag<cr>
 "}}}
 
 "-----------[ neocomplete   ]------------{{{
