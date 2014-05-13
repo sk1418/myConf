@@ -76,5 +76,5 @@ autocmd FileType help wincmd L
 
 "audo load .vimrc
 if has("autocmd")
-    autocmd bufwritepost .vimrc source $HOME/base.vimrc
+    autocmd bufwritepost base.vimrc source $HOME/base.vimrc
 endif
