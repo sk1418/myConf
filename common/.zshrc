@@ -25,8 +25,8 @@ setopt interactive_comments #allow add comment in interactive command. e.g. cmd 
 # }}}
 
 #====[ Directories ]========================================================# {{{
-setopt auto_pushd           #make cd push the old directory to the dirstack, cd - <tab> could show the list
-setopt pushd_ignore_dups    #don't push duplicated dirs
+setopt AUTO_PUSHD           #make cd push the old directory to the dirstack, cd - <tab> could show the list
+setopt PUSHD_IGNORE_DUPS    #don't push duplicated dirs
 hash -d my="/home/kent/MyStuff"  #cd ~xxx to enter the directory
 export CDPATH=.:~:~/MyStuff
 
@@ -491,6 +491,10 @@ mkdir -p /tmp/test
 #environment variables
 source $MY_ZSH_DIR/variables.zsh
 
+#CHANGES still in TESTING# {{{
+setopt PUSHD_MINUS
+setopt LISTPACKED
+# }}}
 
 ### END OF FILE #################################################################
 # vim: filetype=zsh fdm=marker autoindent expandtab shiftwidth=4 
