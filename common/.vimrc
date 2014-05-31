@@ -1,4 +1,4 @@
-"-------[ General ]----------------------------------------"{{{
+"-------[ General Options ]----------------------------------------"{{{1
 
 set nocompatible
 "remove all autocommand
@@ -59,13 +59,11 @@ set fileencodings=utf-8,iso-8859-1,gb2312,ucs-bom,euc-cn,euc-tw,gb18030,gbk,cp93
 set splitright
 
 set concealcursor=nc "hide concealed chars in N & C mode
-"}}}
-"-------[ Tags ]----------------------------------------{{{
+"-------[ Tags ]----------------------------------------{{{1
 
 " search tags file from opened file directory up to / (root)
 set tags+=./tags;/,
-"}}}
-"-------[ Folding Settings ]----------------------------------------{{{
+"-------[ Folding Settings ]----------------------------------------{{{1
 set foldmethod=marker
 set foldlevel=100 " Don't autofold anything (but I can still fold manually)
 set foldopen-=search " don't open folds when you search into them
@@ -73,8 +71,7 @@ set foldopen-=undo " don't open folds when you undo stuff
 "autocmd FileType java set fdm=syntax
 let g:xml_syntax_folding=1
 autocmd FileType java,javascript,vim,xml,html,xhtml set fdm=syntax
-"}}}
-"-------[ Auto-Completion Settings ]----------------------------------------{{{
+"-------[ Auto-Completion Settings ]----------------------------------------{{{1
 "leave autocompletion setting to neocomplete plugin
 
 "increment completion (keep the options when typing)
@@ -82,35 +79,7 @@ set completeopt=longest,menuone
 "inoremap <expr> <cr> pumvisible() ? "\<c-y>" : "\<c-g>u\<cr>"
 "inoremap <expr> <c-n> pumvisible() ? "\<c-n>" : "\<c-n>\<c-r>=pumvisible() ? \"\\<down>\" : \"\\<cr>\""
 "inoremap <expr> <m-;> pumvisible() ? "\<c-n>" : "\<c-x>\<c-o>\<c-n>\<c-p>\<c-r>=pumvisible() ? \"\\<down>\" : \"\\<cr>\""
-"}}}
-"-------[ Filetype settings ]----------------------------------------{{{
-
-"====================
-"python
-"====================
-"set pastetoggle=<f4>
-autocmd FileType python call AutoCmd_python()
-
-"let g:pydiction_location =  '$HOME/.vim/bundle/Pydiction/complete-dict'
-"let g:pydiction_menu_height = 20
-" if has("autocmd")
-"         au FileType xml exe ":silent 1,$!xmllint --format --recover - 2>/dev/null"
-"         au FileType xsd exe ":silent 1,$!xmllint --format --recover - 2>/dev/null"
-" endif       
-"  has("autocmd") 
-"
-"====================
-"Help in vertical split (right)
-"====================
-autocmd FileType help wincmd L
-
-"====================
-"Java
-"====================
-autocmd FileType java set tags+=$HOME/.jdkTags
-autocmd FileType java hi link javaDocComment String
-"}}}
-"-------[ key mappying ]----------------------------------------{{{
+"-------[ key mappying ]----------------------------------------{{{1
 
 " set mapleader
 let mapleader        = ","
@@ -176,8 +145,7 @@ nnoremap <C-l> <C-w>l
 
 " moving cursor out of (right of ) autoClosed brackets
 "inoremap <c-l> <esc>%%a
-"}}}
-"-------[ abbreviation ]----------------------------------------{{{
+"-------[ abbreviation ]----------------------------------------{{{1
 "
 " Date time
 ia dt <c-r>=strftime("%Y-%m-%d %H:%M:%S")<cr>
@@ -193,8 +161,7 @@ ia mk3 !MARK3
 if has("autocmd")
     autocmd bufwritepost .vimrc source $MYVIMRC
 endif
-"}}}
-"-------[ Bundles ]----------------------------------------{{{
+"-------[ Bundles ]----------------------------------------{{{1
 
 filetype off
 set runtimepath+=~/.vim/bundle/vundle
@@ -222,14 +189,15 @@ Plugin 'vim-scripts/matchit.zip'
 Plugin 'vim-scripts/mru.vim'
 Plugin 'scrooloose/nerdtree'
 Plugin 'scrooloose/nerdcommenter'
-Plugin 'tpope/vim-repeat'
 
 
 "dependencies for snipmate
 Plugin 'honza/vim-snippets'
 
+Plugin 'tpope/vim-repeat'
 Plugin 'tpope/vim-surround'
 Plugin 'tpope/vim-fugitive'
+Plugin 'tpope/vim-markdown'
 Plugin 'majutsushi/tagbar'
 "Plugin 'vim-scripts/FuzzyFinder'
 Plugin 'Lokaltog/vim-easymotion'
@@ -242,7 +210,6 @@ Plugin 'vim-scripts/fcitx.vim'
 
 Plugin 'mattn/calendar-vim'
 Plugin 'vim-scripts/vimwiki'
-Plugin 'tpope/vim-markdown'
 
 "Plugin 'lilydjwg/colorizer'
 "Plugin 'vim-scripts/lilypink'
@@ -260,15 +227,12 @@ Plugin 'Shougo/neocomplete'
 
 Plugin 'Shougo/neosnippet'
 filetype plugin indent on  
-"}}}
-"-------[ plugin mappings/settings ]-------------------------------------{{{
+"-------[ plugin mappings/settings ]-------------------------------------{{{1
 
-
-"-----------[ syntastic plugin ]------------{{{
+"-----------[ syntastic plugin ]------------{{{2
 "syntastic is nice, but not for java
  let g:syntastic_ignore_files = ['\.java$']
-"}}}
-"-----------[ vim-cycle plugin ]------------{{{
+"-----------[ vim-cycle plugin ]------------{{{2
 let g:cycle_default_groups = [
           \   [['true', 'false']],
           \   [['yes', 'no']],
@@ -294,13 +258,11 @@ let g:cycle_default_groups = [
           \   [['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday',
           \     'Friday', 'Saturday'], 'hard_case', {'name': 'Days'}],
           \ ]
-"}}}
 
-"-----------[ Scratch.vim ]------------{{{
+"-----------[ Scratch.vim ]------------{{{2
 nmap <F3> :ScratchOpen<cr>
-"}}}
 
-"-----------[ TagBar plugin ]------------{{{
+"-----------[ TagBar plugin ]------------{{{2
 
 nmap <F4> :TagbarToggle<CR>
 
@@ -310,48 +272,42 @@ let g:tagbar_type_vimwiki = { 'ctagstype' : 'vimwiki', 'kinds'     : [ 'h:header
 " markdown
 "let g:tagbar_type_md = { 'ctagstype' : 'markdown', 'kinds' : [ 'h:Heading_L1', 'i:Heading_L2', 'k:Heading_L3' ] } 
 let g:tagbar_type_markdown = { 'ctagstype' : 'markdown', 'kinds' : ['h:headings',], 'sort' :0 } 
-"}}}
 
 
-"-----------[ MRU plugin      ]------------{{{
+"-----------[ MRU plugin      ]------------{{{2
 " MRU plugin still here, since not yet get used to ctrlP 
 let MRU_Max_Entries=49
 nnoremap <Leader>fr :MRU<cr>
-"}}}
 
-"-----------[ NERDTree plugin      ]------------{{{
+"-----------[ NERDTree plugin      ]------------{{{2
 "open current file in NERDTree
 nnoremap <silent> <Leader>n :NERDTree<CR><C-w>p:NERDTreeFind<CR>
 
 "toggle nerdtree
 nnoremap <F2> :NERDTreeToggle<cr>
-"}}}
 
 
-"-----------[ AutoClose plugin     ]------------{{{
+"-----------[ AutoClose plugin     ]------------{{{2
 "nnoremap <Leader>ac :AutoCloseToggle<CR>
 "" with this variable true(default), <space> was imapped. it disables abbrevation 
 "let g:AutoCloseExpandSpace = 0
 ""disable autoclose handle popup menu
 "let g:AutoClosePumvisible ={"ESC":"\<ESC>"}
-"}}}
 
-"-----------[ Gundo plugin      ]------------{{{
+"-----------[ Gundo plugin      ]------------{{{2
 nnoremap <Leader>u :GundoToggle<CR>
-"}}}
 
 
-"-----------[ FuzzyFinder  ]------------{{{
+"-----------[ FuzzyFinder  ]------------{{{2
 
 "keep fuzzyfinder for file, it is handy for search arbitrary directory
 "noremap <Leader>ff :FufFile<cr> 
 "nnoremap <Leader>ft :FufTag<cr>
 "nnoremap <Leader>fh :FufHelp<cr>
 
-"}}}
 
 
-"-----------[ CtrlP plugin     ]------------{{{
+"-----------[ CtrlP plugin     ]------------{{{2
 let g:ctrlp_max_height = 20
 let g:ctrlp_mruf_max =140 
 let g:ctrlp_custom_ignore = {
@@ -361,9 +317,8 @@ let g:ctrlp_custom_ignore = {
 
 nnoremap <Leader>fb :CtrlPBuffer<cr>
 nnoremap <Leader>ft :CtrlPTag<cr>
-"}}}
 
-"-----------[ neocomplete   ]------------{{{
+"-----------[ neocomplete   ]------------{{{2
 
 " Disable AutoComplPop.
 let g:acp_enableAtStartup = 0
@@ -397,9 +352,8 @@ let g:neocomplete#same_filetypes._ = '_'
 " Close popup and back to INSERT by <ctrl-k>.
 inoremap <expr><c-k> pumvisible() ? neocomplete#close_popup() : "\<c-k>"
 
-"}}}
 
-"-----------[ neosnippet   ]------------{{{
+"-----------[ neosnippet   ]------------{{{2
 
 if has('conceal')
   "set conceallevel=2 concealcursor=i
@@ -433,13 +387,11 @@ imap <expr><cr> neosnippet#expandable_or_jumpable() ?
 
 
 
-"}}}
-"-----------[ EasyMotion   ]------------{{{
+"-----------[ EasyMotion   ]------------{{{2
 hi EasyMotionTarget ctermbg=none ctermfg=red guifg=red
 hi EasyMotionShade  ctermbg=none ctermfg=gray guifg=grey
-"}}}
 
-"-----------[ vimwiki      ]------------{{{
+"-----------[ vimwiki      ]------------{{{2
 " ctrl-space trigger IM, so <leader>space check todo list
 nmap <Leader><space> <Plug>VimwikiToggleListItem
 "reset wiki code block highlights
@@ -459,7 +411,6 @@ let g:vimwiki_list = [{'path': '~/vimwiki/',
 "the line below lets vimwiki don't overwrite ft option
 "let g:vimwiki_ext2syntax={}
 
-"}}}
 
 "
 "=========================================================================  
@@ -475,8 +426,7 @@ let g:vimwiki_list = [{'path': '~/vimwiki/',
 "endfunction
 "
 "command! -nargs=* -complete=file Ack call Ack(<q-args>)
-"}}}
-"-------[ color scheme ]--{{{
+"-------[ color scheme ]--{{{1
 
 set background=dark
 if $DISPLAY == ""
@@ -491,8 +441,7 @@ else
 endif
 set gfn=Monaco\ 12
 set gfw=WenQuanYi\ Micro\ Hei\ 12
-"}}}
-"-------[ Status bar ]----------------------------------------{{{
+"-------[ Status bar ]----------------------------------------{{{1
 
 set statusline =%1*%F%*%m%r%h%w"filename
 set statusline+=\ [%Y:%{&ff}:%{&fenc!=''?&fenc:&enc}:] "filetype,encoding
@@ -514,8 +463,7 @@ set laststatus=2
 "set cursor line color
 set cul "highlighting cusor line
 "hi CursorLine   cterm=NONE ctermbg=black guibg=gray8
-"}}}
-"-------[ plugins need color settings ]-------------------------------------{{{
+"-------[ plugins need color settings ]-------------------------------------{{{1
 
 
 
@@ -556,8 +504,20 @@ let g:indentLine_color_gui='darkgray'
 "don't let indentLine change the concealCursor option
 let g:indentLine_noConcealCursor='true'
 "nnoremap <Leader>in = :IndentLinesToggle<cr>
-"}}}
-"-------[ Functions ]-------------------------------------{{{
+"-------[ Functions ]-------------------------------------{{{1
+
+"do chmod +x if the first line of the buffer beginning with #!
+"this would be called on autocmd event BufWritePost
+function! AutoCmd_chmodx()
+	if getline(1) =~ '#!'
+		let f = shellescape(@%,1)
+		if stridx(getfperm(f), 'x') != 2
+		  call system("chmod +x ".f)
+		  e!
+		  filetype detect
+		endif
+	endif
+endfunction
 
 " function for autocmd python filetype
 fun! AutoCmd_python()
@@ -600,7 +560,7 @@ nnoremap <silent> <Leader>ms :call CenterInSpaces()<cr>
 "---------------------------------------------------------
 function! ToggleRelativeNumber()
 	let &relativenumber = &relativenumber?0:1
-	let &number = &relativenumber? 0:1
+	"let &number = &relativenumber? 0:1
 endfunction
 "map <leader> rn to the function
 nnoremap <silent> <Leader>nu :call ToggleRelativeNumber()<cr>
@@ -694,6 +654,35 @@ nmap <silent> <leader>dl :call DiffToggle(1)<cr>
 nmap <silent> <leader>dc :call DiffToggle(2)<cr>
 nmap <silent> <leader>dr :call DiffToggle(3)<cr>
 
-"}}}
 
-" vim: fdm=marker
+"-------[ AutoCmd ]-------------------------------------{{{1
+autocmd BufWritePost * call AutoCmd_chmodx()
+
+"-------[ Filetype settings ]----------------------------------------{{{2
+
+"====================
+"python
+"====================
+"set pastetoggle=<f4>
+autocmd FileType python call AutoCmd_python()
+
+"let g:pydiction_location =  '$HOME/.vim/bundle/Pydiction/complete-dict'
+"let g:pydiction_menu_height = 20
+" if has("autocmd")
+"         au FileType xml exe ":silent 1,$!xmllint --format --recover - 2>/dev/null"
+"         au FileType xsd exe ":silent 1,$!xmllint --format --recover - 2>/dev/null"
+" endif       
+"  has("autocmd") 
+"
+"====================
+"Help in vertical split (right)
+"====================
+autocmd FileType help wincmd L
+
+"====================
+"Java
+"====================
+autocmd FileType java set tags+=$HOME/.jdkTags
+autocmd FileType java hi link javaDocComment String
+
+" vim: fdm=marker ts=2
