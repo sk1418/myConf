@@ -44,7 +44,7 @@ set lbr " don't break word
 set ru  " ruler
 set nu  " show the line number
 set wmnu
-set wildmode=full,longest,full
+set wildmode=longest:full,full
 set backup
 set backupdir=$HOME/.vim/backups
 set display=lastline " show complete content, without @ 
@@ -87,11 +87,12 @@ let g:mapleader      = ","
 let maplocalleader   = ","
 let g:maplocalleader = ","
 
+"reload current file
+nmap <F5> :e!<cr>
 
 nnoremap j gj
 nnoremap k gk
-"switch to normal mode
-inoremap jj <esc>l
+
 
 "insert mode <c-u> and <c-w> undoable 
 inoremap <c-u> <c-g>u<c-u> 
@@ -100,8 +101,7 @@ inoremap <c-w> <c-g>u<c-w>
 "clear hl search by pressing ,/
 nnoremap <silent> <Leader>/  :noh<cr>
         
-"ctrl-shift-j/k moving selected lines up and down
-
+"ctrl-shift-j/k moving selected lines up and down (only worked with gvim)
 nnoremap <a-k> :m-2<CR>==
 nnoremap <a-j> :m+<CR>==
 inoremap <a-j> <Esc>:m+<CR>==gi
@@ -110,18 +110,30 @@ vnoremap <a-j> :m'>+<CR>gv=gv
 vnoremap <a-k> :m-2<CR>gv=gv
 
 "reselect visual block after indent/outdent 
-
 vnoremap < <gv
 vnoremap > >gv
 
 "easy Edit .vimrc
 nnoremap <Leader>rc :vsplit $MYVIMRC<cr>
 
+"easier copy paste to clipboard
+vnoremap <C-C> "+y
+nnoremap <Leader>p "+P
+
+"format codes without changing screen
+nnoremap <Leader>= moHmpgg=G`pzt`o
 "Fast saving
 nnoremap <Leader>x :xa!<cr>
 nnoremap <Leader>w :w!<cr>
 nnoremap <Leader>su :w !sudo tee %>/dev/null <cr>
 
+"add empty line above/below current line
+nnoremap <space>o o<ESC>
+nnoremap <space>O O<ESC>
+" highlight/syntax info
+nnoremap th :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<' . synIDattr(synID(line("."),col("."),0),"name") . "> root<" . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">"<CR>
+
+"TODO map tc to show color
 "tab new,close,move (commented out, because buffer is more conveniet)
 "map <Leader>tn :tabnew<cr>
 "map <Leader>tc :tabclose<cr>
@@ -130,7 +142,6 @@ nnoremap <Leader>su :w !sudo tee %>/dev/null <cr>
 
 "Switch to current dir
 nnoremap <Leader>cd :cd %:p:h<cr>
-
 " Easy window jnavigation
 nnoremap <C-h> <C-w>h
 nnoremap <C-j> <C-w>j
@@ -142,6 +153,9 @@ nnoremap <C-l> <C-w>l
 "inoremap <C-j> <C-o>j
 "inoremap <C-k> <C-o>k
 "inoremap <C-l> <C-o>l
+
+"c-a in command line move to the BOL:
+cnoremap <C-A> <Home>
 
 " moving cursor out of (right of ) autoClosed brackets
 "inoremap <c-l> <esc>%%a
@@ -443,12 +457,10 @@ set gfn=Monaco\ 12
 set gfw=WenQuanYi\ Micro\ Hei\ 12
 "-------[ Status bar ]----------------------------------------{{{1
 
-set statusline =%1*%F%*%m%r%h%w"filename
+set statusline =%1*%F%*%m%r%h%w "filename
 set statusline+=\ [%Y:%{&ff}:%{&fenc!=''?&fenc:&enc}:] "filetype,encoding
 set statusline+=\ [ASCII:%b]  " ascii 
 set statusline+=\ [row:%l/%1*%L%*\ %1*%p%%%*\ \ col:%v] 
-"hi User1 guibg=#C2BFA5 guifg=#888888
-"hi User1 ctermbg=
 
 "color in terminal
 hi User1 cterm=bold cterm=italic ctermfg=67
@@ -457,14 +469,10 @@ hi User1 cterm=bold cterm=italic ctermfg=67
 hi User1  gui=bold guifg=#000000 guibg=#5B89C7
 "set statusline=%F%m%r%h%w\ [FORMAT=%{&ff}G\ [TYPE=%Y]\ [ASCII=\%03.3b]\ [HEX=\%02.2B]\ [POS=%04l,%04v][%p%%]\ [LEN=%L]
 set laststatus=2
-"hi Pmenu guibg=#444444 ctermfg=white ctermbg=darkgray
-"hi PmenuSel ctermfg=green ctermbg=black guibg=lightgreen guifg=black
 "
 "set cursor line color
 set cul "highlighting cusor line
-"hi CursorLine   cterm=NONE ctermbg=black guibg=gray8
 "-------[ plugins need color settings ]-------------------------------------{{{1
-
 
 
 "===========================================================================
@@ -565,6 +573,24 @@ endfunction
 "map <leader> rn to the function
 nnoremap <silent> <Leader>nu :call ToggleRelativeNumber()<cr>
 
+
+function! ToggleVirtualEdit()
+		if &ve == 'all'
+				echo 'Virtual Edit was disabled'
+				let &ve=''
+		else
+				echo 'Virtual Edit was set with "all"'
+				let &ve='all'
+		endif
+endfunction
+nnoremap <silent> <Leader>ve :call ToggleVirtualEdit()<cr>
+
+function! ToggleSpell()
+	let &spell=&spell?0:1
+endfunction
+nnoremap <silent> <Leader>sp :call ToggleSpell()<CR>
+
+
 "---------------------------------------------------------
 " color test functions
 "
@@ -654,35 +680,24 @@ nmap <silent> <leader>dl :call DiffToggle(1)<cr>
 nmap <silent> <leader>dc :call DiffToggle(2)<cr>
 nmap <silent> <leader>dr :call DiffToggle(3)<cr>
 
-
+"-------[ Command ]-------------------------------------{{{1
+command! Delete if delete(expand('%')) |echohl WarningMsg | echo 'deleting file failed' |echohl None | endif
+command! -range=% -nargs=1 Count <line1>,<line2>s/<args>//gn|nohls
 "-------[ AutoCmd ]-------------------------------------{{{1
 autocmd BufWritePost * call AutoCmd_chmodx()
 
 "-------[ Filetype settings ]----------------------------------------{{{2
 
-"====================
 "python
-"====================
-"set pastetoggle=<f4>
 autocmd FileType python call AutoCmd_python()
 
-"let g:pydiction_location =  '$HOME/.vim/bundle/Pydiction/complete-dict'
-"let g:pydiction_menu_height = 20
-" if has("autocmd")
-"         au FileType xml exe ":silent 1,$!xmllint --format --recover - 2>/dev/null"
-"         au FileType xsd exe ":silent 1,$!xmllint --format --recover - 2>/dev/null"
-" endif       
-"  has("autocmd") 
-"
-"====================
+"au FileType xml exe ":silent 1,$!xmllint --format --recover - 2>/dev/null"
+
 "Help in vertical split (right)
-"====================
 autocmd FileType help wincmd L
 
-"====================
 "Java
-"====================
 autocmd FileType java set tags+=$HOME/.jdkTags
 autocmd FileType java hi link javaDocComment String
 
-" vim: fdm=marker ts=2
+" vim: fdm=marker ts=2 sw=2
