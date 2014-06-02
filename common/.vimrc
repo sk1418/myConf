@@ -191,6 +191,7 @@ Plugin 'altercation/vim-colors-solarized'
 Plugin 'L9'
 "Plugin 'nathanaelkane/vim-indent-guides'
 Plugin 'mileszs/ack.vim'
+Plugin 'rking/ag.vim'
 Plugin 'othree/xml.vim'
 Plugin 'vim-scripts/Align'
 "Plugin 'Townk/vim-autoclose'
@@ -427,19 +428,6 @@ let g:vimwiki_list = [{'path': '~/vimwiki/',
 
 
 "
-"=========================================================================  
-" Ack settings, making :grep still available
-"========================================================================= 
-
-"function! Ack(args)
-"  let grepprg_bak=&grepprg
-"  set grepprg=ack\ -H\ --nocolor\ --nogroup
-"  execute "silent! grep! " . a:args
-"  botright copen
-"  let &grepprg=grepprg_bak
-"endfunction
-"
-"command! -nargs=* -complete=file Ack call Ack(<q-args>)
 "-------[ color scheme ]--{{{1
 
 set background=dark
@@ -474,6 +462,10 @@ set laststatus=2
 set cul "highlighting cusor line
 "-------[ plugins need color settings ]-------------------------------------{{{1
 
+"===========================================================================
+" Ag (silver searcher)
+"===========================================================================
+command! AGG exe 'Ag -Q ' . expand('<cword>')
 
 "===========================================================================
 " showmarks
