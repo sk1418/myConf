@@ -54,7 +54,6 @@ set ttimeoutlen=100
 "file encodings
 set fileencodings=utf-8,iso-8859-1,gb2312,ucs-bom,euc-cn,euc-tw,gb18030,gbk,cp936 
 "filetype indent plugin on
-"
 "vertical split open new window on right
 set splitright
 
@@ -231,6 +230,7 @@ Plugin 'vim-scripts/vimwiki'
 Plugin 'scrooloose/syntastic'
 Plugin 'kien/ctrlp.vim'
 Plugin 'Yggdroot/indentLine'
+Plugin 'tommcdo/vim-exchange'
 
 Plugin 'sk1418/DirDiff.vim'
 Plugin 'sk1418/QFGrep'
