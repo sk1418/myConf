@@ -178,7 +178,7 @@ endif
 
 filetype off
 set runtimepath+=~/.vim/bundle/vundle
-call vundle#rc()
+call vundle#begin()
 
 " color schemes
 Plugin 'gmarik/vundle'
@@ -239,9 +239,11 @@ Plugin 'sk1418/Join'
 Plugin 'sk1418/blockit'
 Plugin 'bootleq/vim-cycle'
 Plugin 'Shougo/neocomplete'
-
 Plugin 'Shougo/neosnippet'
+
+call vundle#end()
 filetype plugin indent on  
+
 "-------[ plugin mappings/settings ]-------------------------------------{{{1
 
 "-----------[ syntastic plugin ]------------{{{2
