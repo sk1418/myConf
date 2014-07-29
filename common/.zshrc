@@ -465,7 +465,7 @@ alias ls='ls -F'
 alias l='ls -lhF --color=auto'
 alias la='ls -ahF --color=auto'
 alias ll='ls -lahF --color=auto'
-alias grep='grep --color=auto'
+alias grep='grep --color=auto -nTZ'
 alias wine='env LANG=zh_CN.UTF-8 wine'
 alias cal='cal -m'
 
