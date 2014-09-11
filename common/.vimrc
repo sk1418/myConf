@@ -5,16 +5,27 @@ set nocompatible
 autocmd!  
 set listchars=eol:¬,tab:┊\ 
 set list
+"backup and undos
 set history=1000         " remember more commands and search history
 set undolevels=1000      " use many muchos levels of undo 
 set undofile
 set undodir=$HOME/.vim/undos
+set backup
+set backupdir=$HOME/.vim/backups
+" Make those folders automatically if they don't already exist.
+if !isdirectory(expand(&undodir))
+    call mkdir(expand(&undodir), "p")
+endif
+if !isdirectory(expand(&backupdir))
+    call mkdir(expand(&backupdir), "p")
+endif
 
 "set autochdir            " auto change to buffer's directory
 syntax on 
 syntax enable
 set encoding=utf-8
-set fileencodings=utf-8,gb2312,ucs-bom,euc-cn,euc-tw,gb18030,gbk,cp936,latin1
+"file encodings
+set fileencodings=utf-8,iso-8859-1,gb2312,ucs-bom,euc-cn,euc-tw,gb18030,gbk,cp936 
 " auto indent setting
 set smartindent
 set cindent
@@ -41,23 +52,40 @@ set mouse=a
 set hlsearch
 set incsearch
 set lbr " don't break word
-set ru  " ruler
-set nu  " show the line number
-set wmnu
-set wildmode=longest:full,full
-set backup
-set backupdir=$HOME/.vim/backups
+set ruler  " ruler
+set number  " show the line number
 set display=lastline " show complete content, without @ 
 set ttimeoutlen=100
 "set dictionary +=/usr/share/dict/cracklib-small "enable the dictionary
 
-"file encodings
-set fileencodings=utf-8,iso-8859-1,gb2312,ucs-bom,euc-cn,euc-tw,gb18030,gbk,cp936 
 "filetype indent plugin on
 "vertical split open new window on right
 set splitright
-
+set fillchars=diff:⣿,vert:│  "split and diff splitchar
 set concealcursor=nc "hide concealed chars in N & C mode
+set synmaxcol=1000 "don't highlight line longer than 1000
+
+"-------[ wildmenu settings ]----------------------------------------{{{1
+set wildmenu
+set wildmode=list:longest,longest:full,full
+set wildignore+=.hg,.git,.svn                    " Version control
+set wildignore+=*.aux,*.out,*.toc                " LaTeX intermediate files
+set wildignore+=*.jpg,*.bmp,*.gif,*.png,*.jpeg   " binary images
+set wildignore+=*.o,*.obj,*.exe,*.dll,*.manifest " compiled object files
+set wildignore+=*.spl                            " compiled spelling word lists
+set wildignore+=*.sw?                            " Vim swap files
+set wildignore+=*.DS_Store                       " OSX bullshit
+
+set wildignore+=*.luac                           " Lua byte code
+
+set wildignore+=migrations                       " Django migrations
+set wildignore+=*.pyc                            " Python byte code
+
+set wildignore+=*.orig                           " Merge resolution files
+
+"java files
+set wildignore+=classes
+set wildignore+=lib
 "-------[ Tags ]----------------------------------------{{{1
 
 " search tags file from opened file directory up to / (root)
@@ -78,6 +106,7 @@ set completeopt=longest,menuone
 "inoremap <expr> <cr> pumvisible() ? "\<c-y>" : "\<c-g>u\<cr>"
 "inoremap <expr> <c-n> pumvisible() ? "\<c-n>" : "\<c-n>\<c-r>=pumvisible() ? \"\\<down>\" : \"\\<cr>\""
 "inoremap <expr> <m-;> pumvisible() ? "\<c-n>" : "\<c-x>\<c-o>\<c-n>\<c-p>\<c-r>=pumvisible() ? \"\\<down>\" : \"\\<cr>\""
+
 "-------[ key mappying ]----------------------------------------{{{1
 
 " set mapleader
@@ -87,7 +116,11 @@ let maplocalleader   = ","
 let g:maplocalleader = ","
 
 "reload current file
-nmap <F5> :e!<cr>
+nnoremap <F5> :e!<cr>
+
+"<F1> to check if the file was changed outside vim
+nnoremap <F1> :checktime<cr>
+inoremap <F1> <esc>:checktime<cr>
 
 nnoremap j gj
 nnoremap k gk
@@ -158,12 +191,14 @@ cnoremap <C-A> <Home>
 
 " moving cursor out of (right of ) autoClosed brackets
 "inoremap <c-l> <esc>%%a
-"-------[ abbreviation ]----------------------------------------{{{1
+"-------[ Abbreviation ]----------------------------------------{{{1
 "
 " Date time
-ia dt <c-r>=strftime("%Y-%m-%d %H:%M:%S")<cr>
-ia teh the
-ia appl application
+iabbrev dt <c-r>=strftime("%Y-%m-%d %H:%M:%S")<cr>
+iabbrev teh the
+iabbrev appl application
+iabbrev ky@ kent.yuan@gmail.com
+
 "
 "highlight groups
 ia imp! !Important!
@@ -171,9 +206,6 @@ ia mk1 !MARK1
 ia mk2 !MARK2
 ia mk3 !MARK3
 
-if has("autocmd")
-    autocmd bufwritepost .vimrc source $MYVIMRC
-endif
 "-------[ Bundles ]----------------------------------------{{{1
 
 filetype off
@@ -293,8 +325,8 @@ let g:tagbar_type_markdown = { 'ctagstype' : 'markdown', 'kinds' : ['h:headings'
 
 "-----------[ MRU plugin      ]------------{{{2
 " MRU plugin still here, since not yet get used to ctrlP 
-let MRU_Max_Entries=49
-nnoremap <Leader>fr :MRU<cr>
+"let MRU_Max_Entries=49
+"nnoremap <Leader>fr :MRU<cr>
 
 "-----------[ NERDTree plugin      ]------------{{{2
 "open current file in NERDTree
@@ -334,6 +366,7 @@ let g:ctrlp_custom_ignore = {
 
 nnoremap <Leader>fb :CtrlPBuffer<cr>
 nnoremap <Leader>ft :CtrlPTag<cr>
+nnoremap <Leader>fr :CtrlPMRU<cr>
 
 "-----------[ neocomplete   ]------------{{{2
 
@@ -444,6 +477,7 @@ else
 	"colorscheme solarized
 endif
 set gfn=Monaco\ 12
+"set gfn=Inconsolata-g\ 12
 set gfw=WenQuanYi\ Micro\ Hei\ 12
 "-------[ Status bar ]----------------------------------------{{{1
 
@@ -678,20 +712,33 @@ nmap <silent> <leader>dr :call DiffToggle(3)<cr>
 command! Delete if delete(expand('%')) |echohl WarningMsg | echo 'deleting file failed' |echohl None | endif
 command! -range=% -nargs=1 Count <line1>,<line2>s/<args>//gn|nohls
 "-------[ AutoCmd ]-------------------------------------{{{1
+"add chmod+x if a shbang was found
 autocmd BufWritePost * call AutoCmd_chmodx()
+"resize split when vim-window was resize
+autocmd VimResized * :wincmd =
 
-"-------[ Filetype settings ]----------------------------------------{{{2
 
-"python
-autocmd FileType python call AutoCmd_python()
+augroup file_types
+    au!
+	"python
+	autocmd FileType python call AutoCmd_python()
 
-"au FileType xml exe ":silent 1,$!xmllint --format --recover - 2>/dev/null"
+	"au FileType xml exe ":silent 1,$!xmllint --format --recover - 2>/dev/null"
 
-"Help in vertical split (right)
-autocmd FileType help wincmd L
+	"Help in vertical split (right)
+	autocmd FileType help wincmd L
+	"Java
+	autocmd FileType java set tags+=$HOME/.jdkTags
+	autocmd FileType java hi link javaDocComment String
+augroup END
 
-"Java
-autocmd FileType java set tags+=$HOME/.jdkTags
-autocmd FileType java hi link javaDocComment String
-
+" Make sure Vim returns to the same line when you reopen a file.
+augroup line_return
+    au!
+    au BufReadPost *
+        \ if line("'\"") > 0 && line("'\"") <= line("$") |
+        \     execute 'normal! g`"zvzz' |
+        \ endif
+augroup END
+autocmd bufwritepost .vimrc source $MYVIMRC
 " vim: fdm=marker ts=2 sw=2
