@@ -95,6 +95,7 @@ set foldmethod=marker
 set foldlevel=100 " Don't autofold anything (but I can still fold manually)
 set foldopen-=search " don't open folds when you search into them
 set foldopen-=undo " don't open folds when you undo stuff
+
 "autocmd FileType java set fdm=syntax
 let g:xml_syntax_folding=1
 autocmd FileType java,javascript,vim,xml,html,xhtml set fdm=syntax
@@ -115,24 +116,37 @@ let g:mapleader      = ","
 let maplocalleader   = ","
 let g:maplocalleader = ","
 
-"reload current file
-nnoremap <F5> :e!<cr>
 
 "<F1> to check if the file was changed outside vim
 nnoremap <F1> :checktime<cr>
 inoremap <F1> <esc>:checktime<cr>
+"reload current file
+nnoremap <F5> :e!<cr>
+"show/hide list
+nnoremap <leader>l :set list!<cr>
 
 nnoremap j gj
 nnoremap k gk
+nnoremap gj j
+nnoremap gk k
 
+" Source
+vnoremap <leader>so y:execute @@<cr>:echo 'selection Sourced .'<cr>
+nnoremap <leader>so ^vg_y:execute @@<cr>:echo 'line Sourced.'<cr>
 
-"insert mode <c-u> and <c-w> undoable 
-inoremap <c-u> <c-g>u<c-u> 
-inoremap <c-w> <c-g>u<c-w> 
+"insert mode <c-u> and <c-w> undoable
+inoremap <c-u> <c-g>u<c-u>
+inoremap <c-w> <c-g>u<c-w>
+
+"fold mappings
+"space to toggle fold
+nnoremap <space> za
+vnoremap <space> za
+"close all folds and leave the current fold open
+nnoremap <leader>zz zMzvzz
 
 "clear hl search by pressing ,/
 nnoremap <silent> <Leader>/  :noh<cr>
-        
 "ctrl-shift-j/k moving selected lines up and down (only worked with gvim)
 nnoremap <a-k> :m-2<CR>==
 nnoremap <a-j> :m+<CR>==
@@ -145,12 +159,14 @@ vnoremap <a-k> :m-2<CR>gv=gv
 vnoremap < <gv
 vnoremap > >gv
 
-"easy Edit .vimrc
+"quick Editing .vimrc
 nnoremap <Leader>rc :vsplit $MYVIMRC<cr>
+nnoremap <Leader>rt :vsplit $HOME/.tmux.conf<cr>
+nnoremap <Leader>rz :vsplit $HOME/.zshrc<cr>
 
 "easier copy paste to clipboard
 vnoremap <C-C> "+y
-nnoremap <Leader>p "+P
+nnoremap <Leader>p :silent set paste<cr>"+P:set nopaste<cr>
 
 "format codes without changing screen
 nnoremap <Leader>= moHmpgg=G`pzt`o
@@ -160,10 +176,12 @@ nnoremap <Leader>w :w!<cr>
 nnoremap <Leader>su :w !sudo tee %>/dev/null <cr>
 
 "add empty line above/below current line
-nnoremap <space>o o<ESC>
-nnoremap <space>O O<ESC>
+nnoremap <leader>o o<ESC>
+nnoremap <leader>O O<ESC>
 " highlight/syntax info
-nnoremap th :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<' . synIDattr(synID(line("."),col("."),0),"name") . "> root<" . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">"<CR>
+nnoremap th :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<'
+                        \ . synIDattr(synID(line("."),col("."),0),"name") . "> lo<"
+                        \ . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">"<CR>
 
 "TODO map tc to show color
 "tab new,close,move (commented out, because buffer is more conveniet)
@@ -174,20 +192,25 @@ nnoremap th :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> tra
 
 "Switch to current dir
 nnoremap <Leader>cd :cd %:p:h<cr>
-" Easy window jnavigation
+" Easy window navigation
 nnoremap <C-h> <C-w>h
 nnoremap <C-j> <C-w>j
 nnoremap <C-k> <C-w>k
 nnoremap <C-l> <C-w>l
+"ver-split
+nnoremap <C-v> <C-w>v
 
 " move cursor in Insert Mode  (commented out because rarely used)
 "inoremap <C-h> <C-o>h
 "inoremap <C-j> <C-o>j
 "inoremap <C-k> <C-o>k
 "inoremap <C-l> <C-o>l
-
+ 
 "c-a in command line move to the BOL:
 cnoremap <C-A> <Home>
+
+"quick visual select whole buffer
+nnoremap vaa ggVG
 
 " moving cursor out of (right of ) autoClosed brackets
 "inoremap <c-l> <esc>%%a
@@ -603,13 +626,13 @@ nnoremap <silent> <Leader>nu :call ToggleRelativeNumber()<cr>
 
 
 function! ToggleVirtualEdit()
-		if &ve == 'all'
-				echo 'Virtual Edit was disabled'
-				let &ve=''
-		else
-				echo 'Virtual Edit was set with "all"'
-				let &ve='all'
-		endif
+	if &ve == 'all'
+		echo 'Virtual Edit was disabled'
+		let &ve=''
+	else
+		echo 'Virtual Edit was set with "all"'
+		let &ve='all'
+	endif
 endfunction
 nnoremap <silent> <Leader>ve :call ToggleVirtualEdit()<cr>
 
@@ -711,7 +734,8 @@ nmap <silent> <leader>dr :call DiffToggle(3)<cr>
 "-------[ Command ]-------------------------------------{{{1
 command! Delete if delete(expand('%')) |echohl WarningMsg | echo 'deleting file failed' |echohl None | endif
 command! -range=% -nargs=1 Count <line1>,<line2>s/<args>//gn|nohls
-"-------[ AutoCmd ]-------------------------------------{{{1
+
+"-------[ AutoCmd ]------------------------------------- {{{1
 "add chmod+x if a shbang was found
 autocmd BufWritePost * call AutoCmd_chmodx()
 "resize split when vim-window was resize
@@ -741,4 +765,5 @@ augroup line_return
         \ endif
 augroup END
 autocmd bufwritepost .vimrc source $MYVIMRC
+"{{{1
 " vim: fdm=marker ts=2 sw=2
