@@ -123,7 +123,7 @@ inoremap <F1> <esc>:checktime<cr>
 "reload current file
 nnoremap <F5> :e!<cr>
 "show/hide list
-nnoremap <leader>l :set list!<cr>
+nnoremap <leader>l :set list!<cr>:IndentLinesToggle<cr>
 
 nnoremap j gj
 nnoremap k gk
@@ -197,8 +197,6 @@ nnoremap <C-h> <C-w>h
 nnoremap <C-j> <C-w>j
 nnoremap <C-k> <C-w>k
 nnoremap <C-l> <C-w>l
-"ver-split
-nnoremap <C-v> <C-w>v
 
 " move cursor in Insert Mode  (commented out because rarely used)
 "inoremap <C-h> <C-o>h
@@ -484,7 +482,12 @@ let g:vimwiki_list = [{'path': '~/vimwiki/',
 "the line below lets vimwiki don't overwrite ft option
 "let g:vimwiki_ext2syntax={}
 
-
+augroup ft_vimwiki
+	au!
+	au Filetype vimwiki  iabbrev  jcode {{{class="brush: java"
+	au Filetype vimwiki  iabbrev  bcode {{{class="brush: bash"
+	au Filetype vimwiki  iabbrev  vcode {{{class="brush: vim"
+augroup END
 "
 "-------[ color scheme ]--{{{1
 
@@ -750,7 +753,7 @@ augroup file_types
 	"au FileType xml exe ":silent 1,$!xmllint --format --recover - 2>/dev/null"
 
 	"Help in vertical split (right)
-	autocmd FileType help wincmd L
+	autocmd FileType help wincmd L | setlocal nolist|IndentLinesDisable
 	"Java
 	autocmd FileType java set tags+=$HOME/.jdkTags
 	autocmd FileType java hi link javaDocComment String
