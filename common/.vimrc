@@ -65,6 +65,11 @@ set fillchars=diff:⣿,vert:│  "split and diff splitchar
 set concealcursor=nc "hide concealed chars in N & C mode
 set synmaxcol=1000 "don't highlight line longer than 1000
 
+"gvim settings
+set guioptions-=m              " GUI: Disable Menu 
+set guioptions-=r              " GUI: Disable right scrollbar
+set guioptions-=T              " GUI: Disable Toolbar
+
 "-------[ wildmenu settings ]----------------------------------------{{{1
 set wildmenu
 set wildmode=list:longest,longest:full,full
