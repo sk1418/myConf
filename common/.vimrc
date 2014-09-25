@@ -773,5 +773,8 @@ augroup line_return
         \ endif
 augroup END
 autocmd bufwritepost .vimrc source $MYVIMRC
-"{{{1
+"-------[ Machine Specific stuff ]------------------------------------- {{{1
+"quick open  my timesheet
+nnoremap <leader>rh :vs /home/kent/Desktop/Projects/mje/ts.csv<cr>
+
 " vim: fdm=marker ts=2 sw=2
