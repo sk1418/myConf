@@ -175,6 +175,9 @@ nnoremap <Leader>p :silent set paste<cr>"+P:set nopaste<cr>
 
 "format codes without changing screen
 nnoremap <Leader>= moHmpgg=G`pzt`o
+
+"move current line to top+5 line (zt +5)
+nnoremap z5 mzzt5<c-u>`z
 "Fast saving
 nnoremap <Leader>x :xa!<cr>
 nnoremap <Leader>w :w!<cr>
