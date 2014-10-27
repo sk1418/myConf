@@ -14,10 +14,10 @@ set backup
 set backupdir=$HOME/.vim/backups
 " Make those folders automatically if they don't already exist.
 if !isdirectory(expand(&undodir))
-    call mkdir(expand(&undodir), "p")
+	call mkdir(expand(&undodir), "p")
 endif
 if !isdirectory(expand(&backupdir))
-    call mkdir(expand(&backupdir), "p")
+	call mkdir(expand(&backupdir), "p")
 endif
 
 "set autochdir            " auto change to buffer's directory
@@ -188,8 +188,8 @@ nnoremap <leader>o o<ESC>
 nnoremap <leader>O O<ESC>
 " highlight/syntax info
 nnoremap th :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<'
-                        \ . synIDattr(synID(line("."),col("."),0),"name") . "> lo<"
-                        \ . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">"<CR>
+			\ . synIDattr(synID(line("."),col("."),0),"name") . "> lo<"
+			\ . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">"<CR>
 
 "TODO map tc to show color
 "tab new,close,move (commented out, because buffer is more conveniet)
@@ -211,7 +211,7 @@ nnoremap <C-l> <C-w>l
 "inoremap <C-j> <C-o>j
 "inoremap <C-k> <C-o>k
 "inoremap <C-l> <C-o>l
- 
+
 "c-a in command line move to the BOL:
 cnoremap <C-A> <Home>
 
@@ -309,33 +309,33 @@ filetype plugin indent on
 
 "-----------[ syntastic plugin ]------------{{{2
 "syntastic is nice, but not for java
- let g:syntastic_ignore_files = ['\.java$']
+let g:syntastic_ignore_files = ['\.java$']
 "-----------[ vim-cycle plugin ]------------{{{2
 let g:cycle_default_groups = [
-          \   [['true', 'false']],
-          \   [['yes', 'no']],
-          \   [['on', 'off']],
-          \   [['and', 'or']],
-          \   [['+', '-']],
-          \   [['>', '<']],
-          \   [['"', "'"]],
-          \   [['==', '!=']],
-          \   [['0', '1']],
-          \   [['是', '否']],
-          \   [["in", "out"]],
-          \   [["min", "max"]],
-          \   [["get", "post"]],
-          \   [["to", "from"]],
-          \   [["read", "write"]],
-          \   [["only", "except"]],
-          \   [['with', 'without']],
-          \   [["exclude", "include"]],
-          \   [["asc", "desc"]],
-          \   [['{:}', '[:]', '(:)'], 'sub_pairs'],
-          \   [['(:)', '「:」', '『:』'], 'sub_pairs'],
-          \   [['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday',
-          \     'Friday', 'Saturday'], 'hard_case', {'name': 'Days'}],
-          \ ]
+			\   [['true', 'false']],
+			\   [['yes', 'no']],
+			\   [['on', 'off']],
+			\   [['and', 'or']],
+			\   [['+', '-']],
+			\   [['>', '<']],
+			\   [['"', "'"]],
+			\   [['==', '!=']],
+			\   [['0', '1']],
+			\   [['是', '否']],
+			\   [["in", "out"]],
+			\   [["min", "max"]],
+			\   [["get", "post"]],
+			\   [["to", "from"]],
+			\   [["read", "write"]],
+			\   [["only", "except"]],
+			\   [['with', 'without']],
+			\   [["exclude", "include"]],
+			\   [["asc", "desc"]],
+			\   [['{:}', '[:]', '(:)'], 'sub_pairs'],
+			\   [['(:)', '「:」', '『:』'], 'sub_pairs'],
+			\   [['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday',
+			\     'Friday', 'Saturday'], 'hard_case', {'name': 'Days'}],
+			\ ]
 
 "-----------[ Scratch.vim ]------------{{{2
 nmap <F3> :ScratchOpen<cr>
@@ -389,9 +389,9 @@ nnoremap <Leader>u :GundoToggle<CR>
 let g:ctrlp_max_height = 20
 let g:ctrlp_mruf_max =140 
 let g:ctrlp_custom_ignore = {
-  \ 'dir':  '\v[\/]\.(git|svn|hg)$',
-  \ 'file': '\v\.(zip|gz|pdf|exe|so|dat|class|pyc|jar|swpr|png|jpg|gif)$'
-  \ }
+			\ 'dir':  '\v[\/]\.(git|svn|hg)$',
+			\ 'file': '\v\.(zip|gz|pdf|exe|so|dat|class|pyc|jar|swpr|png|jpg|gif)$'
+			\ }
 
 nnoremap <Leader>fb :CtrlPBuffer<cr>
 nnoremap <Leader>ft :CtrlPTag<cr>
@@ -411,7 +411,7 @@ let g:neocomplete#sources#syntax#min_keyword_length = 3
 
 " Define keyword.
 if !exists('g:neocomplete#keyword_patterns')
-    let g:neocomplete#keyword_patterns = {}
+	let g:neocomplete#keyword_patterns = {}
 endif
 let g:neocomplete#keyword_patterns['default'] = '\h\w*'
 let g:neocomplete#disable_auto_complete=0
@@ -435,7 +435,7 @@ inoremap <expr><c-k> pumvisible() ? neocomplete#close_popup() : "\<c-k>"
 "-----------[ neosnippet   ]------------{{{2
 
 if has('conceal')
-  "set conceallevel=2 concealcursor=i
+	"set conceallevel=2 concealcursor=i
 endif
 
 " Enable snipMate compatibility feature.
@@ -445,23 +445,23 @@ let g:neosnippet#enable_snipmate_compatibility = 1
 let g:neosnippet#snippets_directory='~/.vim/bundle/vim-snippets/snippets'
 
 autocmd Filetype *
-	\ if &omnifunc == "" |
-	\   setlocal omnifunc=syntaxcomplete#Complete |
-	\ endif
+			\ if &omnifunc == "" |
+			\   setlocal omnifunc=syntaxcomplete#Complete |
+			\ endif
 
 
 "imap <expr><TAB> neosnippet#expandable_or_jumpable() ?
-      "\ "\<Plug>(neosnippet_expand_or_jump)"
-      "\: pumvisible() ? "\<C-n>" : "\<TAB>"
+"\ "\<Plug>(neosnippet_expand_or_jump)"
+"\: pumvisible() ? "\<C-n>" : "\<TAB>"
 
 imap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
 "smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
-      "\ "\<Plug>(neosnippet_expand_or_jump)"
-      "\: "\<TAB>"
+"\ "\<Plug>(neosnippet_expand_or_jump)"
+"\: "\<TAB>"
 
 imap <expr><cr> neosnippet#expandable_or_jumpable() ?
-      \ "\<Plug>(neosnippet_expand_or_jump)"
-	  \: pumvisible() ? "\<c-y>" : "\<cr>"
+			\ "\<Plug>(neosnippet_expand_or_jump)"
+			\: pumvisible() ? "\<c-y>" : "\<cr>"
 
 
 
@@ -480,12 +480,12 @@ hi link VimwikiPre String
 hi link VimwikiPreT String
 
 let g:vimwiki_list = [{'path': '~/vimwiki/',
-		  \ 'path_html'        : '$HOME/MyStuff/myCodes/wikipages/',
-		  \ 'template_path'    : '$HOME/MyStuff/myCodes/vim/wiki_template',
-		  \ 'template_default' : 'default',
-		  \ 'template_ext'     : '.tpl',
-		  \ 'css_name'         : 'template/style/main.css'}]
-          " \ 'syntax': 'markdown', 'ext':'.md',
+			\ 'path_html'        : '$HOME/MyStuff/myCodes/wikipages/',
+			\ 'template_path'    : '$HOME/MyStuff/myCodes/vim/wiki_template',
+			\ 'template_default' : 'default',
+			\ 'template_ext'     : '.tpl',
+			\ 'css_name'         : 'template/style/main.css'}]
+" \ 'syntax': 'markdown', 'ext':'.md',
 
 "the line below lets vimwiki don't overwrite ft option
 "let g:vimwiki_ext2syntax={}
@@ -501,9 +501,9 @@ augroup END
 
 set background=dark
 if $DISPLAY == ""
-    colorscheme desert
+	colorscheme desert
 else
-    set t_Co=256
+	set t_Co=256
 	colorscheme last256
 	" below are solarized settings
 	"let g:solarized_termcolors = 256
@@ -582,9 +582,9 @@ function! AutoCmd_chmodx()
 	if getline(1) =~ '#!'
 		let f = shellescape(@%,1)
 		if stridx(getfperm(f), 'x') != 2
-		  call system("chmod +x ".f)
-		  e!
-		  filetype detect
+			call system("chmod +x ".f)
+			e!
+			filetype detect
 		endif
 	endif
 endfunction
@@ -617,7 +617,7 @@ fun! CenterInSpaces()
 	let rre = '\v\zs\s*\ze\S+\s*$'
 	let sp= matchstr(l,lre)
 	let sp = sp.matchstr(l,rre)
-    let ln=len(sp)
+	let ln=len(sp)
 	let l = substitute(l,lre,sp[:ln/2-1],'')
 	let l = substitute(l,rre,sp[ln/2:],'')
 	call setline('.',l)
@@ -663,39 +663,39 @@ nnoremap <silent> <Leader>sp :call ToggleSpell()<CR>
 "---------------------------------------------------------
 "
 function! VimColorTest(outfile, fgend, bgend)
-  let result = []
-  for fg in range(a:fgend)
-    for bg in range(a:bgend)
-      let kw = printf('%-7s', printf('c_%d_%d', fg, bg))
-      let h = printf('hi %s ctermfg=%d ctermbg=%d', kw, fg, bg)
-      let s = printf('syn keyword %s %s', kw, kw)
-      call add(result, printf('%-32s | %s', h, s))
-    endfor
-  endfor
-  call writefile(result, a:outfile)
-  execute 'edit '.a:outfile
-  source %
+	let result = []
+	for fg in range(a:fgend)
+		for bg in range(a:bgend)
+			let kw = printf('%-7s', printf('c_%d_%d', fg, bg))
+			let h = printf('hi %s ctermfg=%d ctermbg=%d', kw, fg, bg)
+			let s = printf('syn keyword %s %s', kw, kw)
+			call add(result, printf('%-32s | %s', h, s))
+		endfor
+	endfor
+	call writefile(result, a:outfile)
+	execute 'edit '.a:outfile
+	source %
 endfunction
 " Increase numbers in next line to see more colors.
 command! VimColorTest call VimColorTest('/tmp/vim-color-test.tmp', 1, 256)
 
 function! GvimColorTest(outfile)
-  let result = []
-  for red in range(0, 255, 16)
-    for green in range(0, 255, 16)
-      for blue in range(0, 255, 16)
-        let kw = printf('%-13s', printf('c_%d_%d_%d', red, green, blue))
-        let fg = printf('#%02x%02x%02x', red, green, blue)
-        let bg = '#fafafa'
-        let h = printf('hi %s guifg=%s guibg=%s', kw, fg, bg)
-        let s = printf('syn keyword %s %s', kw, kw)
-        call add(result, printf('%s | %s', h, s))
-      endfor
-    endfor
-  endfor
-  call writefile(result, a:outfile)
-  execute 'edit '.a:outfile
-  source %
+	let result = []
+	for red in range(0, 255, 16)
+		for green in range(0, 255, 16)
+			for blue in range(0, 255, 16)
+				let kw = printf('%-13s', printf('c_%d_%d_%d', red, green, blue))
+				let fg = printf('#%02x%02x%02x', red, green, blue)
+				let bg = '#fafafa'
+				let h = printf('hi %s guifg=%s guibg=%s', kw, fg, bg)
+				let s = printf('syn keyword %s %s', kw, kw)
+				call add(result, printf('%s | %s', h, s))
+			endfor
+		endfor
+	endfor
+	call writefile(result, a:outfile)
+	execute 'edit '.a:outfile
+	source %
 endfunction
 command! GvimColorTest call GvimColorTest('/tmp/gvim-color-test.tmp')
 
@@ -709,12 +709,12 @@ let g:wikiDir='~/vimwiki/'
 let search_hi='ctermbg=113 ctermfg=16 guibg=#87d75f guifg=black'
 execute 'hi promptHL '. search_hi
 function! SearchWiki()
-  call inputsave()
-  echohl promptHL
-  let pat = input('Search wiki :')
-  echohl None
-  call inputrestore()
-  execute 'silent! Ack! -i "' . pat . '" ' . g:wikiDir . '**/*.wiki'
+	call inputsave()
+	echohl promptHL
+	let pat = input('Search wiki :')
+	echohl None
+	call inputrestore()
+	execute 'silent! Ack! -i "' . pat . '" ' . g:wikiDir . '**/*.wiki'
 endfunction
 nnoremap <leader><leader>s :call SearchWiki()<cr>
 
@@ -723,19 +723,19 @@ nnoremap <leader><leader>s :call SearchWiki()<cr>
 " noise of a three-way diff and focus on just the changes between two versions
 " at a time. Inspired by Steve Losh's Splice
 function! DiffToggle(window)
-  " Save the cursor position and turn on diff for all windows
-  let l:save_cursor = getpos('.')
-  windo :diffthis
-  " Turn off diff for the specified window (but keep scrollbind) and move
-  " the cursor to the left-most diff window
-  exe a:window . "wincmd w"
-  diffoff
-  set scrollbind
-  set cursorbind
-  exe a:window . "wincmd " . (a:window == 1 ? "l" : "h")
-  " Update the diff and restore the cursor position
-  diffupdate
-  call setpos('.', l:save_cursor)
+	" Save the cursor position and turn on diff for all windows
+	let l:save_cursor = getpos('.')
+	windo :diffthis
+	" Turn off diff for the specified window (but keep scrollbind) and move
+	" the cursor to the left-most diff window
+	exe a:window . "wincmd w"
+	diffoff
+	set scrollbind
+	set cursorbind
+	exe a:window . "wincmd " . (a:window == 1 ? "l" : "h")
+	" Update the diff and restore the cursor position
+	diffupdate
+	call setpos('.', l:save_cursor)
 endfunction
 " Toggle diff view on the left, center, or right windows
 nmap <silent> <leader>dl :call DiffToggle(1)<cr>
@@ -754,7 +754,7 @@ autocmd VimResized * :wincmd =
 
 
 augroup file_types
-    au!
+	au!
 	"python
 	autocmd FileType python call AutoCmd_python()
 
@@ -769,11 +769,11 @@ augroup END
 
 " Make sure Vim returns to the same line when you reopen a file.
 augroup line_return
-    au!
-    au BufReadPost *
-        \ if line("'\"") > 0 && line("'\"") <= line("$") |
-        \     execute 'normal! g`"zvzz' |
-        \ endif
+	au!
+	au BufReadPost *
+				\ if line("'\"") > 0 && line("'\"") <= line("$") |
+				\     execute 'normal! g`"zvzz' |
+				\ endif
 augroup END
 autocmd bufwritepost .vimrc source $MYVIMRC
 "-------[ Machine Specific stuff ]------------------------------------- {{{1
