@@ -2,4 +2,7 @@
 *.class
 *.swp
 *.*~
+*.swo
 *.bak
+*.egg-info/*.*
+.idea/
