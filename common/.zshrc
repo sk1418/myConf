@@ -193,6 +193,10 @@ source $MY_LIB_DIR/git-prompt/zshrc.sh
 
 
 #====[ Functions ]==================================================# {{{
+#suspend
+function suspend {
+    $HOME/bin/suspend
+}
 
 # check zsh Version
 function is-at-least {
