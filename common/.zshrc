@@ -194,6 +194,9 @@ source $MY_LIB_DIR/git-prompt/zshrc.sh
 
 #====[ Functions ]==================================================# {{{
 
+function suspend {
+    $HOME/bin/suspend
+}
 # check zsh Version
 function is-at-least {
     local IFS=".-" min_cnt=0 ver_cnt=0 part min_ver version
