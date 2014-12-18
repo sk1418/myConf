@@ -515,10 +515,9 @@ set gfn=Monaco\ 12
 set gfw=WenQuanYi\ Micro\ Hei\ 12
 "-------[ Status bar ]------------------------------------❱----{{{1
  
-"set statusline =%1*%F%*%m%r%h%w "filename
-set statusline =%1*%F%m%r%h%w\ %* "filename
+set statusline =%7*[%n]%*
+set statusline +=%1*%F\ %*%8*%m%r%*%1*%h%w%* "filename
 set statusline +=%7*\|%*
-"set statusline+=\ [%Y:%{&ff}:%{&fenc!=''?&fenc:&enc}:] "filetype,encoding
 set statusline+=%2*\ %Y: "filetype
 set statusline+=%{&ff}:  "dos/unix
 set statusline+=%{&fenc!=''?&fenc:&enc}\ %* "encoding
@@ -529,18 +528,19 @@ set statusline+=%2*\ row:%l/%*%1*%L%*%2*\ %*%1*%p%%%*%2*\ \ col:%v\ %*
 set statusline +=%7*\|%*
 
 "color in terminal
-"hi User1 cterm=bold cterm=italic ctermfg=67
 hi User1 cterm=bold ctermfg=black ctermbg=67
 hi User2 ctermfg=black ctermbg=246
 hi User7 cterm=bold ctermfg=245 ctermbg=237
+hi User8 ctermfg=black ctermbg=167
 
 "color in gvim
 hi User1  gui=bold guifg=#000000 guibg=#5B89C7
 hi User2  guifg=#000000 guibg=#949494
 hi User7  gui=bold guifg=#8a8a8a guibg=#3a3a3a
+hi User8  guifg=#000000 guibg=#d75f5f
 "set statusline=%F%m%r%h%w\ [FORMAT=%{&ff}G\ [TYPE=%Y]\ [ASCII=\%03.3b]\ [HEX=\%02.2B]\ [POS=%04l,%04v][%p%%]\ [LEN=%L]
 set laststatus=2
-"
+
 "set cursor line color
 set cul "highlighting cusor line
 "-------[ plugins need color settings ]-------------------------------------{{{1
