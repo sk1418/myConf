@@ -513,18 +513,31 @@ endif
 set gfn=Monaco\ 12
 "set gfn=Inconsolata-g\ 12
 set gfw=WenQuanYi\ Micro\ Hei\ 12
-"-------[ Status bar ]----------------------------------------{{{1
-
-set statusline =%1*%F%*%m%r%h%w "filename
-set statusline+=\ [%Y:%{&ff}:%{&fenc!=''?&fenc:&enc}:] "filetype,encoding
-set statusline+=\ [ASCII:%b]  " ascii 
-set statusline+=\ [row:%l/%1*%L%*\ %1*%p%%%*\ \ col:%v] 
+"-------[ Status bar ]------------------------------------❱----{{{1
+ 
+"set statusline =%1*%F%*%m%r%h%w "filename
+set statusline =%1*%F%m%r%h%w\ %* "filename
+set statusline +=%7*\|%*
+"set statusline+=\ [%Y:%{&ff}:%{&fenc!=''?&fenc:&enc}:] "filetype,encoding
+set statusline+=%2*\ %Y: "filetype
+set statusline+=%{&ff}:  "dos/unix
+set statusline+=%{&fenc!=''?&fenc:&enc}\ %* "encoding
+set statusline +=%7*\|%*
+set statusline+=%2*\ ASCII:%b\ %*  " ascii 
+set statusline +=%7*\|%*
+set statusline+=%2*\ row:%l/%*%1*%L%*%2*\ %*%1*%p%%%*%2*\ \ col:%v\ %*
+set statusline +=%7*\|%*
 
 "color in terminal
-hi User1 cterm=bold cterm=italic ctermfg=67
+"hi User1 cterm=bold cterm=italic ctermfg=67
+hi User1 cterm=bold ctermfg=black ctermbg=67
+hi User2 ctermfg=black ctermbg=246
+hi User7 cterm=bold ctermfg=245 ctermbg=237
 
 "color in gvim
 hi User1  gui=bold guifg=#000000 guibg=#5B89C7
+hi User2  guifg=#000000 guibg=#949494
+hi User7  gui=bold guifg=#8a8a8a guibg=#3a3a3a
 "set statusline=%F%m%r%h%w\ [FORMAT=%{&ff}G\ [TYPE=%Y]\ [ASCII=\%03.3b]\ [HEX=\%02.2B]\ [POS=%04l,%04v][%p%%]\ [LEN=%L]
 set laststatus=2
 "
