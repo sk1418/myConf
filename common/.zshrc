@@ -13,7 +13,6 @@ setopt prompt_subst         #prompt more dynamic, allow function in prompt
 setopt NO_CASE_GLOB # Case insensitive globbing
 setopt NUMERIC_GLOB_SORT # Be Reasonable!
 setopt EXTENDED_GLOB # I don't know why I never set this before.
-
 #disable the ctrl-s (suspend the output)
 stty stop undef
 
@@ -27,7 +26,7 @@ setopt interactive_comments #allow add comment in interactive command. e.g. cmd 
 #====[ Directories ]========================================================# {{{
 setopt AUTO_PUSHD           #make cd push the old directory to the dirstack, cd - <tab> could show the list
 setopt PUSHD_IGNORE_DUPS    #don't push duplicated dirs
-hash -d my="/home/kent/MyStuff"  #cd ~xxx to enter the directory
+hash -d my="$HOME/MyStuff"  #cd ~xxx to enter the directory
 export CDPATH=.:~:~/MyStuff
 
 alias ..="cd .."
@@ -485,6 +484,12 @@ alias bvim='vim -u ~/base.vimrc'
 alias bvi='vim -u ~/base.vimrc'
 
 #}}}
+
+#====[ todo.txt ]==================================================# {{{
+export PATH="$HOME/lib/todo.txt-cli:$PATH"
+alias t='$HOME/lib/todo.txt-cli/todo.sh -d $HOME/.todo/todo.cfg'
+compdef t="todo.sh"
+# }}}
 
 mkdir -p /tmp/test
 #environment variables

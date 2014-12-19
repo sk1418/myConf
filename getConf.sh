@@ -26,10 +26,12 @@ backup_common(){
 	.Xmodmap
 	.profile
 	base.vimrc
-	.ctags)
+	.ctags
+	.todo
+	)
 	for f in ${COMMON_FILES[@]}
 	do
-		cp -f $HOME/$f $COMMON_DIR
+		rsync -a --exclude="todo.txt" $HOME/$f $COMMON_DIR
 	done
 	echo "done!"
 }
