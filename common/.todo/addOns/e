@@ -1,0 +1,5 @@
+#!/bin/bash
+[ "$1" = "useage" ] && exit 0
+shift
+
+"$TODO_SH" edit "$@"

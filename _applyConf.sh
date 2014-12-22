@@ -10,13 +10,14 @@ BACKUP="$HOME/myConfBackup"
 
 __backup_and_apply(){
 	targetDir="$1"
-	for file in $(ls -a $targetDir)
-	do
-		if [[ -f "$targetDir/$file" ]]
-		then
+	for file in $(ls -a $targetDir); do
+		if [[ $file =~ ^[.][.]?$ ]]; then
+			#skip the '../' and './'
+			continue
+		else
 			echo "appling $file ..."
-			mv "$HOME/$file" "$BACKUP" > /dev/null 2>&1
-			cp "$targetDir/$file" $HOME
+			rsync -a "$HOME/$file" "$BACKUP" > /dev/null 2>&1
+			rsync -a "$targetDir/$file" $HOME
 		fi
 	done
 
@@ -37,7 +38,6 @@ apply_host_cfg(){
 	__backup_and_apply "$HOST_DIR/dotfiles"
 	print_sep
 }
-
 
 
 #prepare backupdir

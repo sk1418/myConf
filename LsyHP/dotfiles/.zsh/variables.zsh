@@ -1,3 +1,4 @@
+
 export ORACLE_HOME=/usr/lib/oracle/xe/app/oracle/product/10.2.0/server
 export ORACLE_SID=XE
 export JAVA_HOME=/opt/java
@@ -26,3 +27,11 @@ export NO_PROXY="localhost, 127.0.0.1, localdomain.com, 192.168.0.*, *.dlh.de, 5
 #only for EC project
 export ANT_OPTS=-Dfile.encoding=iso-8859-1
 export _JAVA_OPTIONS="-Dawt.useSystemAAFontSettings=on -Dswing.aatext=true"
+
+#--------------------------------
+#| #platform spesific functions |
+#--------------------------------
+function wifiap {
+	sudo bash $HOME/lib/wifiAP/create_ap --no-virt -n wlo1 LinuxRocks ilovevim
+}
+ 

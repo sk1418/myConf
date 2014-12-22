@@ -192,9 +192,18 @@ source $MY_LIB_DIR/git-prompt/zshrc.sh
 
 
 #====[ Functions ]==================================================# {{{
-
+#suspend system
 function suspend {
     $HOME/bin/suspend
+}
+
+# webcam
+function webcam {
+    mplayer -tv driver=v4l2:gain=1:width=640:height=480:device=/dev/video0 tv://
+}
+
+function webHere {
+    python -m SimpleHTTPServer
 }
 # check zsh Version
 function is-at-least {
@@ -221,7 +230,7 @@ function is-at-least {
 }
 
 # show a 256 color table
-256tab() {
+function 256tab {
     for k in `seq 0 1`;do 
         for j in `seq $((16+k*18)) 36 $((196+k*18))`;do 
             for i in `seq $j $((j+17))`; do 
@@ -233,11 +242,11 @@ function is-at-least {
 
 
 #calculator
-calc()  { awk "BEGIN{ print $* }" ; }
+function calc  {echo "scale=2;$*"|bc|sed 's/\.0*$//' }
 
 
 #   pressing TAB in an empty command makes a cd command with completion list
-dumb-cd(){
+function dumb-cd {
     if [[ -n $BUFFER ]] ; then # 如果该行有内容
         zle expand-or-complete # 执行 TAB 原来的功能
     else # 如果没有
@@ -251,7 +260,7 @@ bindkey "\t" dumb-cd #将上面的功能绑定到 TAB 键
 
 
 #adding sudo to command
-sudo-command-line() {
+function sudo-command-line {
     [[ -z $BUFFER ]] && zle up-history
     [[ $BUFFER != sudo\ * ]] && BUFFER="sudo $BUFFER"
     zle end-of-line                 #光标移动到行末
@@ -263,9 +272,9 @@ bindkey "\e\e" sudo-command-line
 #functions to set prompt pwd color
 __PROMPT_PWD="$pfg_magenta%~$pR"
 #change PWD color
-pwd_color_chpwd() { [ $PWD = $OLDPWD ] || __PROMPT_PWD="$pU$pfg_cyan%~$pR" }
+function pwd_color_chpwd { [ $PWD = $OLDPWD ] || __PROMPT_PWD="$pU$pfg_cyan%~$pR" }
 #change back before next command
-pwd_color_preexec() { __PROMPT_PWD="$pfg_magenta%~$pR" }
+function pwd_color_preexec { __PROMPT_PWD="$pfg_magenta%~$pR" }
 
 
 #行编辑高亮模式 
