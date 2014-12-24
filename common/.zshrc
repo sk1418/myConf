@@ -18,11 +18,6 @@ stty stop undef
 
 #}}}
 
-
-#====[ Command-line ]========================================================# {{{
-setopt interactive_comments #allow add comment in interactive command. e.g. cmd #this is a test 
-# }}}
-
 #====[ Directories ]========================================================# {{{
 setopt AUTO_PUSHD           #make cd push the old directory to the dirstack, cd - <tab> could show the list
 setopt PUSHD_IGNORE_DUPS    #don't push duplicated dirs
@@ -401,8 +396,9 @@ preexec_functions+=screen_preexec
 #add-zsh-hook preexec omz_termsupport_preexec
 ##}}}
 
-#====[ Key bind ]==================================================# {{{
+#====[command line/key-bind]==================================================# {{{
 
+setopt interactive_comments #allow add comment in interactive command. e.g. cmd #this is a test 
 
 bindkey -e  # emacs key-bind
 
@@ -454,6 +450,9 @@ function sudo-command-line {
 zle -N sudo-command-line
 # [Esc] [Esc]
 bindkey '\e\e' sudo-command-line
+
+autoload -U url-quote-magic
+zle -N self-insert url-quote-magic
 #}}}
 
   
