@@ -177,8 +177,6 @@ autoload colors
 
 #}}}
 
-
-
 #====[ Prompt ]========================================================# {{{
 
 
@@ -188,8 +186,6 @@ source $MY_ZSH_DIR/promptrc
 #git prompt
 source $MY_LIB_DIR/git-prompt/zshrc.sh
 #}}}
-
-
 
 #====[ Functions ]==================================================# {{{
 #suspend system
@@ -245,29 +241,6 @@ function 256tab {
 function calc  {echo "scale=2;$*"|bc|sed 's/\.0*$//' }
 
 
-#   pressing TAB in an empty command makes a cd command with completion list
-function dumb-cd {
-    if [[ -n $BUFFER ]] ; then # 如果该行有内容
-        zle expand-or-complete # 执行 TAB 原来的功能
-    else # 如果没有
-        BUFFER="cd " # 填入 cd（空格）
-        zle end-of-line # 这时光标在行首，移动到行末
-        zle expand-or-complete # 执行 TAB 原来的功能
-    fi 
-}
-zle -N dumb-cd
-bindkey "\t" dumb-cd #将上面的功能绑定到 TAB 键
-
-
-#adding sudo to command
-function sudo-command-line {
-    [[ -z $BUFFER ]] && zle up-history
-    [[ $BUFFER != sudo\ * ]] && BUFFER="sudo $BUFFER"
-    zle end-of-line                 #光标移动到行末
-}
-zle -N sudo-command-line
-#定义快捷键为： [Esc] [Esc]
-bindkey "\e\e" sudo-command-line
 
 #functions to set prompt pwd color
 __PROMPT_PWD="$pfg_magenta%~$pR"
@@ -458,6 +431,29 @@ bindkey '^]' vi-find-next-char
 bindkey '\e]' vi-find-prev-char
 
 
+#   pressing TAB in an empty command makes a cd command with completion list
+function dumb-cd {
+    if [[ -n $BUFFER ]] ; then # 如果该行有内容
+        zle expand-or-complete # 执行 TAB 原来的功能
+    else # 如果没有
+        BUFFER="cd " # 填入 cd（空格）
+        zle end-of-line # 这时光标在行首，移动到行末
+        zle expand-or-complete # 执行 TAB 原来的功能
+    fi 
+}
+zle -N dumb-cd
+bindkey "\t" dumb-cd #将上面的功能绑定到 TAB 键
+
+
+#adding sudo to command
+function sudo-command-line {
+    [[ -z $BUFFER ]] && zle up-history
+    [[ $BUFFER != sudo\ * ]] && BUFFER="sudo $BUFFER"
+    zle end-of-line #move to EOL
+}
+zle -N sudo-command-line
+# [Esc] [Esc]
+bindkey '\e\e' sudo-command-line
 #}}}
 
   
