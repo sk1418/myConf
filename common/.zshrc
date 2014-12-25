@@ -1,4 +1,4 @@
-#====[ System options ]==================================================# {{{
+#====[ Gernal options ]==================================================# {{{1
 
 export EDITOR=vim
 export MY_ZSH_DIR="$HOME/.zsh"
@@ -15,34 +15,7 @@ setopt NUMERIC_GLOB_SORT # Be Reasonable!
 setopt EXTENDED_GLOB # I don't know why I never set this before.
 #disable the ctrl-s (suspend the output)
 stty stop undef
-
-#}}}
-
-#====[ Directories ]========================================================# {{{
-setopt AUTO_PUSHD           #make cd push the old directory to the dirstack, cd - <tab> could show the list
-setopt PUSHD_IGNORE_DUPS    #don't push duplicated dirs
-hash -d my="$HOME/MyStuff"  #cd ~xxx to enter the directory
-export CDPATH=.:~:~/MyStuff
-
-alias ..="cd .."
-alias ..2="cd ../.."
-alias ..3="cd ../../.."
-alias ..4="cd ../../../.."
-alias ..5="cd ../../../../.."
-
-# }}}
-
-
-#====[ Corrections ]========================================================# {{{
-setopt correct_all #try to correct every word, this can be dangerous with some commands (e.g. mv)
-# excluding those "dangerous" commands
-alias man='nocorrect man'
-alias mv='nocorrect mv'
-alias mkdir='nocorrect mkdir'
-
-# }}}
-
-#====[ History ]========================================================# {{{
+#====[ History ]========================================================# {{{1
 export HISTFILE=$MY_ZSH_DIR/.zsh_history
 export HISTSIZE=10000         #history entry size
 export SAVEHIST=10000         #the     size  of   saving history entries after logout
@@ -52,16 +25,21 @@ setopt hist_ignore_dups       #ignore duplicated command in history
 setopt extended_history       #add additional information (timestamp) in history
 setopt hist_ignore_space    #add space before command, the command will not be added into history
 
-# }}}
+#====[ Directories ]========================================================# {{{1
+setopt AUTO_PUSHD           #make cd push the old directory to the dirstack, cd - <tab> could show the list
+setopt PUSHD_IGNORE_DUPS    #don't push duplicated dirs
+hash -d my="$HOME/MyStuff"  #cd ~xxx to enter the directory
+export CDPATH=.:~:~/MyStuff
 
+#====[ Corrections ]========================================================# {{{1
+setopt correct_all #try to correct every word, this can be dangerous with some commands (e.g. mv)
 
 #====[ Completion ]========================================================# {{{
-
 setopt auto_list # Automatically list choices on an ambiguous completion.
 setopt auto_menu
 setopt complete_in_word     #stays where it is and completion is done from both ends e.g. /v/c/p/p => /var/cache/pacman/pkg
 setopt always_to_end
-
+setopt magic_equal_subst #complete identifier=path format 
 autoload -U compinit
 compinit
 
@@ -458,8 +436,16 @@ zle -N self-insert url-quote-magic
   
 
 #====[ alias ]==================================================# {{{
+#fast back to parents dir
+alias ..="cd .."
+alias ..2="cd ../.."
+alias ..3="cd ../../.."
+alias ..4="cd ../../../.."
+alias ..5="cd ../../../../.."
 
-for i in mkdir mv cp;       alias $i="nocorrect $i"
+# disable autocorrect for some commands
+for i in man mkdir mv cp;       alias $i="nocorrect $i"
+
 alias find='noglob find'        # noglob for find
 
 alias time='/usr/bin/time -p'
