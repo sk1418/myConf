@@ -178,7 +178,7 @@ URxvt.keysym.Delete:       \033[3~
 !italicFont and boldItalicFont undefined
 
 !URxvt.font:xft:Luxi Mono:regular:antialias=True:pixelsize=15, 
-URxvt*font: xft:Monaco:medium:autohint=True:size=12.5:antialias=True,  xft:DejaVu Sans Mono:book:autohint=True:size=12,  xft:WenQuanYi Micro Hei:pixelsize=16:antialias=True
+URxvt*font: xft:Monaco:medium:autohint=True:size=13:antialias=True,  xft:DejaVu Sans Mono:book:autohint=True:size=12,  xft:WenQuanYi Micro Hei:pixelsize=16:antialias=True
 
 
 !URxvt*boldFont: xft:Monaco:bold:autohint=True:size=12:antialias=True,  xft:DejaVu Sans Mono:bold:autohint=True:size=12,  xft:WenQuanYi Bitmap Song:pixelsize=16:antialias=False
