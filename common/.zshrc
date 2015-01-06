@@ -462,6 +462,8 @@ alias free='free -m'
 alias df='df -Th'
 alias info='info --vi-keys'
 alias port='netstat -ntlp'
+#show top 10 of largest files/dirs
+alias big='du -hxa | sort -rh | head -11'
 #[Esc][h] man 当前命令时，显示简短说明 
 alias run-help >&/dev/null && unalias run-help
 autoload run-help
