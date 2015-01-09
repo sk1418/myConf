@@ -113,7 +113,7 @@ set completeopt=longest,menuone
 "inoremap <expr> <c-n> pumvisible() ? "\<c-n>" : "\<c-n>\<c-r>=pumvisible() ? \"\\<down>\" : \"\\<cr>\""
 "inoremap <expr> <m-;> pumvisible() ? "\<c-n>" : "\<c-x>\<c-o>\<c-n>\<c-p>\<c-r>=pumvisible() ? \"\\<down>\" : \"\\<cr>\""
 
-"-------[ Bundles ]----------------------------------------{{{1
+"-------[ Plugins / Bundles ]----------------------------------------{{{1
 
 filetype off
 set runtimepath+=~/.vim/bundle/vundle
@@ -177,6 +177,8 @@ Plugin 'sk1418/HowMuch'
 Plugin 'sk1418/Join'
 Plugin 'sk1418/blockit'
 Plugin 'bootleq/vim-cycle'
+Plugin 'Shougo/vimproc.vim'
+Plugin 'Shougo/unite.vim'
 Plugin 'Shougo/neocomplete'
 Plugin 'Shougo/neosnippet'
 Plugin 'Shougo/neosnippet-snippets'
@@ -264,6 +266,25 @@ nnoremap <Leader>u :GundoToggle<CR>
 
 
 
+"-----------[ Unite            ]------------{{{2
+nnoremap <leader>ff :<C-u>Unite -start-insert file_rec/async:!<CR>
+nnoremap <leader>fb :<C-u>Unite buffer<CR>
+call unite#custom#profile('default', 'context', {
+\   'prompt': '>>> ',
+\   'start_insert': 1,
+\   'winheight': 20,
+\   'direction': 'botright',
+\ })
+autocmd FileType unite call s:unite_my_setting()
+function! s:unite_my_setting() 
+	nmap <buffer> <ESC> <Plug>(unite_exit)
+	nmap <buffer> <c-c> <Plug>(unite_exit)
+	imap <buffer> <c-c> <Plug>(unite_exit)
+	imap <buffer> <C-j>   <Plug>(unite_select_next_line)
+	imap <buffer> <C-k>   <Plug>(unite_select_previous_line)
+	imap <silent><buffer><expr> <C-v> unite#do_action('vsplit')
+endfunction
+
 "-----------[ CtrlP plugin     ]------------{{{2
 let g:ctrlp_max_height = 20
 let g:ctrlp_mruf_max =140 
@@ -272,9 +293,9 @@ let g:ctrlp_custom_ignore = {
 			\ 'file': '\v\.(zip|gz|pdf|exe|so|dat|class|pyc|jar|swpr|png|jpg|gif)$'
 			\ }
 
-nnoremap <Leader>fb :CtrlPBuffer<cr>
-nnoremap <Leader>ft :CtrlPTag<cr>
-nnoremap <Leader>fr :CtrlPMRU<cr>
+"nnoremap <Leader>fb :CtrlPBuffer<cr>
+"nnoremap <Leader>ft :CtrlPTag<cr>
+"nnoremap <Leader>fr :CtrlPMRU<cr>
 
 "-----------[ neocomplete   ]------------{{{2
 
