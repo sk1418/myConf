@@ -113,128 +113,6 @@ set completeopt=longest,menuone
 "inoremap <expr> <c-n> pumvisible() ? "\<c-n>" : "\<c-n>\<c-r>=pumvisible() ? \"\\<down>\" : \"\\<cr>\""
 "inoremap <expr> <m-;> pumvisible() ? "\<c-n>" : "\<c-x>\<c-o>\<c-n>\<c-p>\<c-r>=pumvisible() ? \"\\<down>\" : \"\\<cr>\""
 
-"-------[ key mappying ]----------------------------------------{{{1
-
-" set mapleader
-let mapleader        = ","
-let g:mapleader      = ","
-let maplocalleader   = ","
-let g:maplocalleader = ","
-
-
-"<F1> to check if the file was changed outside vim
-nnoremap <F1> :checktime<cr>
-inoremap <F1> <esc>:checktime<cr>
-"reload current file
-nnoremap <F5> :e!<cr>
-"show/hide list
-nnoremap <leader>l :set list!<cr>:IndentLinesToggle<cr>
-
-nnoremap j gj
-nnoremap k gk
-nnoremap gj j
-nnoremap gk k
-
-" Source
-vnoremap <leader>so y:execute @@<cr>:echo 'selection Sourced .'<cr>
-nnoremap <leader>so ^vg_y:execute @@<cr>:echo 'line Sourced.'<cr>
-
-"insert mode <c-u> and <c-w> undoable
-inoremap <c-u> <c-g>u<c-u>
-inoremap <c-w> <c-g>u<c-w>
-
-"fold mappings
-"space to toggle fold
-nnoremap <space> za
-vnoremap <space> za
-"close all folds and leave the current fold open
-nnoremap <leader>zz zMzvzz
-
-"clear hl search by pressing ,/
-nnoremap <silent> <Leader>/  :noh<cr>
-"ctrl-shift-j/k moving selected lines up and down (only worked with gvim)
-nnoremap <a-k> :m-2<CR>==
-nnoremap <a-j> :m+<CR>==
-inoremap <a-j> <Esc>:m+<CR>==gi
-inoremap <a-k> <Esc>:m-2<CR>==gi
-vnoremap <a-j> :m'>+<CR>gv=gv
-vnoremap <a-k> :m-2<CR>gv=gv
-
-"reselect visual block after indent/outdent 
-vnoremap < <gv
-vnoremap > >gv
-
-"quick Editing .vimrc
-nnoremap <Leader>rc :vsplit $MYVIMRC<cr>
-nnoremap <Leader>rt :vsplit $HOME/.tmux.conf<cr>
-nnoremap <Leader>rz :vsplit $HOME/.zshrc<cr>
-
-"easier copy paste to clipboard
-vnoremap <C-C> "+y
-nnoremap <Leader>p :silent set paste<cr>"+P:set nopaste<cr>
-
-"format codes without changing screen
-nnoremap <Leader>= moHmpgg=G`pzt`o
-
-"move current line to top+5 line (zt +5) zl -> zt lower
-nnoremap zl zt4<c-y>
-"Fast saving
-nnoremap <Leader>x :xa!<cr>
-nnoremap <Leader>w :w!<cr>
-nnoremap <Leader>su :w !sudo tee %>/dev/null <cr>
-
-"add empty line above/below current line
-nnoremap <leader>o o<ESC>
-nnoremap <leader>O O<ESC>
-" highlight/syntax info
-nnoremap th :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<'
-			\ . synIDattr(synID(line("."),col("."),0),"name") . "> lo<"
-			\ . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">"<CR>
-
-"TODO map tc to show color
-"tab new,close,move (commented out, because buffer is more conveniet)
-"map <Leader>tn :tabnew<cr>
-"map <Leader>tc :tabclose<cr>
-"map <Leader>tm :tabmove
-"map <Leader>te :tabedit
-
-"Switch to current dir
-nnoremap <Leader>cd :cd %:p:h<cr>
-" Easy window navigation
-nnoremap <C-h> <C-w>h
-nnoremap <C-j> <C-w>j
-nnoremap <C-k> <C-w>k
-nnoremap <C-l> <C-w>l
-
-" move cursor in Insert Mode  (commented out because rarely used)
-"inoremap <C-h> <C-o>h
-"inoremap <C-j> <C-o>j
-"inoremap <C-k> <C-o>k
-"inoremap <C-l> <C-o>l
-
-"c-a in command line move to the BOL:
-cnoremap <C-A> <Home>
-
-"quick visual select whole buffer
-nnoremap vaa ggVG
-
-" moving cursor out of (right of ) autoClosed brackets
-"inoremap <c-l> <esc>%%a
-"-------[ Abbreviation ]----------------------------------------{{{1
-"
-" Date time
-iabbrev dt <c-r>=strftime("%Y-%m-%d %H:%M:%S")<cr>
-iabbrev teh the
-iabbrev appl application
-iabbrev ky@ kent.yuan@gmail.com
-
-"
-"highlight groups
-ia imp! !Important!
-ia mk1 !MARK1
-ia mk2 !MARK2
-ia mk3 !MARK3
-
 "-------[ Bundles ]----------------------------------------{{{1
 
 filetype off
@@ -267,7 +145,7 @@ Plugin 'scrooloose/nerdcommenter'
 
 
 "dependencies for snipmate
-Plugin 'honza/vim-snippets'
+"Plugin 'honza/vim-snippets'
 
 Plugin 'tpope/vim-repeat'
 Plugin 'tpope/vim-surround'
@@ -301,6 +179,7 @@ Plugin 'sk1418/blockit'
 Plugin 'bootleq/vim-cycle'
 Plugin 'Shougo/neocomplete'
 Plugin 'Shougo/neosnippet'
+Plugin 'Shougo/neosnippet-snippets'
 
 call vundle#end()
 filetype plugin indent on  
@@ -438,11 +317,14 @@ if has('conceal')
 	"set conceallevel=2 concealcursor=i
 endif
 
+"=======================================================
+"the following two variables are for using vim-snippets
+"commented out because now using the default neosnippet-snippets
+"=======================================================
 " Enable snipMate compatibility feature.
-let g:neosnippet#enable_snipmate_compatibility = 1
-
+"let g:neosnippet#enable_snipmate_compatibility = 1
 " Tell Neosnippet about the other snippets
-let g:neosnippet#snippets_directory='~/.vim/bundle/vim-snippets/snippets'
+"let g:neosnippet#snippets_directory='~/.vim/bundle/vim-snippets/snippets'
 
 autocmd Filetype *
 			\ if &omnifunc == "" |
@@ -587,6 +469,123 @@ let g:indentLine_color_gui='darkgray'
 "don't let indentLine change the concealCursor option
 let g:indentLine_noConcealCursor='true'
 "nnoremap <Leader>in = :IndentLinesToggle<cr>
+
+"-------[ Abbreviation ]----------------------------------------{{{1
+"
+" Date time
+iabbrev dt <c-r>=strftime("%Y-%m-%d %H:%M:%S")<cr>
+iabbrev teh the
+iabbrev appl application
+iabbrev ky@ kent.yuan@gmail.com
+
+"
+"highlight groups
+ia imp! !Important!
+ia mk1 !MARK1
+ia mk2 !MARK2
+ia mk3 !MARK3
+
+"-------[ key mappying ]----------------------------------------{{{1
+
+" set mapleader
+let mapleader        = ","
+let g:mapleader      = ","
+let maplocalleader   = ","
+let g:maplocalleader = ","
+
+
+"<F1> to check if the file was changed outside vim
+nnoremap <F1> :checktime<cr>
+inoremap <F1> <esc>:checktime<cr>
+"reload current file
+nnoremap <F5> :e!<cr>
+"show/hide list
+nnoremap <leader>l :set list!<cr>:IndentLinesToggle<cr>
+
+nnoremap j gj
+nnoremap k gk
+nnoremap gj j
+nnoremap gk k
+
+" Source
+vnoremap <leader>so y:execute @@<cr>:echo 'selection Sourced .'<cr>
+nnoremap <leader>so ^vg_y:execute @@<cr>:echo 'line Sourced.'<cr>
+
+"insert mode <c-u> and <c-w> undoable
+inoremap <c-u> <c-g>u<c-u>
+inoremap <c-w> <c-g>u<c-w>
+
+"fold mappings
+"space to toggle fold
+nnoremap <space> za
+vnoremap <space> za
+"close all folds and leave the current fold open
+nnoremap <leader>zz zMzvzz
+
+"clear hl search by pressing ,/
+nnoremap <silent> <Leader>/  :noh<cr>
+"ctrl-shift-j/k moving selected lines up and down (only worked with gvim)
+nnoremap <a-k> :m-2<CR>==
+nnoremap <a-j> :m+<CR>==
+inoremap <a-j> <Esc>:m+<CR>==gi
+inoremap <a-k> <Esc>:m-2<CR>==gi
+vnoremap <a-j> :m'>+<CR>gv=gv
+vnoremap <a-k> :m-2<CR>gv=gv
+
+"reselect visual block after indent/outdent 
+vnoremap < <gv
+vnoremap > >gv
+
+"quick Editing .vimrc
+nnoremap <Leader>rc :vsplit $MYVIMRC<cr>
+nnoremap <Leader>rt :vsplit $HOME/.tmux.conf<cr>
+nnoremap <Leader>rz :vsplit $HOME/.zshrc<cr>
+
+"easier copy paste to clipboard
+vnoremap <C-C> "+y
+nnoremap <Leader>p :silent set paste<cr>"+P:set nopaste<cr>
+
+"format codes without changing screen
+nnoremap <Leader>= moHmpgg=G`pzt`o
+
+"move current line to top+5 line (zt +5) zl -> zt lower
+nnoremap zl zt4<c-y>
+"Fast saving
+nnoremap <Leader>x :xa!<cr>
+nnoremap <Leader>w :w!<cr>
+nnoremap <Leader>su :w !sudo tee %>/dev/null <cr>
+
+"add empty line above/below current line
+nnoremap <leader>o o<ESC>
+nnoremap <leader>O O<ESC>
+" highlight/syntax info
+nnoremap th :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<'
+			\ . synIDattr(synID(line("."),col("."),0),"name") . "> lo<"
+			\ . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">"<CR>
+
+"TODO map tc to show color
+"tab new,close,move (commented out, because buffer is more conveniet)
+"map <Leader>tn :tabnew<cr>
+"map <Leader>tc :tabclose<cr>
+"map <Leader>tm :tabmove
+"map <Leader>te :tabedit
+
+"Switch to current dir
+nnoremap <Leader>cd :cd %:p:h<cr>
+" Easy window navigation
+nnoremap <C-h> <C-w>h
+nnoremap <C-j> <C-w>j
+nnoremap <C-k> <C-w>k
+nnoremap <C-l> <C-w>l
+
+"c-a in command line move to the BOL:
+cnoremap <C-A> <Home>
+
+"quick visual select whole buffer (comment out, since ggVG not hard either)
+"nnoremap vaa ggVG
+
+" moving cursor out of (right of ) autoClosed brackets
+inoremap <c-j> <esc>%%a
 "-------[ Functions ]-------------------------------------{{{1
 
 "do chmod +x if the first line of the buffer beginning with #!

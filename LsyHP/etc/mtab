@@ -31,3 +31,4 @@ fusectl /sys/fs/fuse/connections fusectl rw,relatime 0 0
 /dev/sda6 /home ext4 rw,relatime,data=ordered 0 0
 tmpfs /run/user/1000 tmpfs rw,nosuid,nodev,relatime,size=811084k,mode=700,uid=1000,gid=1000 0 0
 gvfsd-fuse /run/user/1000/gvfs fuse.gvfsd-fuse rw,nosuid,nodev,relatime,user_id=1000,group_id=1000 0 0
+/dev/sdb1 /run/media/kent/GSP1RMCULXF vfat rw,nosuid,nodev,relatime,uid=1000,gid=1000,fmask=0022,dmask=0077,codepage=437,iocharset=iso8859-1,shortname=mixed,showexec,utf8,flush,errors=remount-ro 0 0
