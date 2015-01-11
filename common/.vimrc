@@ -385,7 +385,8 @@ call unite#custom#profile('default', 'context', {
 \ })
 call unite#custom#source('file,file/new,buffer,file_rec', 'matchers', 'matcher_fuzzy')
 call unite#custom#source('file_rec', 'ignore_globs', split(&wildignore, ','))
-
+call unite#filters#matcher_default#use(['matcher_fuzzy'])
+call unite#filters#sorter_default#use(['sorter_rank'])
 autocmd FileType unite call s:unite_my_setting()
 function! s:unite_my_setting() 
 	nmap <buffer> <ESC> <Plug>(unite_exit)
