@@ -90,6 +90,7 @@ set wildignore+=*.orig                           " Merge resolution files
 
 "java files
 set wildignore+=classes
+set wildignore+=target
 set wildignore+=lib
 "-------[ Tags ]----------------------------------------{{{1
 
@@ -113,6 +114,122 @@ set completeopt=longest,menuone
 "inoremap <expr> <c-n> pumvisible() ? "\<c-n>" : "\<c-n>\<c-r>=pumvisible() ? \"\\<down>\" : \"\\<cr>\""
 "inoremap <expr> <m-;> pumvisible() ? "\<c-n>" : "\<c-x>\<c-o>\<c-n>\<c-p>\<c-r>=pumvisible() ? \"\\<down>\" : \"\\<cr>\""
 
+"-------[ Abbreviation ]----------------------------------------{{{1
+"
+" Date time
+iabbrev dt <c-r>=strftime("%Y-%m-%d %H:%M:%S")<cr>
+iabbrev teh the
+iabbrev appl application
+iabbrev ky@ kent.yuan@gmail.com
+
+"
+"highlight groups
+ia imp! !Important!
+ia mk1 !MARK1
+ia mk2 !MARK2
+ia mk3 !MARK3
+
+"-------[ key mappying ]----------------------------------------{{{1
+
+" set mapleader
+let mapleader        = ","
+let g:mapleader      = ","
+let maplocalleader   = ","
+let g:maplocalleader = ","
+
+
+"<F1> to check if the file was changed outside vim
+nnoremap <F1> :checktime<cr>
+inoremap <F1> <esc>:checktime<cr>
+"reload current file
+nnoremap <F5> :e!<cr>
+"show/hide list
+nnoremap <leader>l :set list!<cr>:IndentLinesToggle<cr>
+
+nnoremap j gj
+nnoremap k gk
+nnoremap gj j
+nnoremap gk k
+
+" Source
+vnoremap <leader>so y:execute @@<cr>:echo 'selection Sourced .'<cr>
+nnoremap <leader>so ^vg_y:execute @@<cr>:echo 'line Sourced.'<cr>
+
+"insert mode <c-u> and <c-w> undoable
+inoremap <c-u> <c-g>u<c-u>
+inoremap <c-w> <c-g>u<c-w>
+
+"fold mappings
+"space to toggle fold
+nnoremap <space> za
+vnoremap <space> za
+"close all folds and leave the current fold open
+nnoremap <leader>zz zMzvzz
+
+"clear hl search by pressing ,/
+nnoremap <silent> <Leader>/  :noh<cr>
+"ctrl-shift-j/k moving selected lines up and down (only worked with gvim)
+nnoremap <a-k> :m-2<CR>==
+nnoremap <a-j> :m+<CR>==
+inoremap <a-j> <Esc>:m+<CR>==gi
+inoremap <a-k> <Esc>:m-2<CR>==gi
+vnoremap <a-j> :m'>+<CR>gv=gv
+vnoremap <a-k> :m-2<CR>gv=gv
+
+"reselect visual block after indent/outdent 
+vnoremap < <gv
+vnoremap > >gv
+
+"quick Editing .vimrc
+nnoremap <Leader>rc :vsplit $MYVIMRC<cr>
+nnoremap <Leader>rt :vsplit $HOME/.tmux.conf<cr>
+nnoremap <Leader>rz :vsplit $HOME/.zshrc<cr>
+
+"easier copy paste to clipboard
+vnoremap <C-C> "+y
+nnoremap <Leader>p :silent set paste<cr>"+P:set nopaste<cr>
+
+"format codes without changing screen
+nnoremap <Leader>= moHmpgg=G`pzt`o
+
+"move current line to top+5 line (zt +5) zl -> zt lower
+nnoremap zl zt4<c-y>
+"Fast saving
+nnoremap <Leader>x :xa!<cr>
+nnoremap <Leader>w :w!<cr>
+nnoremap <Leader>su :w !sudo tee %>/dev/null <cr>
+
+"add empty line above/below current line
+nnoremap <leader>o o<ESC>
+nnoremap <leader>O O<ESC>
+" highlight/syntax info
+nnoremap th :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<'
+			\ . synIDattr(synID(line("."),col("."),0),"name") . "> lo<"
+			\ . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">"<CR>
+
+"TODO map tc to show color
+"tab new,close,move (commented out, because buffer is more conveniet)
+"map <Leader>tn :tabnew<cr>
+"map <Leader>tc :tabclose<cr>
+"map <Leader>tm :tabmove
+"map <Leader>te :tabedit
+
+"Switch to current dir
+nnoremap <Leader>cd :cd %:p:h<cr>
+" Easy window navigation
+nnoremap <C-h> <C-w>h
+nnoremap <C-j> <C-w>j
+nnoremap <C-k> <C-w>k
+nnoremap <C-l> <C-w>l
+
+"c-a in command line move to the BOL:
+cnoremap <C-A> <Home>
+
+"quick visual select whole buffer (comment out, since ggVG not hard either)
+"nnoremap vaa ggVG
+
+" moving cursor out of (right of ) autoClosed brackets
+inoremap <c-j> <esc>%%a
 "-------[ Plugins / Bundles ]----------------------------------------{{{1
 
 filetype off
@@ -167,7 +284,7 @@ Plugin 'vim-scripts/vimwiki'
 "Plugin 'lilydjwg/colorizer'
 "Plugin 'vim-scripts/lilypink'
 Plugin 'scrooloose/syntastic'
-Plugin 'kien/ctrlp.vim'
+"Plugin 'kien/ctrlp.vim'
 Plugin 'Yggdroot/indentLine'
 Plugin 'tommcdo/vim-exchange'
 
@@ -181,6 +298,8 @@ Plugin 'Shougo/vimproc.vim'
 Plugin 'Shougo/unite.vim'
 Plugin 'Shougo/neocomplete'
 Plugin 'Shougo/neosnippet'
+Plugin 'Shougo/neomru.vim'
+Plugin 'Shougo/unite-outline'
 Plugin 'Shougo/neosnippet-snippets'
 
 call vundle#end()
@@ -257,24 +376,16 @@ nnoremap <F2> :NERDTreeToggle<cr>
 nnoremap <Leader>u :GundoToggle<CR>
 
 
-"-----------[ FuzzyFinder  ]------------{{{2
-
-"keep fuzzyfinder for file, it is handy for search arbitrary directory
-"noremap <Leader>ff :FufFile<cr> 
-"nnoremap <Leader>ft :FufTag<cr>
-"nnoremap <Leader>fh :FufHelp<cr>
-
-
-
-"-----------[ Unite            ]------------{{{2
-nnoremap <leader>ff :<C-u>Unite -start-insert file_rec/async:!<CR>
-nnoremap <leader>fb :<C-u>Unite buffer<CR>
+"-----------[ Unite plugin     ]------------{{{2
 call unite#custom#profile('default', 'context', {
-\   'prompt': '>>> ',
+\   'prompt': '>>>',
 \   'start_insert': 1,
 \   'winheight': 20,
-\   'direction': 'botright',
+\   'direction': 'botright'
 \ })
+call unite#custom#source('file,file/new,buffer,file_rec', 'matchers', 'matcher_fuzzy')
+call unite#custom#source('file_rec', 'ignore_globs', split(&wildignore, ','))
+
 autocmd FileType unite call s:unite_my_setting()
 function! s:unite_my_setting() 
 	nmap <buffer> <ESC> <Plug>(unite_exit)
@@ -282,16 +393,25 @@ function! s:unite_my_setting()
 	imap <buffer> <c-c> <Plug>(unite_exit)
 	imap <buffer> <C-j>   <Plug>(unite_select_next_line)
 	imap <buffer> <C-k>   <Plug>(unite_select_previous_line)
+	imap <buffer> <C-n>   <Plug>(unite_rotate_next_source)
+	imap <buffer> <C-b>   <Plug>(unite_rotate_previous_source)
+
 	imap <silent><buffer><expr> <C-v> unite#do_action('vsplit')
 endfunction
+nnoremap <Leader>ff :<c-u>Unite -start-insert file_rec/async:!<CR>
+nnoremap <Leader>fb :<c-u>Unite buffer<CR>
+nnoremap <Leader>fr :<c-u>Unite file_mru<CR>
+nnoremap <Leader>fo :<c-u>Unite outline<CR>
+nnoremap <Leader>fa :<c-u>Unite -start-insert file_rec/async:! buffer file_mru outline<CR>
 
 "-----------[ CtrlP plugin     ]------------{{{2
-let g:ctrlp_max_height = 20
-let g:ctrlp_mruf_max =140 
-let g:ctrlp_custom_ignore = {
-			\ 'dir':  '\v[\/]\.(git|svn|hg)$',
-			\ 'file': '\v\.(zip|gz|pdf|exe|so|dat|class|pyc|jar|swpr|png|jpg|gif)$'
-			\ }
+
+"let g:ctrlp_max_height = 20
+"let g:ctrlp_mruf_max =140 
+"let g:ctrlp_custom_ignore = {
+			"\ 'dir':  '\v[\/]\.(git|svn|hg)$',
+			"\ 'file': '\v\.(zip|gz|pdf|exe|so|dat|class|pyc|jar|swpr|png|jpg|gif)$'
+			"\ }
 
 "nnoremap <Leader>fb :CtrlPBuffer<cr>
 "nnoremap <Leader>ft :CtrlPTag<cr>
@@ -491,122 +611,6 @@ let g:indentLine_color_gui='darkgray'
 let g:indentLine_noConcealCursor='true'
 "nnoremap <Leader>in = :IndentLinesToggle<cr>
 
-"-------[ Abbreviation ]----------------------------------------{{{1
-"
-" Date time
-iabbrev dt <c-r>=strftime("%Y-%m-%d %H:%M:%S")<cr>
-iabbrev teh the
-iabbrev appl application
-iabbrev ky@ kent.yuan@gmail.com
-
-"
-"highlight groups
-ia imp! !Important!
-ia mk1 !MARK1
-ia mk2 !MARK2
-ia mk3 !MARK3
-
-"-------[ key mappying ]----------------------------------------{{{1
-
-" set mapleader
-let mapleader        = ","
-let g:mapleader      = ","
-let maplocalleader   = ","
-let g:maplocalleader = ","
-
-
-"<F1> to check if the file was changed outside vim
-nnoremap <F1> :checktime<cr>
-inoremap <F1> <esc>:checktime<cr>
-"reload current file
-nnoremap <F5> :e!<cr>
-"show/hide list
-nnoremap <leader>l :set list!<cr>:IndentLinesToggle<cr>
-
-nnoremap j gj
-nnoremap k gk
-nnoremap gj j
-nnoremap gk k
-
-" Source
-vnoremap <leader>so y:execute @@<cr>:echo 'selection Sourced .'<cr>
-nnoremap <leader>so ^vg_y:execute @@<cr>:echo 'line Sourced.'<cr>
-
-"insert mode <c-u> and <c-w> undoable
-inoremap <c-u> <c-g>u<c-u>
-inoremap <c-w> <c-g>u<c-w>
-
-"fold mappings
-"space to toggle fold
-nnoremap <space> za
-vnoremap <space> za
-"close all folds and leave the current fold open
-nnoremap <leader>zz zMzvzz
-
-"clear hl search by pressing ,/
-nnoremap <silent> <Leader>/  :noh<cr>
-"ctrl-shift-j/k moving selected lines up and down (only worked with gvim)
-nnoremap <a-k> :m-2<CR>==
-nnoremap <a-j> :m+<CR>==
-inoremap <a-j> <Esc>:m+<CR>==gi
-inoremap <a-k> <Esc>:m-2<CR>==gi
-vnoremap <a-j> :m'>+<CR>gv=gv
-vnoremap <a-k> :m-2<CR>gv=gv
-
-"reselect visual block after indent/outdent 
-vnoremap < <gv
-vnoremap > >gv
-
-"quick Editing .vimrc
-nnoremap <Leader>rc :vsplit $MYVIMRC<cr>
-nnoremap <Leader>rt :vsplit $HOME/.tmux.conf<cr>
-nnoremap <Leader>rz :vsplit $HOME/.zshrc<cr>
-
-"easier copy paste to clipboard
-vnoremap <C-C> "+y
-nnoremap <Leader>p :silent set paste<cr>"+P:set nopaste<cr>
-
-"format codes without changing screen
-nnoremap <Leader>= moHmpgg=G`pzt`o
-
-"move current line to top+5 line (zt +5) zl -> zt lower
-nnoremap zl zt4<c-y>
-"Fast saving
-nnoremap <Leader>x :xa!<cr>
-nnoremap <Leader>w :w!<cr>
-nnoremap <Leader>su :w !sudo tee %>/dev/null <cr>
-
-"add empty line above/below current line
-nnoremap <leader>o o<ESC>
-nnoremap <leader>O O<ESC>
-" highlight/syntax info
-nnoremap th :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<'
-			\ . synIDattr(synID(line("."),col("."),0),"name") . "> lo<"
-			\ . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">"<CR>
-
-"TODO map tc to show color
-"tab new,close,move (commented out, because buffer is more conveniet)
-"map <Leader>tn :tabnew<cr>
-"map <Leader>tc :tabclose<cr>
-"map <Leader>tm :tabmove
-"map <Leader>te :tabedit
-
-"Switch to current dir
-nnoremap <Leader>cd :cd %:p:h<cr>
-" Easy window navigation
-nnoremap <C-h> <C-w>h
-nnoremap <C-j> <C-w>j
-nnoremap <C-k> <C-w>k
-nnoremap <C-l> <C-w>l
-
-"c-a in command line move to the BOL:
-cnoremap <C-A> <Home>
-
-"quick visual select whole buffer (comment out, since ggVG not hard either)
-"nnoremap vaa ggVG
-
-" moving cursor out of (right of ) autoClosed brackets
-inoremap <c-j> <esc>%%a
 "-------[ Functions ]-------------------------------------{{{1
 
 "do chmod +x if the first line of the buffer beginning with #!
