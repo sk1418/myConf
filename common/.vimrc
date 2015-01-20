@@ -595,22 +595,12 @@ let showmarks_include = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
 "===========================================================================
 " IndentLine settings
 "===========================================================================
-"let g:indent_guides_enable_on_vim_startup=1
-"let g:indent_guides_auto_colors = 0 
-""set hl width=1
-"let g:indent_guides_guide_size = 1
-"let g:indent_guides_auto_colors = 0
-""set background=dark
-"hi IndentGuidesOdd  ctermbg=black guibg=black
-"hi IndentGuidesEven ctermbg=darkgrey guibg=darkgrey
-" "nnoremap <Leader>in :IndentGuidesToggle<cr>
-
-"let g:indentLine_char='|'
 let g:indentLine_char='┊'
 let g:indentLine_color_term='darkgray'
 let g:indentLine_color_gui='darkgray'
 "don't let indentLine change the concealCursor option
 let g:indentLine_noConcealCursor='true'
+let g:indentLine_fileTypeExclude=['help']
 "nnoremap <Leader>in = :IndentLinesToggle<cr>
 
 "-------[ Functions ]-------------------------------------{{{1
@@ -846,7 +836,7 @@ augroup file_types
 	"au FileType xml exe ":silent 1,$!xmllint --format --recover - 2>/dev/null"
 
 	"Help in vertical split (right)
-	autocmd FileType help  wincmd L|setlocal nolist|IndentLinesDisable
+	autocmd FileType help  wincmd L|setlocal nolist
 
 	"Java
 	autocmd FileType java set tags+=$HOME/.jdkTags
