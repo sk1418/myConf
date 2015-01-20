@@ -285,9 +285,9 @@ Plugin 'vim-scripts/vimwiki'
 "Plugin 'vim-scripts/lilypink'
 Plugin 'scrooloose/syntastic'
 "Plugin 'kien/ctrlp.vim'
-Plugin 'Yggdroot/indentLine'
 Plugin 'tommcdo/vim-exchange'
 
+Plugin 'Yggdroot/indentLine'
 Plugin 'sk1418/DirDiff.vim'
 Plugin 'sk1418/QFGrep'
 Plugin 'sk1418/HowMuch'
@@ -399,7 +399,8 @@ function! s:unite_my_setting()
 
 	imap <silent><buffer><expr> <C-v> unite#do_action('vsplit')
 endfunction
-nnoremap <Leader>ff :<c-u>Unite -start-insert file_rec/async:!<CR>
+
+nnoremap <c-p> :<c-u>Unite -start-insert file_rec/async:!<CR>
 nnoremap <Leader>fb :<c-u>Unite buffer<CR>
 nnoremap <Leader>fr :<c-u>Unite file_mru<CR>
 nnoremap <Leader>fo :<c-u>Unite outline<CR>
@@ -845,7 +846,8 @@ augroup file_types
 	"au FileType xml exe ":silent 1,$!xmllint --format --recover - 2>/dev/null"
 
 	"Help in vertical split (right)
-	autocmd FileType help wincmd L | setlocal nolist|IndentLinesDisable
+	autocmd FileType help  wincmd L|setlocal nolist|IndentLinesDisable
+
 	"Java
 	autocmd FileType java set tags+=$HOME/.jdkTags
 	autocmd FileType java hi link javaDocComment String
