@@ -539,13 +539,17 @@ set gfn=Monaco\ 12
 "set gfn=Inconsolata-g\ 12
 set gfw=WenQuanYi\ Micro\ Hei\ 12
 "-------[ Status bar ]------------------------------------❱----{{{1
- 
+
 set statusline =%7*[%n]%*
 set statusline +=%1*%F\ %*%8*%m%r%*%1*%h%w%* "filename
 set statusline +=%7*\|%*
 set statusline+=%2*\ %Y: "filetype
 set statusline+=%{&ff}:  "dos/unix
 set statusline+=%{&fenc!=''?&fenc:&enc}\ %* "encoding
+
+"fugitve branch
+set statusline +=%8*%{fugitive#head()!=''?'['.fugitive#head().']':''}%2*\ 
+
 set statusline +=%7*\|%*
 set statusline+=%2*\ ASCII:%b\ %*  " ascii 
 set statusline +=%7*\|%*
@@ -852,6 +856,17 @@ augroup line_return
 				\ endif
 augroup END
 autocmd bufwritepost .vimrc source $MYVIMRC
+
+" autocmd for fugitive plugin
+augroup fugitive
+	autocmd!
+	autocmd User fugitive 
+  \ if fugitive#buffer().type() =~# '^\%(tree\|blob\)$' |
+  \   nnoremap <buffer> .. :edit %:h<CR> |
+  \ endif
+	autocmd BufReadPost fugitive://* set bufhidden=delete
+augroup END
+
 "-------[ Machine Specific stuff ]------------------------------------- {{{1
 "quick open  my timesheet
 nnoremap <leader>rh :vs /home/kent/Desktop/Projects/mje/ts.csv<cr>
