@@ -55,7 +55,7 @@ set lbr " don't break word
 set ruler  " ruler
 set number  " show the line number
 set display=lastline " show complete content, without @ 
-set ttimeoutlen=100
+"set ttimeoutlen=100
 "set dictionary +=/usr/share/dict/cracklib-small "enable the dictionary
 
 "filetype indent plugin on
@@ -168,14 +168,16 @@ nnoremap <leader>zz zMzvzz
 
 "clear hl search by pressing ,/
 nnoremap <silent> <Leader>/  :noh<cr>
-"ctrl-shift-j/k moving selected lines up and down (only worked with gvim)
-nnoremap <a-k> :m-2<CR>==
-nnoremap <a-j> :m+<CR>==
-inoremap <a-j> <Esc>:m+<CR>==gi
-inoremap <a-k> <Esc>:m-2<CR>==gi
-vnoremap <a-j> :m'>+<CR>gv=gv
-vnoremap <a-k> :m-2<CR>gv=gv
-
+"Alt-j/k moving selected lines up and down only in visual mode
+set timeout timeoutlen=500 ttimeoutlen=0
+set <F15>=k
+set <F14>=j
+"nmap <F14> :m+<CR>==
+"nmap <F15> :m-2<CR>==
+vnoremap <F14> :m'>+<CR>gv=gv
+vnoremap <F15> :m-2<CR>gv=gv
+"inoremap <F14> <Esc>:m+<CR>==gi
+"inoremap <F15> <Esc>:m-2<CR>==gi
 "reselect visual block after indent/outdent 
 vnoremap < <gv
 vnoremap > >gv
