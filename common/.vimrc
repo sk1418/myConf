@@ -170,12 +170,10 @@ nnoremap <leader>zz zMzvzz
 nnoremap <silent> <Leader>/  :noh<cr>
 "Alt-j/k moving selected lines up and down only in visual mode
 set timeout timeoutlen=500 ttimeoutlen=0
-set <F15>=k
-set <F14>=j
 "nmap <F14> :m+<CR>==
 "nmap <F15> :m-2<CR>==
-vnoremap <F14> :m'>+<CR>gv=gv
-vnoremap <F15> :m-2<CR>gv=gv
+vnoremap <c-j> :m'>+<CR>gv=gv
+vnoremap <c-k> :m-2<CR>gv=gv
 "inoremap <F14> <Esc>:m+<CR>==gi
 "inoremap <F15> <Esc>:m-2<CR>==gi
 "reselect visual block after indent/outdent 
