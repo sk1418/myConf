@@ -10,3 +10,4 @@ export PATH=$PATH:$DEV_HOME/maven3/bin:$HOME/bin
 #export TERM=xterm-256color
 
 export _JAVA_OPTIONS="-Dawt.useSystemAAFontSettings=on -Dswing.aatext=true"
+#sogou-qimpanel &

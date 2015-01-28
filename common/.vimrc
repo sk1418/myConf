@@ -169,7 +169,7 @@ nnoremap <leader>zz zMzvzz
 "clear hl search by pressing ,/
 nnoremap <silent> <Leader>/  :noh<cr>
 "Alt-j/k moving selected lines up and down only in visual mode
-set timeout timeoutlen=500 ttimeoutlen=0
+set timeout timeoutlen=1000 ttimeoutlen=0
 "nmap <F14> :m+<CR>==
 "nmap <F15> :m-2<CR>==
 vnoremap <c-j> :m'>+<CR>gv=gv
