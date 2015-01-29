@@ -229,7 +229,7 @@ cnoremap <C-A> <Home>
 "nnoremap vaa ggVG
 
 " moving cursor out of (right of ) autoClosed brackets
-inoremap <c-j> <esc>%%a
+inoremap <c-l> <esc>%%a
 "-------[ Plugins / Bundles ]----------------------------------------{{{1
 
 filetype off
@@ -440,7 +440,7 @@ let g:neocomplete#disable_auto_complete=0
 
 " Plugin key-mappings.
 inoremap <expr><C-g>     neocomplete#undo_completion()
-inoremap <expr><C-l>     neocomplete#complete_common_string()
+inoremap <expr><C-j>     neocomplete#complete_common_string()
 
 let g:neocomplete#enable_at_startup = 1
 let g:neocomplete#enable_smart_case = 1
