@@ -39,6 +39,16 @@
 	df = diffall
 	addjava = add **/src/**/*.java
 
+	file = "!locate(){ git ls-files **/$1;};locate"
+	#locate file by regex (grep)
+	filere = "!locate_re(){ git ls-files |grep --color -P $1;};locate_re"
+
+	#check outgoing changes
+	outgoing = "!outgoing(){ git fetch && git log origin/$(git rev-parse --abbrev-ref HEAD).. ; }; outgoing"
+
+	#check incoming changes
+	incoming = "!incoming(){ git fetch && git log ..origin/$(git rev-parse --abbrev-ref HEAD) ;}; incoming"
+
 [push]
     default = current
 

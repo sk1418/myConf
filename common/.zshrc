@@ -166,15 +166,6 @@ function suspend {
     $HOME/bin/suspend
 }
 
-#compare local with remote like hg outgoing
-function gitout {
-    git fetch && git log origin/$(git rev-parse --abbrev-ref HEAD)..
-}
-
-#compare remote and local repo, like hg incoming
-function gitin {
-    git fetch && git log ..origin/$(git rev-parse --abbrev-ref HEAD)
-}
 # webcam
 function webcam {
     mplayer -tv driver=v4l2:gain=1:width=640:height=480:device=/dev/video0 tv://
