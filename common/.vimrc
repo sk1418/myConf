@@ -659,6 +659,20 @@ nnoremap <silent> <Leader>ms :call CenterInSpaces()<cr>
 
 
 "---------------------------------------------------------
+"make * and # work for visual selection
+"direction parameter is either '/' or '?'
+"---------------------------------------------------------
+function! VwordSearch(direction)
+  let temp = @v
+  normal! gv"vy
+	let v = @v
+  let @v = temp
+  let @/ = '\V' . substitute(escape(v, a:direction.'\'), '\n', '\\n', 'g')
+endfunction
+xnoremap * :<C-u>call VwordSearch('/')<CR>/<C-R>=@/<CR><CR>
+xnoremap # :<C-u>call VwordSearch('?')<CR>?<C-R>=@/<CR><CR>
+
+"---------------------------------------------------------
 "toggle relativeline number
 "---------------------------------------------------------
 function! ToggleRelativeNumber()
