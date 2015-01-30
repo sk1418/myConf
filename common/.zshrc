@@ -167,12 +167,12 @@ function suspend {
 }
 
 #compare local with remote like hg outgoing
-function gitoutgo {
+function gitout {
     git fetch && git log origin/$(git rev-parse --abbrev-ref HEAD)..
 }
 
 #compare remote and local repo, like hg incoming
-function gitincome {
+function gitin {
     git fetch && git log ..origin/$(git rev-parse --abbrev-ref HEAD)
 }
 # webcam
