@@ -863,7 +863,10 @@ nmap <silent> <leader>dc :call DiffToggle(2)<cr>
 nmap <silent> <leader>dr :call DiffToggle(3)<cr>
 
 "-------[ Command ]-------------------------------------{{{1
+"delete current file
 command! Delete if delete(expand('%')) |echohl WarningMsg | echo 'deleting file failed' |echohl None | endif
+
+"find matched count 
 command! -range=% -nargs=1 Count <line1>,<line2>s/<args>//gn|nohls
 
 "-------[ AutoCmd ]------------------------------------- {{{1
