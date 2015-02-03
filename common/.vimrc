@@ -536,11 +536,11 @@ if exists('$TMUX')
 	" tmux will only forward escape sequences to the terminal if surrounded by a DCS sequence
     let &t_SI .= "\<Esc>Ptmux;\<Esc>\<Esc>[5 q\<Esc>\\"
     let &t_EI .= "\<Esc>Ptmux;\<Esc>\<Esc>[2 q\<Esc>\\"
-    autocmd VimLeave * silent !echo -ne "\033Ptmux;\033\033[0 q\033\\"
+    autocmd VimLeave * silent !echo -ne "\033Ptmux;\033\033[2 q\033\\"
 else
-		let &t_SI .="\<Esc>[5 q"
-		let &t_EI .="\<Esc>[2 q"
-		autocmd VimLeave * silent !echo -ne "\033[0 q"
+	let &t_SI .="\<Esc>[5 q"
+	let &t_EI .="\<Esc>[2 q"
+	autocmd VimLeave * silent !echo -ne "\033[2 q"
 endif
 "here set the cursor shape only for urxvt terminal. for more info man 7
 "urxvt then search Cursor Style
