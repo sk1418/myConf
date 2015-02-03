@@ -51,7 +51,7 @@ set smartcase
 set mouse=a
 set hlsearch
 set incsearch
-set lbr " don't break word
+set linebreak " don't break word
 set ruler  " ruler
 set number  " show the line number
 set display=lastline " show complete content, without @ 
@@ -124,10 +124,10 @@ iabbrev ky@ kent.yuan@gmail.com
 
 "
 "highlight groups
-ia imp! !Important!
-ia mk1 !MARK1
-ia mk2 !MARK2
-ia mk3 !MARK3
+iabbrev imp! !Important!
+iabbrev mk1 !MARK1
+iabbrev mk2 !MARK2
+iabbrev mk3 !MARK3
 
 "-------[ key mappying ]----------------------------------------{{{1
 
@@ -516,10 +516,10 @@ let g:vimwiki_list = [{'path': '~/vimwiki/',
 "let g:vimwiki_ext2syntax={}
 
 augroup ft_vimwiki
-	au!
-	au Filetype vimwiki  iabbrev  jcode {{{class="brush: java"
-	au Filetype vimwiki  iabbrev  bcode {{{class="brush: bash"
-	au Filetype vimwiki  iabbrev  vcode {{{class="brush: vim"
+	autocmd!
+	autocmd Filetype vimwiki  iabbrev  jcode {{{class="brush: java"
+	autocmd Filetype vimwiki  iabbrev  bcode {{{class="brush: bash"
+	autocmd Filetype vimwiki  iabbrev  vcode {{{class="brush: vim"
 augroup END
 
 "-------[ cursor shape ]--{{{1
@@ -893,8 +893,8 @@ augroup END
 
 " Make sure Vim returns to the same line when you reopen a file.
 augroup line_return
-	au!
-	au BufReadPost *
+	autocmd!
+	autocmd BufReadPost *
 				\ if line("'\"") > 0 && line("'\"") <= line("$") |
 				\     execute 'normal! g`"zvzz' |
 				\ endif
@@ -914,5 +914,4 @@ augroup END
 "-------[ Machine Specific stuff ]------------------------------------- {{{1
 "quick open  my timesheet
 nnoremap <leader>rh :vs /home/kent/Desktop/Projects/mje/ts.csv<cr>
-
 " vim: fdm=marker ts=2 sw=2
