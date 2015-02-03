@@ -521,7 +521,29 @@ augroup ft_vimwiki
 	au Filetype vimwiki  iabbrev  bcode {{{class="brush: bash"
 	au Filetype vimwiki  iabbrev  vcode {{{class="brush: vim"
 augroup END
-"
+
+"-------[ cursor shape ]--{{{1
+"From urxvt man page:
+"Ps = 0   Blink Block
+"Ps = 1   Blink Block
+"Ps = 2   Steady Block
+"Ps = 3   Blink Underline
+"Ps = 4   Steady Underline
+"Ps = 5   Blink Bar (XTerm)
+"Ps = 6   Steady Bar (XTerm)
+
+if exists('$TMUX')
+	" tmux will only forward escape sequences to the terminal if surrounded by a DCS sequence
+    let &t_SI .= "\<Esc>Ptmux;\<Esc>\<Esc>[5 q\<Esc>\\"
+    let &t_EI .= "\<Esc>Ptmux;\<Esc>\<Esc>[2 q\<Esc>\\"
+    autocmd VimLeave * silent !echo -ne "\033Ptmux;\033\033[0 q\033\\"
+else
+		let &t_SI .="\<Esc>[5 q"
+		let &t_EI .="\<Esc>[2 q"
+		autocmd VimLeave * silent !echo -ne "\033[0 q"
+endif
+"here set the cursor shape only for urxvt terminal. for more info man 7
+"urxvt then search Cursor Style
 "-------[ color scheme ]--{{{1
 
 set background=dark
@@ -530,6 +552,7 @@ if $DISPLAY == ""
 else
 	set t_Co=256
 	colorscheme last256
+
 	" below are solarized settings
 	"let g:solarized_termcolors = 256
 	"let g:solarized_termtrans = 1
