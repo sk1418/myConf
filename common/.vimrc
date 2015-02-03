@@ -533,11 +533,15 @@ augroup END
 "Ps = 6   Steady Bar (XTerm)
 
 if exists('$TMUX')
-	" tmux will only forward escape sequences to the terminal if surrounded by a DCS sequence
-    let &t_SI .= "\<Esc>Ptmux;\<Esc>\<Esc>[5 q\<Esc>\\"
-    let &t_EI .= "\<Esc>Ptmux;\<Esc>\<Esc>[2 q\<Esc>\\"
-    autocmd VimLeave * silent !echo -ne "\033Ptmux;\033\033[2 q\033\\"
-else
+" tmux will only forward escape sequences to the terminal if surrounded by a DCS sequence
+	let &t_SI .= "\<Esc>Ptmux;\<Esc>\<Esc>[5 q\<Esc>\\"
+	let &t_EI .= "\<Esc>Ptmux;\<Esc>\<Esc>[2 q\<Esc>\\"
+	autocmd VimLeave * silent !echo -ne "\033Ptmux;\033\033[2 q\033\\"
+elseif $COLORTERM !~ '^xfce4' 
+	"if it is xfce4-terminal don't change cursor. 
+	"or we have to sed -i the terminalrc every time entering/leaving insert
+	" still there is problem, if in xfce4-terminal attach a tmux session created
+	" in urxvt, the $COLORTERM will be rxvt
 	let &t_SI .="\<Esc>[5 q"
 	let &t_EI .="\<Esc>[2 q"
 	autocmd VimLeave * silent !echo -ne "\033[2 q"
