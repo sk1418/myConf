@@ -28,6 +28,7 @@ backup_common(){
 	base.vimrc
 	.ctags
 	.todo
+	.bcrc
 	)
 	for f in ${COMMON_FILES[@]}
 	do

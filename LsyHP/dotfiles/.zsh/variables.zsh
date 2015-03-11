@@ -27,7 +27,8 @@ export NO_PROXY="localhost, 127.0.0.1, localdomain.com, 192.168.0.*, *.dlh.de, 5
 #only for EC project
 export ANT_OPTS=-Dfile.encoding=iso-8859-1
 export _JAVA_OPTIONS="-Dawt.useSystemAAFontSettings=on -Dswing.aatext=true"
-
+#gnu bc default config file
+export BC_ENV_ARGS=$HOME/.bcrc
 #--------------------------------
 #| #platform spesific functions |
 #--------------------------------
