@@ -61,7 +61,7 @@ set display=lastline " show complete content, without @
 "filetype indent plugin on
 "vertical split open new window on right
 set splitright
-set fillchars=diff:⣿,vert:│  "split and diff splitchar
+set fillchars=diff:⣿,vert:║  "split and diff splitchar (old vert split char:│)
 set concealcursor=nc "hide concealed chars in N & C mode
 set synmaxcol=1000 "don't highlight line longer than 1000
 
