@@ -21,10 +21,12 @@
 	remotes = remote -v
 	graft = cherry-pick -x
 
-	l   = log -34 --color=always --all --topo-order --pretty='format:%Cgreen%h%Creset %s%Cred%d%Creset %C(bold)(by %an)%Creset'
-    ll  = log     --color=always --all --topo-order --pretty='format:%Cgreen%h%Creset %s%Cred%d%Creset %C(bold)(by %an)%Creset'
+	l   = log -30 --color=always --all --topo-order --pretty='format:%Cgreen%h%Creset %s%Cred%d%Creset %C(bold)(by %an)%Creset'
+	ll   = log -70 --color=always --all --topo-order --pretty='format:%Cgreen%h%Creset %s%Cred%d%Creset %C(bold)(by %an)%Creset'
+    lll  = log     --color=always --all --topo-order --pretty='format:%Cgreen%h%Creset %s%Cred%d%Creset %C(bold)(by %an)%Creset'
     gl  = log -14 --color=always --all --graph --topo-order --pretty='format:%Cgreen%h%Creset %s %C(bold)(%an)%Creset%C(red bold)%d%Creset%n'
-    gll = log     --color=always --all --graph --topo-order --pretty='format:%Cgreen%h%Creset %s %C(bold)(%cr by %an)%Creset%C(red bold)%d%Creset%n'
+    gll  = log -34 --color=always --all --graph --topo-order --pretty='format:%Cgreen%h%Creset %s %C(bold)(%an)%Creset%C(red bold)%d%Creset%n'
+    glll = log     --color=always --all --graph --topo-order --pretty='format:%Cgreen%h%Creset %s %C(bold)(%cr by %an)%Creset%C(red bold)%d%Creset%n'
 
 	#changed file of a commit
 	cc = show --name-only
