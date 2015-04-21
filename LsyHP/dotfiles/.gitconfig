@@ -75,3 +75,6 @@
 	prompt = false
 [difftool]
 	prompt = false
+
+[log]
+	 date = iso
