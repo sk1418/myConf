@@ -161,6 +161,11 @@ source $MY_LIB_DIR/git-prompt/zshrc.sh
 #}}}
 
 #====[ Functions ]==================================================# {{{
+#display beijing time
+function bjtime {
+    echo "北京时间: " $(TZ="Hongkong" date +"%F %H:%M:%S")
+}
+
 #suspend system
 function suspend {
     $HOME/bin/suspend
