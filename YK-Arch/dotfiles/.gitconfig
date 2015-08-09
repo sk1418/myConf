@@ -1,0 +1,75 @@
+[user]
+	name = Kai Yuan
+	email = kent.yuan@Gmail.com
+
+[core]
+	pager = cat
+	editor = vim
+
+
+[color]
+    branch = auto
+    diff = auto
+    interactive = auto
+    status = auto
+
+[alias]
+	tags = tag -l
+	branches = branch -a
+	remotes = remote -v
+	graft = cherry-pick -x
+
+	l   = log -30 --color=always --all --topo-order --pretty='format:%Cgreen%h%Creset %s%Cred%d%Creset %C(bold)(by %an)%Creset'
+	ll   = log -70 --color=always --all --topo-order --pretty='format:%Cgreen%h%Creset %ai %s%Cred%d%Creset %C(bold)(by %an)%Creset'
+    lll  = log     --color=always --all --topo-order --pretty='format:%Cgreen%h%Creset %s%Cred%d%Creset %C(bold)(by %an)%Creset'
+    gl  = log -14 --color=always --all --graph --topo-order --pretty='format:%Cgreen%h%Creset %s %C(bold)(%an)%Creset%C(red bold)%d%Creset%n'
+    gll  = log -34 --color=always --all --graph --topo-order --pretty='format:%Cgreen%h%Creset %s %C(bold)(%an)%Creset%C(red bold)%d%Creset%n'
+    glll = log     --color=always --all --graph --topo-order --pretty='format:%Cgreen%h%Creset %s %C(bold)(%cr by %an)%Creset%C(red bold)%d%Creset%n'
+
+	#changed file of a commit
+	cc = show --name-only
+
+	pull = pull --ff-only
+    up = merge --ff-only
+	ci = commit
+	cm = commit -m
+	co = checkout
+	stat = status
+    st = status
+	unstage = reset HEAD
+	df = difftool -d
+
+	file = "!locate(){ git ls-files **/$1;};locate"
+	#locate file by regex (grep)
+	filere = "!locate_re(){ git ls-files |grep --color -P $1;};locate_re"
+
+	#check outgoing changes
+	outgoing = "!outgoing(){ git fetch && git log origin/$(git rev-parse --abbrev-ref HEAD).. ; }; outgoing"
+
+	#check incoming changes
+	incoming = "!incoming(){ git fetch && git log ..origin/$(git rev-parse --abbrev-ref HEAD) ;}; incoming"
+
+[push]
+    default = current
+
+[merge]
+	tool = mygitmergetool
+
+[mergetool]
+	prompt = false
+
+[mergetool "mygitmergetool"]
+	cmd = $HOME/lib/gitmergetool vim $BASE $LOCAL $REMOTE $MERGED
+	prompt = false
+	trustExitCode = true
+	keepBackup = false
+	
+[diff]
+	tool = myGitVimDiff
+
+[difftool]
+	prompt = false
+	dir-diff = true
+
+[difftool "myGitVimDiff"]
+	cmd = vim -f '+next' '+execute \"DirDiff\" argv(1) argv(0)' $LOCAL $REMOTE
