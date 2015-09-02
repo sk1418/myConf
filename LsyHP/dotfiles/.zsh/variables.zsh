@@ -1,7 +1,7 @@
 
 export ORACLE_HOME=/usr/lib/oracle/xe/app/oracle/product/10.2.0/server
 export ORACLE_SID=XE
-export JAVA_HOME=/opt/java
+export JAVA_HOME=/usr/lib/jvm/default
 export DEV_HOME=/home/kent/javaEnv
 export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$ORACLE_HOME/lib:$DEV_HOME/sapjco-linuxintel-2.1.8
 #export M2_HOME=$DEV_HOME/maven
