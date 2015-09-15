@@ -216,7 +216,9 @@ function 256tab {
 
 
 #calculator
-function calc  {echo "scale=2;$*"|bc|sed 's/\.0*$//' }
+function calc {
+    echo "scale=2;$*"|bc|sed 's/\.0*$//'
+}
 
 
 

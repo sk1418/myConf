@@ -3,11 +3,10 @@
 # <file system> <mount point>   <type>  <options>       <dump>  <pass>
 
 /dev/sda6	/	ext4	rw,defaults,noatime,commit=120,data=ordered	0	1
-/dev/sda7	/home	ext4	rw,defaults,noatime,commit=77,data=ordered	0	2
+/dev/sda7	/home	ext4	rw,defaults,noatime,data=ordered	0	2
 /dev/sda3	/media/Backup	ntfs-3g	defaults,locale=en_US.UTF-8	0	0
 /dev/sda2	/media/Data	ntfs-3g	defaults,locale=en_US.UTF-8	0	0
 /dev/sda1	/media/System_Reserved	ntfs-3g	defaults,locale=en_US.UTF-8	0	0
-/dev/sdb1	/media/Disk2	ntfs-3g	defaults,locale=en_US.UTF-8	0	0
 /dev/sda5	none	swap	defaults	0	0
 
 #/dev/sda6	/	ext4	rw,relatime,data=ordered	0	1
