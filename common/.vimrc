@@ -118,6 +118,7 @@ set completeopt=longest,menuone
 "
 " Date time
 iabbrev dt <c-r>=strftime("%Y-%m-%d %H:%M:%S")<cr>
+iabbrev dd <c-r>=strftime("%Y-%m-%d ")<cr>
 iabbrev teh the
 iabbrev appl application
 iabbrev ky@ kent.yuan@gmail.com
@@ -729,6 +730,40 @@ nnoremap <silent> <Leader>sp :call ToggleSpell()<CR>
 "idea taken from sjl's Interestingwords
 " add <leader>1-6 toggle the highlighting
 " and <leader>0 to clear all
+
+"---------------------------------------------------------
+" quick open diary file
+" The file location: g:diary_dir/$year/YYYYMM.g:diary_ft
+" E.g. /home/kent/diary/2015/201501.md
+" one month one file. default extention:md (markdown)
+"---------------------------------------------------------
+" set default variables
+let g:diary_dir= '$HOME/MyStuff/myDiary'
+let g:diary_ft = 'md'
+function! OpenDiaryFile()
+	let year = strftime("%Y")
+	let month = printf("%02d", strftime("%m"))
+	let path = g:diary_dir . '/' . year
+	if !isdirectory(path)
+		if Mkdir(path)!=0
+			return
+		endif
+	endif
+	let diary_file = path . '/' . year . month . '.' . g:diary_ft
+	exec 'vsplit + ' . diary_file
+endfunction
+
+"create directory on *nix box
+function! Mkdir(dir)
+	call system("mkdir -p " . a:dir)
+	let rc = v:shell_error
+	if rc != 0
+		call confirm("can't create directory : " . a:dir, "&OK")
+	endif
+	return rc
+endfunc
+nnoremap <silent> <F6> :call OpenDiaryFile()<cr>
+
 function! HiInterestingWord(n) " {{{2
 	" Save our location.
 	normal! mz
