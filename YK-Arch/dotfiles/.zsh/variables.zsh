@@ -11,3 +11,6 @@ export PATH=$PATH:$DEV_HOME/maven3/bin:$HOME/bin
 
 export _JAVA_OPTIONS="-Dawt.useSystemAAFontSettings=on -Dswing.aatext=true"
 #sogou-qimpanel &
+
+# keychain  https://wiki.archlinux.org/index.php/SSH_keys#Keychain
+eval $(keychain --eval --quiet --agents ssh id_rsa)
