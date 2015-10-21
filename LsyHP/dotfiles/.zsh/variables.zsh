@@ -38,3 +38,6 @@ function wifiap {
 	sudo bash $HOME/lib/wifiAP/create_ap --no-virt -n wlo1 LinuxRocks ilovevim
 }
  
+
+# keychain  https://wiki.archlinux.org/index.php/SSH_keys#Keychain
+eval $(keychain --eval --quiet --agents ssh id_rsa)
