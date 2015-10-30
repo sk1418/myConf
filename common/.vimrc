@@ -302,6 +302,7 @@ Plugin 'Shougo/neosnippet'
 Plugin 'Shougo/neomru.vim'
 Plugin 'Shougo/unite-outline'
 Plugin 'Shougo/neosnippet-snippets'
+Plugin 'dbakker/vim-projectroot'
 
 call vundle#end()
 filetype plugin indent on  
@@ -764,6 +765,19 @@ function! Mkdir(dir)
 endfunc
 nnoremap <silent> <F6> :call OpenDiaryFile()<cr>
 
+
+"------------------------------------------------------------
+" update ctags under the project root
+"------------------------------------------------------------
+function! UpdateTags()
+	let tag_file=ProjectRootGuess().'/tags'
+	if filereadable(tag_file) 
+		call system('ctags -a -o "'. tag_file .'" '.expand('%:p'))
+	else
+		call system('ctags -R -o "'. tag_file .'" '.expand('%:p:h').'/.')
+	endif
+endfunction
+
 function! HiInterestingWord(n) " {{{2
 	" Save our location.
 	normal! mz
@@ -945,6 +959,9 @@ augroup fugitive
   \ endif
 	autocmd BufReadPost fugitive://* set bufhidden=delete
 augroup END
+
+" autocmd for python project to update tags
+autocmd BufWritePost *.py call UpdateTags()
 
 "-------[ Machine Specific stuff ]------------------------------------- {{{1
 "quick open  my timesheet

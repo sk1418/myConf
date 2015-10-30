@@ -13,3 +13,7 @@
 --regex-vimwiki=/^====[ \t]+(.+)[ \t]+====\s*$/.       |_\1/h,header/
 --regex-vimwiki=/^=====[ \t]+(.+)[ \t]+=====\s*$/.         |_\1/h,header/
 --regex-vimwiki=/^======[ \t]+(.+)[ \t]+======\s*$/.           |_\1/h,header/
+
+--python-kinds=-iv
+--exclude=build
+--exclude=dist
