@@ -201,8 +201,8 @@ nnoremap <Leader>w :w!<cr>
 nnoremap <Leader>su :w !sudo tee %>/dev/null <cr>
 
 "add empty line above/below current line
-nnoremap <leader>o o<ESC>
-nnoremap <leader>O O<ESC>
+nnoremap <leader>o mzo<ESC>`z
+nnoremap <leader>O mzO<ESC>`z
 " highlight/syntax info
 nnoremap th :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<'
 			\ . synIDattr(synID(line("."),col("."),0),"name") . "> lo<"

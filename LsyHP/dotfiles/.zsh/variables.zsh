@@ -17,7 +17,7 @@ export PATH=$PATH:/home/kent/javaEnv/maven3/bin:$ORACLE_HOME/bin:/home/kent/java
 export http_proxy=http://localhost:8888
 export https_proxy=https://localhost:8888
 export ftp_proxy=https://localhost:8888
-export no_proxy="localhost, 127.0.0.1, localdomain.com, 192.168.0.*, *.dlh.de, 57.*.*.*, lht.app.lufthansa.com"
+export no_proxy="localhost, 127.0.0.1, localdomain.com, 192.168.*.*, *.dlh.de, 57.*.*.*, lht.app.lufthansa.com"
 
 export HTTP_PROXY=http://localhost:8888
 export HTTPS_PROXY=https://localhost:8888
