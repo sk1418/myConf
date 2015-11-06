@@ -29,6 +29,7 @@ backup_common(){
 	.ctags
 	.todo
 	.bcrc
+	firefoxProxy.pac
 	)
 	for f in ${COMMON_FILES[@]}
 	do
