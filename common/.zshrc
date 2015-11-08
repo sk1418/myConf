@@ -166,10 +166,6 @@ function bjtime {
     echo "北京时间: " $(TZ="Hongkong" date +"%F %H:%M:%S")
 }
 
-#suspend system
-function suspend {
-    $HOME/bin/suspend
-}
 
 # webcam
 function webcam {
