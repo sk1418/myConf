@@ -41,6 +41,9 @@
 	df = diffall
 	addjava = add **/src/**/*.java
 
+	#show file in a commit/revision
+	showfile = "!showfiles(){ git diff-tree --no-commit-id --name-only -r $1;};showfiles"
+
 	file = "!locate(){ git ls-files **/$1;};locate"
 	#locate file by regex (grep)
 	filere = "!locate_re(){ git ls-files |grep --color -P $1;};locate_re"
