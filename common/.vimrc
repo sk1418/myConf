@@ -80,7 +80,6 @@ set wildignore+=*.o,*.obj,*.exe,*.dll,*.manifest " compiled object files
 set wildignore+=*.spl                            " compiled spelling word lists
 set wildignore+=*.sw?                            " Vim swap files
 set wildignore+=*.DS_Store                       " OSX bullshit
-
 set wildignore+=*.luac                           " Lua byte code
 
 set wildignore+=migrations                       " Django migrations
@@ -204,9 +203,10 @@ nnoremap <Leader>su :w !sudo tee %>/dev/null <cr>
 nnoremap <leader>o mzo<ESC>`z
 nnoremap <leader>O mzO<ESC>`z
 " highlight/syntax info
-nnoremap th :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<'
+nnoremap <leader>hi :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<'
 			\ . synIDattr(synID(line("."),col("."),0),"name") . "> lo<"
-			\ . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">"<CR>
+			\ . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . "> color:" 
+		  \ . synIDattr(synIDtrans(synID(line("."), col("."), 1)), "fg")<CR>
 
 "TODO map tc to show color
 "tab new,close,move (commented out, because buffer is more conveniet)
@@ -966,4 +966,5 @@ autocmd BufWritePost *.py call UpdateTags()
 "-------[ Machine Specific stuff ]------------------------------------- {{{1
 "quick open  my timesheet
 nnoremap <leader>rh :vs /home/kent/Desktop/Projects/mje/ts.csv<cr>
+"
 " vim: fdm=marker ts=2 sw=2
