@@ -173,7 +173,12 @@ function webcam {
 }
 
 function webHere {
-    python -m SimpleHTTPServer
+    py_ver=$(python -V 2>&1|grep -Po 'Python\s*\K\d')
+    if [[ $py_ver = "2" ]]; then
+        python -m SimpleHTTPServer
+    elif [[ $py_ver = "3" ]];then
+        python -m http.server
+    fi
 }
 # check zsh Version
 function is-at-least {
