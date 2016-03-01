@@ -162,8 +162,9 @@ source $MY_LIB_DIR/git-prompt/zshrc.sh
 
 #====[ Functions ]==================================================# {{{
 #display beijing time
-function bjtime {
+function when {
     echo "北京时间: " $(TZ="Hongkong" date +"%F %H:%M:%S")
+    echo "首尔时间: " $(TZ="Asia/Seoul" date +"%F %H:%M:%S")
 }
 
 
