@@ -496,6 +496,9 @@ alias t='$HOME/lib/todo.txt-cli/todo.sh -d $HOME/.todo/todo.cfg'
 compdef t="todo.sh"
 # }}}
 
+#====[ ag completion ]=============================================# {{{
+source $MY_ZSH_DIR/_ag
+# }}}
 mkdir -p /tmp/test
 #environment variables
 source $MY_ZSH_DIR/variables.zsh
