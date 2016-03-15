@@ -37,7 +37,7 @@ backup_common(){
 	done
 # zsh completion
 	mkdir -p $COMMON_ZSH_COMP > /dev/null 2>&1
-	rsync -a $ZSH_COMP $COMMON_ZSH_COMP
+	rsync -a $ZSH_COMP/* $COMMON_ZSH_COMP
 
 	echo "done!"
 }

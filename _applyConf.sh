@@ -42,8 +42,9 @@ apply_host_cfg(){
 
 #prepare backupdir
 mkdir -p $BACKUP
-apply_common
+#backup and apply "common" at last, for the .zsh/completion (not clean solution, work-around)
 apply_host_cfg
+apply_common
 echo "old configurations were backuped on $BACKUP"
 
 # vim:ts=2 sw=2
