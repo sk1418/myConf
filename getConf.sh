@@ -35,6 +35,10 @@ backup_common(){
 	do
 		rsync -a --exclude="todo.txt" $HOME/$f $COMMON_DIR
 	done
+# zsh completion
+	mkdir -p $COMMON_ZSH_COMP > /dev/null 2>&1
+	rsync -a $ZSH_COMP $COMMON_ZSH_COMP
+
 	echo "done!"
 }
 
@@ -55,7 +59,7 @@ backup_host_config(){
 	for f in ${HOST_FILES[@]}; do
 		cp -f $HOME/$f $MY_DOTFILES/.
 	done
-	rsync -arv --exclude=".zsh_*"  $HOME/.zsh $MY_DOTFILES/
+	rsync -arv --exclude=".zsh_*" --exclude="completion"  $HOME/.zsh $MY_DOTFILES/
 	# rsync -arv $HOME/.vim $MY_DOTFILES/ #don't sync .vim/backups for privcy reason
 	#cp ssh config and keep directory structure
 	mkdir -p $MY_DOTFILES/.ssh

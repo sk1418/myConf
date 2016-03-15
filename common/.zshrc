@@ -497,7 +497,7 @@ compdef t="todo.sh"
 # }}}
 
 #====[ ag completion ]=============================================# {{{
-source $MY_ZSH_DIR/_ag
+source $MY_ZSH_DIR/completion/*
 # }}}
 mkdir -p /tmp/test
 #environment variables
