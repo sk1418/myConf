@@ -38,6 +38,23 @@ function wifiap {
 	sudo bash $HOME/lib/wifiAP/create_ap --no-virt -n wlo1 LinuxRocks ilovevim
 }
  
+# git merge origin BMJE-xxxx
+function mjrM {
+	git merge --no-commit "origin/BMJE-$1" 
+	if [[ "$?" == "0" ]]; then 
+		mjrCiCodefreeze "$1"
+		echo "========================="
+		echo "merge and commit done in one shot! ^_^"
+	else
+		echo "========================="
+		echo "Not yet committed.. :-( "
+	fi
+}
 
+function mjrCiCodefreeze {
+	git ci -am "[BMJE-$1] merged into codefreeze"
+}
 # keychain  https://wiki.archlinux.org/index.php/SSH_keys#Keychain
 eval $(keychain --eval --quiet --agents ssh id_rsa)
+
+
