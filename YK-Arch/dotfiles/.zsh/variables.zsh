@@ -14,3 +14,6 @@ export _JAVA_OPTIONS="-Dawt.useSystemAAFontSettings=on -Dswing.aatext=true"
 
 # keychain  https://wiki.archlinux.org/index.php/SSH_keys#Keychain
 eval $(keychain --eval --quiet --agents ssh id_rsa)
+
+#keyphrase of borg.. plain text here ^_^
+export BORG_PASSPHRASE="kent"
