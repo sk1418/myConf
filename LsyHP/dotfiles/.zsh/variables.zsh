@@ -15,13 +15,13 @@ export PATH=$PATH:/home/kent/javaEnv/maven3/bin:$ORACLE_HOME/bin:/home/kent/java
 
 #proxy setting
 export http_proxy=http://localhost:8888
-export https_proxy=https://localhost:8888
-export ftp_proxy=https://localhost:8888
+export https_proxy=http://localhost:8888
+export ftp_proxy=http://localhost:8888
 export no_proxy="localhost, 127.0.0.1, localdomain.com, 192.168.*.*, *.dlh.de, 57.*.*.*, lht.app.lufthansa.com"
 
 export HTTP_PROXY=http://localhost:8888
-export HTTPS_PROXY=https://localhost:8888
-export FTP_PROXY=https://localhost:8888
+export HTTPS_PROXY=http://localhost:8888
+export FTP_PROXY=http://localhost:8888
 export NO_PROXY="localhost, 127.0.0.1, localdomain.com, 192.168.0.*, *.dlh.de, 57.*.*.*, lht.app.lufthansa.com"
 
 #only for EC project
@@ -40,7 +40,7 @@ function wifiap {
  
 # git merge origin BMJE-xxxx
 function mjrM {
-	git merge --no-commit "origin/BMJE-$1" 
+	git merge  --no-commit "origin/BMJE-$1" 
 	if [[ "$?" == "0" ]]; then 
 		mjrCiCodefreeze "$1"
 		echo "========================="
