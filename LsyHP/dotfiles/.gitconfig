@@ -10,10 +10,17 @@
 	proxy = http://localhost:8888
 
 [color]
-    branch = auto
     diff = auto
     interactive = auto
-    status = auto
+	ui = always
+[color "branch"]
+	current = yellow reverse
+    local = green
+    remote = magenta
+[color "status"]
+	added = yellow
+	changed = green
+	untracked = red
 
 [alias]
 	tags = tag -l
@@ -43,7 +50,7 @@
     st = status
 	unstage = reset HEAD
 	df = diffall
-	addjava = add **/src/**/*.java
+	addjava = "!addjava(){ git add **/src/**/*.java > /dev/null 2>&1 || git add src/**/*.java ;}; addjava"
 
 	#show file in a commit/revision
 	showfile = "!showfiles(){ git diff-tree --no-commit-id --name-only -r $1;};showfiles"
