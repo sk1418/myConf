@@ -54,7 +54,32 @@ function mjrM {
 function mjrCiCodefreeze {
 	git ci -am "[BMJE-$1] merged into codefreeze"
 }
+
+
+## import export mjr IdeaProject's settings
+export STORE=/home/kent/Desktop/Projects/mje/intellijSettings
+export MJR_HOME=/home/kent/IdeaProjects/m-jobcontrol-rotables
+
+
+function exportMjr {
+	echo "=================================================="
+	echo "= Export Mjr settings to $STORE "
+	echo "=================================================="
+	find  $MJR_HOME -name '*.iml'|xargs -I{} rsync -ah {} $STORE
+	rsync -avh  $MJR_HOME/.idea $STORE
+	echo "= DONE"
+	echo "=================================================="
+}
+
+function importMjr {
+	echo "=================================================="
+	echo "= Import Mjr settings to $STORE "
+	echo "=================================================="
+	find $STORE -name '*.iml'|awk -F'[/.]' -v target="$MJR_HOME" '{print "rsync -ah " $0, target"/"($(NF-1)~/-/?$(NF-1):"")}'|sh
+	rsync -avh  $STORE/.idea $MJR_HOME
+	echo "= DONE"
+	echo "=================================================="
+}
+
 # keychain  https://wiki.archlinux.org/index.php/SSH_keys#Keychain
 eval $(keychain --eval --quiet --agents ssh id_rsa)
-
-
