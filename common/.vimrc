@@ -933,7 +933,7 @@ augroup file_types
 	"au FileType xml exe ":silent 1,$!xmllint --format --recover - 2>/dev/null"
 
 	"Help in vertical split (right)
-	autocmd FileType help  wincmd L|setlocal nolist|setlocal number
+	autocmd FileType help  wincmd L|setlocal nolist
 
 	"Java
 	autocmd FileType java set tags+=$HOME/.jdkTags
@@ -967,5 +967,4 @@ autocmd BufWritePost *.py call UpdateTags()
 "quick open  my timesheet
 nnoremap <leader>rh :vs /home/kent/Desktop/Projects/mje/ts.csv<cr>
 "
-
 " vim: fdm=marker ts=2 sw=2

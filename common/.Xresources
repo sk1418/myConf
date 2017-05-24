@@ -174,7 +174,6 @@ URxvt*termName: rxvt-256color
 !URxvt.keysym.M-v:       command:paste
 
 URxvt.keysym.Delete:       \033[3~
-URxvt.keysym.C-Left:       \033D
 
 !italicFont and boldItalicFont undefined
 
