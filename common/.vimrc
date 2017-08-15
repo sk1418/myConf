@@ -821,6 +821,7 @@ hi def InterestingWord3 guifg=#000000 ctermfg=16 guibg=#8cffba ctermbg=121
 hi def InterestingWord4 guifg=#000000 ctermfg=16 guibg=#b88853 ctermbg=137
 hi def InterestingWord5 guifg=#000000 ctermfg=16 guibg=#ff9eb8 ctermbg=211
 hi def InterestingWord6 guifg=#000000 ctermfg=16 guibg=#ff2c4b ctermbg=195
+"}}}
 
 "---------------------------------------------------------
 " color test functions
@@ -933,7 +934,7 @@ augroup file_types
 	"au FileType xml exe ":silent 1,$!xmllint --format --recover - 2>/dev/null"
 
 	"Help in vertical split (right)
-	autocmd FileType help  wincmd L|setlocal nolist
+	autocmd FileType help  wincmd L|setlocal nolist|setlocal number
 
 	"Java
 	autocmd FileType java set tags+=$HOME/.jdkTags
@@ -966,5 +967,5 @@ autocmd BufWritePost *.py call UpdateTags()
 "-------[ Machine Specific stuff ]------------------------------------- {{{1
 "quick open  my timesheet
 nnoremap <leader>rh :vs /home/kent/Desktop/Projects/mje/ts.csv<cr>
-"
+
 " vim: fdm=marker ts=2 sw=2

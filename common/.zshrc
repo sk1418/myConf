@@ -471,8 +471,8 @@ alias free='free -m'
 alias df='df -Th'
 alias info='info --vi-keys'
 alias port='netstat -ntlp'
-#show top 15 of largest files/dirs
-alias big='du -hxa | sort -rh | head -15'
+#show top 10 of largest files/dirs
+alias big='du -hxa | sort -rh | head -11'
 
 #show port usage table
 alias ports="netstat -tupln"
@@ -498,6 +498,7 @@ compdef t="todo.sh"
 
 #====[ ag completion ]=============================================# {{{
 source $MY_ZSH_DIR/completion/*
+source /etc/profile.d/autojump.zsh
 # }}}
 mkdir -p /tmp/test
 #environment variables
