@@ -964,6 +964,8 @@ augroup END
 " autocmd for python project to update tags
 autocmd BufWritePost *.py call UpdateTags()
 
+
+
 "-------[ Machine Specific stuff ]------------------------------------- {{{1
 "quick open  my timesheet
 nnoremap <leader>rh :vs /home/kent/Desktop/Projects/mje/ts.csv<cr>

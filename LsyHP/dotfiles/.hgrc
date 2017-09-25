@@ -40,7 +40,7 @@ fetch =
 progress =
 color =
 bookmarks =
-prompt = ~/lib/hg-prompt/prompt.py
+#prompt = ~/lib/hg-prompt/prompt.py
 
 hggit =
 
