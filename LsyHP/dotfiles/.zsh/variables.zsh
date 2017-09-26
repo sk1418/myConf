@@ -17,16 +17,20 @@ export PATH=$PATH:/home/kent/javaEnv/maven3/bin:$ORACLE_HOME/bin:/home/kent/java
 export http_proxy=http://localhost:8888
 export https_proxy=http://localhost:8888
 export ftp_proxy=http://localhost:8888
-export no_proxy="localhost, 127.0.0.1, localdomain.com, 192.168.*.*, *.dlh.de, 57.*.*.*, lht.app.lufthansa.com"
+export no_proxy="localhost, 127.0.0.1, localdomain.com, 192.168.*.*, .dlh.de, 57.*.*.*, lht.app.lufthansa.com"
 
 export HTTP_PROXY=http://localhost:8888
 export HTTPS_PROXY=http://localhost:8888
 export FTP_PROXY=http://localhost:8888
-export NO_PROXY="localhost, 127.0.0.1, localdomain.com, 192.168.0.*, *.dlh.de, 57.*.*.*, lht.app.lufthansa.com"
+export NO_PROXY="localhost, 127.0.0.1, localdomain.com, 192.168.0.*, .dlh.de, 57.*.*.*, lht.app.lufthansa.com"
 
 #only for EC project
 export ANT_OPTS=-Dfile.encoding=iso-8859-1
-export _JAVA_OPTIONS="-Dawt.useSystemAAFontSettings=on -Dswing.aatext=true -Dhttp.proxyHost=localhost -Dhttp.proxyPort=8888 -Dhttps.proxyHost=localhost -Dhttps.proxyPort=8888 -Djavax.net.ssl.trustStore=$JAVA_HOME/jre/lib/security/cacerts -Djavax.net.ssl.trustStorePassword=changeit"
+_JAVA_OPTIONS="-Dawt.useSystemAAFontSettings=on -Dswing.aatext=true"
+#_JAVA_OPTIONS="$_JAVA_OPTIONS -Dhttp.proxyHost=localhost -Dhttp.proxyPort=8888 -Dhttps.proxyHost=localhost -Dhttps.proxyPort=8888"
+#_JAVA_OPTIONS="$_JAVA_OPTIONS -Dhttp.nonProxyHosts='localhost|lht.app.lufthansa.com|caculon.ham.dlh.de'"
+_JAVA_OPTIONS="$_JAVA_OPTIONS -Djavax.net.ssl.trustStore=$JAVA_HOME/jre/lib/security/cacerts -Djavax.net.ssl.trustStorePassword=changeit"
+export _JAVA_OPTIONS
 #gnu bc default config file
 export BC_ENV_ARGS=$HOME/.bcrc
 #add project into cd path
