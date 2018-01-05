@@ -340,7 +340,9 @@ let g:cycle_default_groups = [
 			\ ]
 
 "-----------[ Scratch.vim ]------------{{{2
-nmap <F3> :ScratchOpen<cr>
+" F3 to toggle scratch window
+nnoremap <expr> <F3> bufwinnr(bufnr(g:scratch_buffer_name))>0?  ':ScratchClose<CR>': ':ScratchOpen<CR>'
+
 
 "-----------[ TagBar plugin ]------------{{{2
 
