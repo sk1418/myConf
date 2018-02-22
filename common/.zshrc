@@ -499,7 +499,19 @@ compdef t="todo.sh"
 #====[ ag completion ]=============================================# {{{
 source $MY_ZSH_DIR/completion/*
 source /etc/profile.d/autojump.zsh
+#FIXME do some cleanup
 # }}}
+#
+#====[ fasd fast jump conf ]=============================================# {{{
+eval "$(fasd --init auto)"
+alias v='f -e vim'
+alias o='a -e xdg-open'
+#
+#}}}
+#====[ zsh-autosuggestions ]=============================================# {{{
+source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
+export ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=240"
+#}}}
 mkdir -p /tmp/test
 #environment variables
 source $MY_ZSH_DIR/variables.zsh
