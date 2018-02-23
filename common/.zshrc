@@ -498,8 +498,6 @@ compdef t="todo.sh"
 
 #====[ ag completion ]=============================================# {{{
 source $MY_ZSH_DIR/completion/*
-source /etc/profile.d/autojump.zsh
-#FIXME do some cleanup
 # }}}
 #
 #====[ fasd fast jump conf ]=============================================# {{{
@@ -509,8 +507,19 @@ alias o='a -e xdg-open'
 #
 #}}}
 #====[ zsh-autosuggestions ]=============================================# {{{
-source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
-export ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=240"
+#source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
+#export ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=240"
+#export ZSH_AUTOSUGGEST_BUFFER_MAX_SIZE=25
+#export ZSH_AUTOSUGGEST_USE_ASYNC=1
+#FIXME do some cleanup
+autoload -Uz history-beginning-search-menu
+zle -N history-beginning-search-menu
+bindkey '^X^X' history-beginning-search-menu
+
+autoload -Uz copy-earlier-word
+zle -N copy-earlier-word
+bindkey "^[," copy-earlier-word
+
 #}}}
 mkdir -p /tmp/test
 #environment variables

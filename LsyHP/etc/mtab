@@ -37,3 +37,4 @@ overlay /var/lib/docker/overlay2/4b237ccd1d1df12c72598e278457c2f902c3e55a19fd64b
 /dev/sda5 /var/lib/docker/containers/e6bfb4b3f0c5d554da2a94f5f4e8faf516c4489d9eaabdbcb96b63ce7e89bfed/mounts ext4 rw,relatime,data=ordered 0 0
 shm /var/lib/docker/containers/e6bfb4b3f0c5d554da2a94f5f4e8faf516c4489d9eaabdbcb96b63ce7e89bfed/mounts/shm tmpfs rw,nosuid,nodev,noexec,relatime,size=65536k 0 0
 nsfs /run/docker/netns/4d3a0a1588e8 nsfs rw 0 0
+/dev/sdb1 /run/media/kent/KINGSTON fuseblk rw,nosuid,nodev,relatime,user_id=0,group_id=0,default_permissions,allow_other,blksize=4096 0 0
