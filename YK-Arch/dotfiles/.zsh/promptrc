@@ -9,4 +9,4 @@ patches: <patches|join( → )|pre_applied(%{$fg[yellow]%})|post_applied(%{$reset
 }
 
 PROMPT='%{$bg[blue]%}%{$fg_bold[white]%}%M%{$reset_color%} %{$fg_bold[red]%}%*% %{$fg_bold[yellow]%} %/
-%{$fg[green]%}%n%B$ $(hg_prompt_info)$(git_super_status) '
+%{$fg[green]%}%n%B$ $(git_super_status) '

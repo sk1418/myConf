@@ -13,8 +13,10 @@
 /dev/sda1	/media/System_Reserved	ntfs-3g	defaults,locale=en_US.UTF-8	0	0
 
 #the usb 160G in box
-/dev/sdc1	/media/disk2	ext4	rw,relatime,data=ordered	0	1
+/dev/sdc1	/media/extra	ext4	rw,relatime,data=ordered	0	1
 /dev/sdc2	/media/borgBackup ext4	rw,relatime,data=ordered	0	1
+#old seagate 3.5 Disk
 #/dev/sda6	/	ext4	rw,relatime,data=ordered	0	1
 #/dev/sda7	/home	ext4	rw,relatime,data=ordered	0	2
+/dev/sda7	/media/oldHome ext4	rw,relatime,data=ordered	0	2
 
