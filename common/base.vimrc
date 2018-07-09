@@ -9,6 +9,8 @@ set showcmd             " display incomplete commands
 set nobackup            " do not keep a backup file
 set number              " show line numbers
 set ruler               " show the current row and column
+set cul                 " cursor line and color (below)
+hi CursorLine ctermbg=236 guibg=Grey40 term=none cterm=none
  
 set hlsearch            " highlight searches
 set incsearch           " do incremental searching

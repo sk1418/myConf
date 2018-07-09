@@ -120,7 +120,6 @@ hosts=(
   localhost
 )
 zstyle ':completion:*:hosts' hosts $hosts
-
 #}}}
 
 
@@ -153,12 +152,11 @@ autoload colors
 
 #====[ Prompt ]========================================================# {{{
 
-
-#zsh prompt
-source $MY_ZSH_DIR/promptrc
-
 #git prompt
 source $MY_LIB_DIR/git-prompt/zshrc.sh
+#
+#zsh prompt
+source $MY_ZSH_DIR/promptrc
 #}}}
 
 #====[ Functions ]==================================================# {{{
@@ -415,17 +413,6 @@ bindkey '^]' vi-find-next-char
 bindkey '\e]' vi-find-prev-char
 
 
-#ctrl+x twice to show history cmd list
-autoload -Uz history-beginning-search-menu
-zle -N history-beginning-search-menu
-bindkey '^X^X' history-beginning-search-menu
-
-
-# alt-, copy the 2nd param
-autoload -Uz copy-earlier-word
-zle -N copy-earlier-word
-bindkey "^[," copy-earlier-word
-
 #   pressing TAB in an empty command makes a cd command with completion list
 function dumb-cd {
     if [[ -n $BUFFER ]] ; then # 如果该行有内容
@@ -517,6 +504,21 @@ eval "$(fasd --init auto)"
 alias v='f -e vim'
 alias o='a -e xdg-open'
 #
+#}}}
+#====[ zsh-autosuggestions ]=============================================# {{{
+#source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
+#export ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=240"
+#export ZSH_AUTOSUGGEST_BUFFER_MAX_SIZE=25
+#export ZSH_AUTOSUGGEST_USE_ASYNC=1
+#FIXME do some cleanup
+autoload -Uz history-beginning-search-menu
+zle -N history-beginning-search-menu
+bindkey '^X^X' history-beginning-search-menu
+
+autoload -Uz copy-earlier-word
+zle -N copy-earlier-word
+bindkey "^[," copy-earlier-word
+
 #}}}
 mkdir -p /tmp/test
 #environment variables

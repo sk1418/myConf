@@ -430,7 +430,7 @@
 
 *OpenUI *PageSize/Paper Size: PickOne
 *OrderDependency: 60 AnySetup *PageSize
-*DefaultPageSize: Letter
+*DefaultPageSize: A4
 *PageSize A3/A3:  "<< /PageSize [842 1191] /ImagingBBox null >> setpagedevice
  << /WideMode false /FullBleed false >> /KMOptions /ProcSet findresource /setKMoptions get exec"
 *End
@@ -584,7 +584,7 @@
 *OpenGroup: Finishing/Finishing Options
 *OpenUI *Offset/Offset: Boolean
 *OrderDependency: 10 AnySetup *Offset
-*DefaultOffset: False
+*DefaultOffset: True
 *Offset False/Off:  "<< /Jog 0 >> setpagedevice"
 *Offset True/On:  "<< /Jog 3 >> setpagedevice"
 *CloseUI: *Offset
@@ -608,7 +608,7 @@
 
 *OpenUI *KMDuplex/Print Type: PickOne
 *OrderDependency: 15 AnySetup *KMDuplex
-*DefaultKMDuplex: 2Sided
+*DefaultKMDuplex: 1Sided
 *KMDuplex 1Sided/1-Sided:  "<< /Duplex false >> setpagedevice"
 *KMDuplex 2Sided/2-Sided:  "<< /Duplex true >> setpagedevice"
 *CloseUI: *KMDuplex
@@ -760,7 +760,7 @@
 
 *OpenUI *SelectColor/Select Color: PickOne
 *OrderDependency: 10 AnySetup *SelectColor
-*DefaultSelectColor: Auto
+*DefaultSelectColor: Color
 *SelectColor Auto/Auto Color:  "<< /HWResolution [600 600] >> setpagedevice
  <</ProcessColorModel /DeviceCMYK>> setpagedevice
  << /KMColorSelect 1 >> /KMOptions /ProcSet findresource /setKMoptions get exec
@@ -929,7 +929,7 @@
 *%
 *OpenUI *PageRegion: PickOne
 *OrderDependency: 60 AnySetup *PageRegion
-*DefaultPageRegion: Letter
+*DefaultPageRegion: A4
 *PageRegion A3/A3:  "<< /PageSize [842 1191] /ImagingBBox null >> setpagedevice
  << /WideMode false /FullBleed false >> /KMOptions /ProcSet findresource /setKMoptions get exec"
 *End
@@ -1076,7 +1076,7 @@
 *End
 *CloseUI: *PageRegion
 
-*DefaultPaperDimension: Letter
+*DefaultPaperDimension: A4
 *PaperDimension A3/A3:  "842 1191"
 *PaperDimension A4/A4:  "595 842"
 *PaperDimension A5/A5:  "420 595"
@@ -1126,7 +1126,7 @@
 *PaperDimension LetterTab-F/8 1/2x11 Tab:  "656 792"
 *PaperDimension A4Tab-F/A4 Tab:  "639 842"
 
-*DefaultImageableArea: Letter
+*DefaultImageableArea: A4
 *ImageableArea A3/A3:  "12 12 830 1179"
 *ImageableArea A4/A4:  "12 12 583 830"
 *ImageableArea A5/A5:  "12 12 408 583"
