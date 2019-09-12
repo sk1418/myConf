@@ -309,6 +309,9 @@ filetype plugin indent on
 
 "-------[ plugin mappings/settings ]-------------------------------------{{{1
 
+"-----------[ Ack  plugin   ]------------{{{2
+let g:ackprg = "ag --vimgrep"
+
 "-----------[ syntastic plugin ]------------{{{2
 "syntastic is nice, but not for java
 let g:syntastic_ignore_files = ['\.java$']
