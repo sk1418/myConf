@@ -584,7 +584,7 @@
 *OpenGroup: Finishing/Finishing Options
 *OpenUI *Offset/Offset: Boolean
 *OrderDependency: 10 AnySetup *Offset
-*DefaultOffset: True
+*DefaultOffset: False
 *Offset False/Off:  "<< /Jog 0 >> setpagedevice"
 *Offset True/On:  "<< /Jog 3 >> setpagedevice"
 *CloseUI: *Offset
@@ -787,7 +787,7 @@
 
 *OpenUI *OriginalImageType/Color Settings: PickOne
 *OrderDependency: 10 AnySetup *OriginalImageType
-*DefaultOriginalImageType: Document
+*DefaultOriginalImageType: Photo
 *OriginalImageType Document/Document:  "<< /Exposure 1 >> /KMOptions /ProcSet findresource /setKMoptions get exec"
 *OriginalImageType Photo/Photo:  "<< /Exposure 2 >> /KMOptions /ProcSet findresource /setKMoptions get exec"
 *OriginalImageType DTP/DTP:  "<< /Exposure 3 >> /KMOptions /ProcSet findresource /setKMoptions get exec"

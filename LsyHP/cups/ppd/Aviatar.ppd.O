@@ -584,7 +584,7 @@
 *OpenGroup: Finishing/Finishing Options
 *OpenUI *Offset/Offset: Boolean
 *OrderDependency: 10 AnySetup *Offset
-*DefaultOffset: True
+*DefaultOffset: False
 *Offset False/Off:  "<< /Jog 0 >> setpagedevice"
 *Offset True/On:  "<< /Jog 3 >> setpagedevice"
 *CloseUI: *Offset
@@ -608,7 +608,7 @@
 
 *OpenUI *KMDuplex/Print Type: PickOne
 *OrderDependency: 15 AnySetup *KMDuplex
-*DefaultKMDuplex: 1Sided
+*DefaultKMDuplex: 2Sided
 *KMDuplex 1Sided/1-Sided:  "<< /Duplex false >> setpagedevice"
 *KMDuplex 2Sided/2-Sided:  "<< /Duplex true >> setpagedevice"
 *CloseUI: *KMDuplex
@@ -760,7 +760,7 @@
 
 *OpenUI *SelectColor/Select Color: PickOne
 *OrderDependency: 10 AnySetup *SelectColor
-*DefaultSelectColor: Color
+*DefaultSelectColor: Auto
 *SelectColor Auto/Auto Color:  "<< /HWResolution [600 600] >> setpagedevice
  <</ProcessColorModel /DeviceCMYK>> setpagedevice
  << /KMColorSelect 1 >> /KMOptions /ProcSet findresource /setKMoptions get exec
