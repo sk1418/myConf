@@ -5,6 +5,7 @@ set nocompatible
 autocmd!  
 set listchars=eol:¬,tab:┊\ 
 set list
+set shortmess=a
 "backup and undos
 set history=1000         " remember more commands and search history
 set undolevels=1000      " use many muchos levels of undo 
@@ -308,6 +309,9 @@ call vundle#end()
 filetype plugin indent on  
 
 "-------[ plugin mappings/settings ]-------------------------------------{{{1
+
+"-----------[ Ack  plugin   ]------------{{{2
+let g:ackprg = "ag --vimgrep"
 
 "-----------[ syntastic plugin ]------------{{{2
 "syntastic is nice, but not for java
