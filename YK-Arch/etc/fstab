@@ -2,17 +2,57 @@
 #
 # <file system> <mount point>   <type>  <options>       <dump>  <pass>
 
-/dev/sdb1	/	ext4	rw,defaults,noatime,commit=120,data=ordered	0	1
-/dev/sdb2	/home	ext4	rw,defaults,noatime,data=ordered	0	2
-/dev/sda3	/media/Backup	ntfs-3g	defaults,locale=en_US.UTF-8	0	0
-/dev/sda2	/media/Data	ntfs-3g	defaults,locale=en_US.UTF-8	0	0
-/dev/sda1	/media/System_Reserved	ntfs-3g	defaults,locale=en_US.UTF-8	0	0
-/dev/sdc2	/media/borgBackup	ext4	rw,relatime,data=ordered	0	1
-/dev/sdc1	/media/extra	ext4	rw,relatime,data=ordered	0	1
-/dev/sda7	/media/oldHome	ext4	rw,relatime,data=ordered	0	2
-#/dev/sda6	/	ext4	rw,defaults,noatime,commit=120,data=ordered	0	1
-#/dev/sda7	/home	ext4	rw,defaults,noatime,data=ordered	0	2
+#===================
+# Samsung SSD 500G
+#===================
+#/sdb1 -> boot (with EFI)
+#/sdb2 -> home 
+#/sdb3 -> root 
+
+#fat32/dev/sdb1	/boot
+#/dev/sdb2	/home	ext4	rw,defaults,noatime,data=ordered	0	2
+#/dev/sdb3	/	ext4	rw,defaults,noatime,commit=120,data=ordered	0	1
+
+UUID="7838-A297" 	/boot 
+UUID="532880e3-963a-4084-8c07-345975711fda" /home	ext4	rw,defaults,noatime,data=ordered	0	2
+UUID="49261a97-21fd-4373-8004-0c5b7d03593e" /	ext4	rw,defaults,noatime,commit=120,data=ordered	0	1
+
+
+#===================
+# Seagate inner HDD 1T
+#===================
+
+#old archlinux
+#/dev/sda7	/media/oldHome	ext4	rw,relatime,data=ordered	0	2
+#/dev/sda6	/oldroot	ext4	rw,defaults,noatime,commit=120,data=ordered	0	1
 #/dev/sda5	none	swap	defaults	0	0
-#/dev/sda6	/	ext4	rw,relatime,data=ordered	0	1
-#/dev/sda7	/home	ext4	rw,relatime,data=ordered	0	2
+
+UUID="3d6342b2-8f16-4b67-98bd-a2ac7153b9d5" /media/oldHome	ext4	rw,relatime,data=ordered	0	2
+UUID="806c1f77-4a6e-41f0-9bda-4b5ac7d0aa47"	none	swap	defaults	0	0
+
+#Win
+#/dev/sda3	/media/Backup	ntfs-3g	defaults,locale=en_US.UTF-8	0	0
+#/dev/sda2	/media/Data	ntfs-3g	defaults,locale=en_US.UTF-8	0	0
+#/dev/sda1	/media/System_Reserved	ntfs-3g	defaults,locale=en_US.UTF-8	0	0
+
+UUID="F41850CC1850900A" /media/win/Backup	ntfs-3g	defaults,locale=en_US.UTF-8	0	0
+UUID="40B23322B2331BBA" /media/win/Data	ntfs-3g	defaults,locale=en_US.UTF-8	0	0
+#UUID="C0E45685E4567E1A" /media/System_Reserved	ntfs-3g	defaults,locale=en_US.UTF-8	0	0
+
+#===================
+# Seagate USB BK slim 1T
+#===================
+#/dev/sdc2	/media/borgBackup	ext4	rw,relatime,data=ordered	0	1
+#/dev/sdc1	/media/extra	ext4	rw,relatime,data=ordered	0	1
+UUID="ef09e31a-458b-4bcc-8bbd-c7ab56e4176f" /media/borgBackup	ext4	rw,relatime,data=ordered	0	1
+UUID="6e478bf5-e788-47ae-8425-d633882c8b16" /media/extra	ext4	rw,relatime,data=ordered	0	1
+
+
+#===================
+# WD inner HDD 8T
+#===================
+UUID="5d22f6c4-f590-411f-b83e-72af5b66f516" /media/AK_Resources	ext4	rw,relatime,data=ordered	0	1
+UUID="f7406fd6-4af1-4e04-8f3d-5208f21b7ecc" /media/AK_Backup ext4 rw,relatime,data=ordered	0	1
+UUID="0e1416a3-05d7-42c7-a0bf-e18c2ab59c6e" /media/AK_Movie ext4	rw,relatime,data=ordered	0	1
+
 

@@ -648,7 +648,7 @@ let g:indentLine_fileTypeExclude=['help']
 "this would be called on autocmd event BufWritePost
 function! AutoCmd_chmodx()
 	if getline(1) =~ '#!'
-		let f = shellescape(@%,1)
+		let f = expand('%:p')
 		if stridx(getfperm(f), 'x') != 2
 			call system("chmod +x ".f)
 			e!
@@ -975,5 +975,8 @@ autocmd BufWritePost *.py call UpdateTags()
 "-------[ Machine Specific stuff ]------------------------------------- {{{1
 "quick open  my timesheet
 nnoremap <leader>rh :vs /home/kent/Desktop/Projects/mje/ts.csv<cr>
+
+cnoreabbrev nnn e /tmp/foo_<c-r>=strftime("%Y-%m-%d_%H:%M:%S")<cr>
+ 
 
 " vim: fdm=marker ts=2 sw=2
