@@ -259,13 +259,14 @@ Plugin 'mbbill/fencview'
 Plugin 'sjl/gundo.vim'
 Plugin 'vim-scripts/matchit.zip'
 Plugin 'vim-scripts/mru.vim'
-Plugin 'scrooloose/nerdtree'
+"Plugin 'scrooloose/nerdtree'
 Plugin 'scrooloose/nerdcommenter'
 
 
 "dependencies for snipmate
 "Plugin 'honza/vim-snippets'
 
+Plugin 'jeetsukumaran/vim-filebeagle'
 Plugin 'tpope/vim-repeat'
 Plugin 'tpope/vim-surround'
 Plugin 'tpope/vim-fugitive'
