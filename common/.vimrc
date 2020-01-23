@@ -168,7 +168,7 @@ vnoremap <space> za
 nnoremap <leader>zz zMzvzz
 
 "clear hl search by pressing ,/
-nnoremap <silent> <Leader>/  :noh<cr>
+nnoremap <silent> <Leader>c  :noh<cr>
 "Alt-j/k moving selected lines up and down only in visual mode
 set timeout timeoutlen=1000 ttimeoutlen=0
 "nmap <F14> :m+<CR>==
@@ -227,11 +227,7 @@ nnoremap <C-l> <C-w>l
 "c-a in command line move to the BOL:
 cnoremap <C-A> <Home>
 
-"quick visual select whole buffer (comment out, since ggVG not hard either)
-"nnoremap vaa ggVG
 
-" moving cursor out of (right of ) autoClosed brackets
-inoremap <c-l> <esc>%%a
 "-------[ Plugins / Bundles ]----------------------------------------{{{1
 
 filetype off
@@ -246,6 +242,7 @@ Plugin 'vim-scripts/desert256.vim'
 Plugin 'sk1418/last256'
 Plugin 'altercation/vim-colors-solarized'
 Plugin 'L9'
+Plugin 'morhetz/gruvbox'
 "Plugin 'nathanaelkane/vim-indent-guides'
 Plugin 'mileszs/ack.vim'
 Plugin 'rking/ag.vim'
@@ -382,7 +379,8 @@ nnoremap <F2> :NERDTreeToggle<cr>
 "let g:AutoClosePumvisible ={"ESC":"\<ESC>"}
 
 "-----------[ Gundo plugin      ]------------{{{2
-nnoremap <Leader>u :GundoToggle<CR>
+nnoremap <Leader>u :silent GundoToggle<CR>
+let gundo_prefer_python3 = 1
 
 
 "-----------[ Unite plugin     ]------------{{{2
@@ -565,6 +563,7 @@ if $DISPLAY == ""
 else
 	set t_Co=256
 	colorscheme last256
+	"colorscheme gruvbox
 
 	" below are solarized settings
 	"let g:solarized_termcolors = 256
@@ -978,6 +977,7 @@ autocmd BufWritePost *.py call UpdateTags()
 nnoremap <leader>rh :vs /home/kent/Desktop/Projects/mje/ts.csv<cr>
 
 cnoreabbrev nnn e /tmp/foo_<c-r>=strftime("%Y-%m-%d_%H:%M:%S")<cr>
- 
+
+map <leader>/ <plug>NERDCommenterToggle
 
 " vim: fdm=marker ts=2 sw=2
