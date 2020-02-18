@@ -1,0 +1,24 @@
+BLE系列默认命令按键
+以下列出的是BLE系列才支持的。
+
+按键	功能说明
+LShift+RShift+W	切换蓝牙功能开关
+LShift+RShift+R	清除键盘端蓝牙配对信息
+LShift+RShift+U	蓝牙或USB模式切换
+LShift+RShift+I	设置蓝牙为可发现
+LShift+RShift+O	设置蓝牙为不可发现
+LShift+RShift+P	切换蓝牙节能模式开关
+LShift+RShift+S	显示蓝牙连接状态指示
+LShift+RShift+B	重启键盘
+
+全系列默认命令按键
+以下列出的是YDKB全系列都支持的。
+
+按键	功能说明
+LShift+RShift+F10,F1…F7	设置默认层 0…7
+LShift+RShift+0…7	设置默认层 0…7
+LShift+RShift+N	USB模式下切换全键无冲/6键无冲1
+LShift+RShift+Pause	重启键盘或进入刷机模式2
+
+bluetooth status LED:
+HHKB BLE	未连接时LED3快闪(默认绿灯)，已连接时LED2和LED3较慢闪
