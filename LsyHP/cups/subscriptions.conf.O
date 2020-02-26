@@ -1,11 +1,11 @@
 # Subscription configuration file for CUPS v2.3.0
-# Written by cupsd on 2019-11-22 14:41
-NextSubscriptionId 47
-<Subscription 46>
+# Written by cupsd on 2020-02-18 17:11
+NextSubscriptionId 53
+<Subscription 52>
 Events printer-state-changed printer-restarted printer-shutdown printer-stopped printer-added printer-deleted printer-modified job-state-changed job-created job-completed job-stopped job-progress
 Owner kent
 LeaseDuration 86400
 Interval 0
-ExpirationTime 1574516214
-NextEventId 83
+ExpirationTime 1582124662
+NextEventId 221
 </Subscription>

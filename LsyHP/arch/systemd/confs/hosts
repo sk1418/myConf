@@ -5,6 +5,7 @@
 #<ip-address>	<hostname.domain.org>	<hostname>
 127.0.0.1	localhost	localhost LsyHP.ads.dlh.de
 127.0.0.1	localhost	localhost wsp169090wss.ads.dlh.de
+127.0.0.1   www.xmind.net
 ::1		localhost	localhost
 57.20.31.126 FS-HAMLSYI-01-DFS-VS
 

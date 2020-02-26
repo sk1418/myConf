@@ -760,7 +760,7 @@
 
 *OpenUI *SelectColor/Select Color: PickOne
 *OrderDependency: 10 AnySetup *SelectColor
-*DefaultSelectColor: Auto
+*DefaultSelectColor: Color
 *SelectColor Auto/Auto Color:  "<< /HWResolution [600 600] >> setpagedevice
  <</ProcessColorModel /DeviceCMYK>> setpagedevice
  << /KMColorSelect 1 >> /KMOptions /ProcSet findresource /setKMoptions get exec
@@ -787,7 +787,7 @@
 
 *OpenUI *OriginalImageType/Color Settings: PickOne
 *OrderDependency: 10 AnySetup *OriginalImageType
-*DefaultOriginalImageType: Document
+*DefaultOriginalImageType: Photo
 *OriginalImageType Document/Document:  "<< /Exposure 1 >> /KMOptions /ProcSet findresource /setKMoptions get exec"
 *OriginalImageType Photo/Photo:  "<< /Exposure 2 >> /KMOptions /ProcSet findresource /setKMoptions get exec"
 *OriginalImageType DTP/DTP:  "<< /Exposure 3 >> /KMOptions /ProcSet findresource /setKMoptions get exec"

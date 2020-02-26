@@ -92,3 +92,5 @@
 
 [log]
 	 date = iso
+[credential]
+	helper = cache

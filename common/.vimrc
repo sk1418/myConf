@@ -967,9 +967,25 @@ augroup fugitive
 	autocmd BufReadPost fugitive://* set bufhidden=delete
 augroup END
 
+"highlight some keywords in my 'publish.md'
+augroup publishing
+	autocmd!
+	autocmd BufEnter published.md call Hi_Publish()
+augroup END
+
+function! Hi_Publish()
+		exec 'hi! Paid  term=bold cterm=bold guifg=black guibg=darkgray ctermfg=16 ctermbg=darkgray'
+		exec 'hi! NotPaid  term=bold cterm=bold guifg=black guibg=red ctermfg=16 ctermbg=red'
+		exec 'hi! Working  term=bold cterm=bold guifg=black guibg=lightgreen ctermfg=16 ctermbg=darkgreen'
+		call matchadd("Paid", "[Pp]aid")
+		call matchadd("NotPaid", "[nN]otPaid")
+		call matchadd("Working", "[Ww]orking")
+endfunction
+
+
+
 " autocmd for python project to update tags
 autocmd BufWritePost *.py call UpdateTags()
-
 
 
 "-------[ Machine Specific stuff ]------------------------------------- {{{1
