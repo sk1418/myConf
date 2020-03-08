@@ -980,6 +980,7 @@ function! Hi_Publish()
 		call matchadd("Paid", "[Pp]aid")
 		call matchadd("NotPaid", "[nN]otPaid")
 		call matchadd("Working", "[Ww]orking")
+		exec 'normal zM'
 endfunction
 
 
@@ -994,6 +995,6 @@ nnoremap <leader>rh :vs /home/kent/Desktop/Projects/mje/ts.csv<cr>
 
 cnoreabbrev nnn e /tmp/foo_<c-r>=strftime("%Y-%m-%d_%H:%M:%S")<cr>
 
-map <leader>/ <plug>NERDCommenterToggle
+map <leader>c<space> <plug>NERDCommenterToggle
 
 " vim: fdm=marker ts=2 sw=2
