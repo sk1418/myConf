@@ -977,7 +977,9 @@ function! Hi_Publish()
 		exec 'hi! Paid  term=bold cterm=bold guifg=black guibg=darkgray ctermfg=16 ctermbg=darkgray'
 		exec 'hi! NotPaid  term=bold cterm=bold guifg=black guibg=red ctermfg=16 ctermbg=red'
 		exec 'hi! Working  term=bold cterm=bold guifg=black guibg=lightgreen ctermfg=16 ctermbg=darkgreen'
+		exec 'hi! Published  term=bold cterm=bold guifg=black guibg=lightblue ctermfg=16 ctermbg=darkblue'
 		call matchadd("Paid", "[Pp]aid")
+		call matchadd("Published", "[Pp]ublished")
 		call matchadd("NotPaid", "[nN]otPaid")
 		call matchadd("Working", "[Ww]orking")
 		exec 'normal zM'
