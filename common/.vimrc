@@ -982,7 +982,7 @@ function! Hi_Publish()
 		call matchadd("Published", "[Pp]ublished")
 		call matchadd("NotPaid", "[nN]otPaid")
 		call matchadd("Working", "[Ww]orking")
-		exec 'normal zM'
+		exec 'normal zMgg)'
 endfunction
 
 

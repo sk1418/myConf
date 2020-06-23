@@ -29,7 +29,7 @@ export ANT_OPTS=-Dfile.encoding=iso-8859-1
 _JAVA_OPTIONS="-Dawt.useSystemAAFontSettings=on -Dswing.aatext=true"
 #_JAVA_OPTIONS="$_JAVA_OPTIONS -Dhttp.proxyHost=localhost -Dhttp.proxyPort=8888 -Dhttps.proxyHost=localhost -Dhttps.proxyPort=8888"
 #_JAVA_OPTIONS="$_JAVA_OPTIONS -Dhttp.nonProxyHosts='localhost|lht.app.lufthansa.com|caculon.ham.dlh.de'"
-_JAVA_OPTIONS="$_JAVA_OPTIONS -Djavax.net.ssl.trustStore=$JAVA_HOME/jre/lib/security/cacerts -Djavax.net.ssl.trustStorePassword=changeit"
+_JAVA_OPTIONS="$_JAVA_OPTIONS -Djavax.net.ssl.trustStore=$JAVA_HOME/lib/security/cacerts -Djavax.net.ssl.trustStorePassword=changeit"
 export _JAVA_OPTIONS
 #gnu bc default config file
 export BC_ENV_ARGS=$HOME/.bcrc

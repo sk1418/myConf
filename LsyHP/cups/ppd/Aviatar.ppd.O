@@ -608,7 +608,7 @@
 
 *OpenUI *KMDuplex/Print Type: PickOne
 *OrderDependency: 15 AnySetup *KMDuplex
-*DefaultKMDuplex: 2Sided
+*DefaultKMDuplex: 1Sided
 *KMDuplex 1Sided/1-Sided:  "<< /Duplex false >> setpagedevice"
 *KMDuplex 2Sided/2-Sided:  "<< /Duplex true >> setpagedevice"
 *CloseUI: *KMDuplex

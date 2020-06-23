@@ -94,3 +94,4 @@
 	 date = iso
 [credential]
 	helper = cache
+	helper = store --file ~/.git-credentials
