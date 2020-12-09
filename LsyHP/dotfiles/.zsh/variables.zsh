@@ -7,10 +7,10 @@ export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$ORACLE_HOME/lib:$DEV_HOME/sapjco-linuxi
 #export M2_HOME=$DEV_HOME/maven
 export M2_HOME=$DEV_HOME/maven3
 export MAVEN_HOME=$DEV_HOME/maven3
-export MAVEN_OPTS="-Djavax.net.ssl.trustStore=/home/kent/javaEnv/7p/7p-keystore -Djavax.net.ssl.trustStorePassword=changeit"
+export MAVEN_OPTS=
 export JBOSS_HOME=$DEV_HOME/jboss-eap-5.1.2/jboss-eap-5.1/jboss-as
 export TOMCAT_HOME=$DEV_HOME/tomcat5
-export PATH=$PATH:/home/kent/javaEnv/maven3/bin:$ORACLE_HOME/bin:/home/kent/javaEnv/ant/bin:$HOME/bin:/home/kent/.npm_modules/bin
+export PATH=$PATH:/home/kent/javaEnv/maven3/bin:$ORACLE_HOME/bin:/home/kent/javaEnv/ant/bin:$HOME/bin:/home/kent/.npm_modules/bin:/home/kent/Desktop/Projects/Aviatar/openshift/
 #export TERM=xterm-256color
 
 #proxy setting

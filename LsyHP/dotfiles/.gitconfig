@@ -65,6 +65,8 @@
 	#check incoming changes
 	incoming = "!incoming(){ git fetch && git log ..origin/$(git rev-parse --abbrev-ref HEAD) ;}; incoming"
 
+	delTag = "!delTag(){ git push --delete origin $1;}; delTag"
+
 [push]
     default = current
 

@@ -2,14 +2,17 @@
 # Configuration file for the CUPS scheduler.  See "man cupsd.conf" for a
 # complete description of this file.
 #
- 
-# Disable cups internal logging - use logrotate instead
-MaxLogSize 0
 
 # Log general information in error_log - change "warn" to "debug"
 # for troubleshooting...
 LogLevel warn
 #PageLogFormat
+
+# Specifies the maximum size of the log files before they are rotated.  The value "0" disables log rotation.
+MaxLogSize 0
+
+# Default error policy for printers
+ErrorPolicy stop-printer
 
 # Only listen for connections from the local machine.
 Listen localhost:631

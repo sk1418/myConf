@@ -302,6 +302,7 @@ Plugin 'Shougo/neomru.vim'
 Plugin 'Shougo/unite-outline'
 Plugin 'Shougo/neosnippet-snippets'
 Plugin 'dbakker/vim-projectroot'
+Plugin 'lifepillar/vim-solarized8'
 
 call vundle#end()
 filetype plugin indent on  
@@ -555,7 +556,18 @@ elseif $COLORTERM !~ '^xfce4'
 endif
 "here set the cursor shape only for urxvt terminal. for more info man 7
 "urxvt then search Cursor Style
+"
 "-------[ color scheme ]--{{{1
+
+" true color
+if has("termguicolors")
+		" fix bug for vim
+		set t_8f=[38;2;%lu;%lu;%lum
+		set t_8b=[48;2;%lu;%lu;%lum
+
+		" enable true color
+		set termguicolors
+endif
 
 set background=dark
 if $DISPLAY == ""
@@ -570,9 +582,10 @@ else
 	"let g:solarized_termtrans = 1
 	"colorscheme solarized
 endif
-set gfn=Monaco\ 12
-"set gfn=Inconsolata-g\ 12
+set gfn=Monaco\ 13
+"set gfn=Inconsolata-g\ 13
 set gfw=WenQuanYi\ Micro\ Hei\ 12
+
 "-------[ Status bar ]------------------------------------❱----{{{1
 
 set statusline =%7*[%n]%*
