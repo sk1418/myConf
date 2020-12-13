@@ -499,11 +499,35 @@ compdef t="todo.sh"
 source $MY_ZSH_DIR/completion/*
 # }}}
 #
+#====[ fzf config]=============================================# {{{
+
+#source the default key-bindings
+source  /usr/share/fzf/key-bindings.zsh
+
+export FZF_DEFAULT_COMMAND='ag --hidden --ignore .git -l -g ""'
+export FZF_DEFAULT_OPTS='--height 70% --reverse --border'
+export FZF_CTRL_T_OPTS="--preview '(highlight -O ansi -l {} 2> /dev/null || cat {} || tree -C {}) 2> /dev/null | head -200'"
+
+
+#fkill() {
+  #local pid
+  #pid=$(ps -ef | sed 1d | fzf -m | awk '{print $2}')
+
+  #if [ "x$pid" != "x" ]
+  #then
+	#echo $pid | xargs kill -${1:-9}
+  #fi
+#}
+#}}}
+#
 #====[ fasd fast jump conf ]=============================================# {{{
 eval "$(fasd --init auto)"
 alias v='f -e vim'
 alias o='a -e xdg-open'
-#
+
+#combine fasd and fzf "cd/z" command
+source $MY_ZSH_DIR/fzf-fasd.zsh
+
 #}}}
 #====[ zsh-autosuggestions ]=============================================# {{{
 #source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh

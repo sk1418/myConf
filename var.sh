@@ -20,11 +20,14 @@ COMMON_DIR="$ROOT_DIR/common"
 HOST_DIR="$ROOT_DIR/$ME"
 MY_DOTFILES="$HOST_DIR/dotfiles"
 MY_Arch="$HOST_DIR/arch"
-ZSH_COMP="$HOME/.zsh/completion"
-COMMON_ZSH_COMP="$COMMON_DIR/.zsh/completion"
+#ZSH_COMP="$HOME/.zsh/completion"
+#COMMON_ZSH_COMP="$COMMON_DIR/.zsh/completion"
 
 print_sep(){
 	echo "----------------------------------------------"
+}
+print_step(){
+	echo "file:> $1 "
 }
 
 # vim:sw=2 ts=2

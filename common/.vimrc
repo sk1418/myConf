@@ -62,6 +62,7 @@ set display=lastline " show complete content, without @
 "filetype indent plugin on
 "vertical split open new window on right
 set splitright
+"set splitbelow
 set fillchars=diff:⣿,vert:║  "split and diff splitchar (old vert split char:│)
 set concealcursor=nc "hide concealed chars in N & C mode
 set synmaxcol=1000 "don't highlight line longer than 1000
@@ -109,7 +110,7 @@ autocmd FileType java,javascript,vim,xml,html,xhtml set fdm=syntax
 "leave autocompletion setting to neocomplete plugin
 
 "increment completion (keep the options when typing)
-set completeopt=longest,menuone
+set completeopt=longest,menuone,popup
 "inoremap <expr> <cr> pumvisible() ? "\<c-y>" : "\<c-g>u\<cr>"
 "inoremap <expr> <c-n> pumvisible() ? "\<c-n>" : "\<c-n>\<c-r>=pumvisible() ? \"\\<down>\" : \"\\<cr>\""
 "inoremap <expr> <m-;> pumvisible() ? "\<c-n>" : "\<c-x>\<c-o>\<c-n>\<c-p>\<c-r>=pumvisible() ? \"\\<down>\" : \"\\<cr>\""
@@ -230,81 +231,77 @@ cnoremap <C-A> <Home>
 
 "-------[ Plugins / Bundles ]----------------------------------------{{{1
 
-filetype off
-set runtimepath+=~/.vim/bundle/vundle
-call vundle#begin()
-
+call plug#begin('~/.vim/plugged')
 " color schemes
-Plugin 'gmarik/vundle'
+Plug 'fugalh/desert.vim'
+Plug 'vim-scripts/desert256.vim'
+Plug 'sk1418/last256'
+Plug 'altercation/vim-colors-solarized'
 
-Plugin 'fugalh/desert.vim'
-Plugin 'vim-scripts/desert256.vim'
-Plugin 'sk1418/last256'
-Plugin 'altercation/vim-colors-solarized'
-Plugin 'L9'
-Plugin 'morhetz/gruvbox'
-"Plugin 'nathanaelkane/vim-indent-guides'
-Plugin 'mileszs/ack.vim'
-Plugin 'rking/ag.vim'
-Plugin 'othree/xml.vim'
-Plugin 'vim-scripts/Align'
-"Plugin 'Townk/vim-autoclose'
-Plugin 'Raimondi/delimitMate'
-Plugin 'vim-scripts/cecutil'
-Plugin 'vim-scripts/DrawIt'
-Plugin 'mbbill/fencview'
-Plugin 'sjl/gundo.vim'
-Plugin 'vim-scripts/matchit.zip'
-Plugin 'vim-scripts/mru.vim'
-"Plugin 'scrooloose/nerdtree'
-Plugin 'scrooloose/nerdcommenter'
+Plug 'vim-scripts/L9'
+Plug 'morhetz/gruvbox'
+Plug 'mileszs/ack.vim'
+Plug 'rking/ag.vim'
+Plug 'othree/xml.vim'
+Plug 'vim-scripts/Align'
+
+Plug 'Raimondi/delimitMate'
+Plug 'vim-scripts/cecutil'
+Plug 'vim-scripts/DrawIt'
+Plug 'mbbill/fencview'
+Plug 'sjl/gundo.vim'
+Plug 'vim-scripts/matchit.zip'
+Plug 'vim-scripts/mru.vim'
+"Plug 'scrooloose/nerdtree'
+Plug 'scrooloose/nerdcommenter'
+Plug 'scrooloose/syntastic'
 
 
-"dependencies for snipmate
-"Plugin 'honza/vim-snippets'
-
-Plugin 'jeetsukumaran/vim-filebeagle'
-Plugin 'tpope/vim-repeat'
-Plugin 'tpope/vim-surround'
-Plugin 'tpope/vim-fugitive'
-Plugin 'tpope/vim-markdown'
-Plugin 'majutsushi/tagbar'
-"Plugin 'vim-scripts/FuzzyFinder'
-Plugin 'Lokaltog/vim-easymotion'
+Plug 'jeetsukumaran/vim-filebeagle'
+Plug 'tpope/vim-repeat'
+Plug 'tpope/vim-surround'
+Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-markdown'
+Plug 'majutsushi/tagbar'
+"Plug 'vim-scripts/FuzzyFinder'
+Plug 'Lokaltog/vim-easymotion'
 "
-"Plugin 'Mark%1238'
-Plugin 'vim-scripts/ShowMarks'
-"Plugin 'vim-scripts/Conque-Shell'
-Plugin 'kana/vim-scratch'
-Plugin 'vim-scripts/fcitx.vim'
+Plug 'vim-scripts/ShowMarks'
+Plug 'kana/vim-scratch'
+Plug 'vim-scripts/fcitx.vim'
 
-Plugin 'mattn/calendar-vim'
-Plugin 'vim-scripts/vimwiki'
+Plug 'mattn/calendar-vim'
+Plug 'vim-scripts/vimwiki'
 
-"Plugin 'lilydjwg/colorizer'
-"Plugin 'vim-scripts/lilypink'
-Plugin 'scrooloose/syntastic'
-"Plugin 'kien/ctrlp.vim'
-Plugin 'tommcdo/vim-exchange'
+"Plug 'lilydjwg/colorizer'
+"Plug 'kien/ctrlp.vim'
+Plug 'tommcdo/vim-exchange'
 
-Plugin 'Yggdroot/indentLine'
-Plugin 'sk1418/DirDiff.vim'
-Plugin 'sk1418/QFGrep'
-Plugin 'sk1418/HowMuch'
-Plugin 'sk1418/Join'
-Plugin 'sk1418/blockit'
-Plugin 'bootleq/vim-cycle'
-Plugin 'Shougo/vimproc.vim'
-Plugin 'Shougo/unite.vim'
-Plugin 'Shougo/neocomplete'
-Plugin 'Shougo/neosnippet'
-Plugin 'Shougo/neomru.vim'
-Plugin 'Shougo/unite-outline'
-Plugin 'Shougo/neosnippet-snippets'
-Plugin 'dbakker/vim-projectroot'
-Plugin 'lifepillar/vim-solarized8'
+Plug 'Yggdroot/indentLine'
+Plug 'sk1418/DirDiff.vim'
+Plug 'sk1418/QFGrep'
+Plug 'sk1418/HowMuch'
+Plug 'sk1418/Join'
+Plug 'sk1418/blockit'
+Plug 'bootleq/vim-cycle'
+Plug 'Shougo/vimproc.vim', {'do' : 'make'}
+Plug 'Shougo/unite.vim'
 
-call vundle#end()
+"Plug 'Shougo/neocomplete'
+Plug 'Shougo/deoplete.nvim'
+Plug 'roxma/nvim-yarp'
+Plug 'roxma/vim-hug-neovim-rpc'
+Plug 'deoplete-plugins/deoplete-jedi'
+Plug 'Shougo/neco-vim'
+
+Plug 'Shougo/neosnippet'
+Plug 'Shougo/neomru.vim'
+Plug 'Shougo/unite-outline'
+Plug 'Shougo/neosnippet-snippets'
+Plug 'dbakker/vim-projectroot'
+Plug 'lifepillar/vim-solarized8'
+
+call plug#end()
 filetype plugin indent on  
 
 "-------[ plugin mappings/settings ]-------------------------------------{{{1
@@ -414,52 +411,16 @@ nnoremap <Leader>fr :<c-u>Unite file_mru<CR>
 nnoremap <Leader>fo :<c-u>Unite outline<CR>
 nnoremap <Leader>fa :<c-u>Unite -start-insert file_rec/async:! buffer file_mru outline<CR>
 
-"-----------[ CtrlP plugin     ]------------{{{2
 
-"let g:ctrlp_max_height = 20
-"let g:ctrlp_mruf_max =140 
-"let g:ctrlp_custom_ignore = {
-			"\ 'dir':  '\v[\/]\.(git|svn|hg)$',
-			"\ 'file': '\v\.(zip|gz|pdf|exe|so|dat|class|pyc|jar|swpr|png|jpg|gif)$'
-			"\ }
+"-----------[ deocomplete   ]------------{{{2
 
-"nnoremap <Leader>fb :CtrlPBuffer<cr>
-"nnoremap <Leader>ft :CtrlPTag<cr>
-"nnoremap <Leader>fr :CtrlPMRU<cr>
+let g:deoplete#enable_at_startup = 1
 
-"-----------[ neocomplete   ]------------{{{2
+"show python docstring
+let g:deoplete#sources#jedi#show_docstring=1
 
-" Disable AutoComplPop.
-let g:acp_enableAtStartup = 0
-" Use neocomplete.
-let g:neocomplete#enable_at_startup = 1
-" Use smartcase.
-let g:neocomplete#enable_smart_case = 1
-" Set minimum syntax keyword length.
-let g:neocomplete#sources#syntax#min_keyword_length = 3
-
-
-" Define keyword.
-if !exists('g:neocomplete#keyword_patterns')
-	let g:neocomplete#keyword_patterns = {}
-endif
-let g:neocomplete#keyword_patterns['default'] = '\h\w*'
-let g:neocomplete#disable_auto_complete=0
-
-" Plugin key-mappings.
-inoremap <expr><C-g>     neocomplete#undo_completion()
-inoremap <expr><C-j>     neocomplete#complete_common_string()
-
-let g:neocomplete#enable_at_startup = 1
-let g:neocomplete#enable_smart_case = 1
-let g:neocomplete#enable_prefetch = 0
-" disable text mode completely
-let g:neocomplete#text_mode_filetypes = {}
-let g:neocomplete#same_filetypes = {}
-let g:neocomplete#same_filetypes._ = '_'
-
-" Close popup and back to INSERT by <ctrl-k>.
-inoremap <expr><c-k> pumvisible() ? neocomplete#close_popup() : "\<c-k>"
+"Close preview window after CompleteDone, only work with 'preview' in completeopt
+autocmd InsertLeave,CompleteDone * if pumvisible() == 0 | pclose | endif
 
 
 "-----------[ neosnippet   ]------------{{{2
@@ -870,12 +831,12 @@ command! VimColorTest call VimColorTest('/tmp/vim-color-test.tmp', 1, 256)
 
 function! GvimColorTest(outfile)
 	let result = []
-	for red in range(0, 255, 16)
-		for green in range(0, 255, 16)
-			for blue in range(0, 255, 16)
+	for red in range(0, 255, 12)
+		for green in range(0, 255, 12)
+			for blue in range(0, 255, 12)
 				let kw = printf('%-13s', printf('c_%d_%d_%d', red, green, blue))
-				let fg = printf('#%02x%02x%02x', red, green, blue)
-				let bg = '#fafafa'
+				let bg = printf('#%02x%02x%02x', red, green, blue)
+				let fg = '#ffffff'
 				let h = printf('hi %s guifg=%s guibg=%s', kw, fg, bg)
 				let s = printf('syn keyword %s %s', kw, kw)
 				call add(result, printf('%s | %s', h, s))
@@ -987,10 +948,11 @@ augroup publishing
 augroup END
 
 function! Hi_Publish()
-		exec 'hi! Paid  term=bold cterm=bold guifg=black guibg=darkgray ctermfg=16 ctermbg=darkgray'
-		exec 'hi! Payment-Requested  term=bold cterm=bold guifg=black guibg=red ctermfg=16 ctermbg=red'
-		exec 'hi! Working  term=bold cterm=bold guifg=black guibg=lightgreen ctermfg=16 ctermbg=darkgreen'
-		exec 'hi! Published  term=bold cterm=bold guifg=black guibg=lightblue ctermfg=16 ctermbg=darkblue'
+		exec 'hi! Paid  term=bold cterm=bold guifg=black guibg=#999999 ctermfg=16 ctermbg=darkgray'
+		exec 'hi! Payment-Requested  term=bold cterm=bold guifg=black guibg=#f01060 ctermfg=16 ctermbg=red'
+		exec 'hi! Working  term=bold cterm=bold guifg=black guibg=#7080c0 ctermfg=16 ctermbg=darkgreen'
+		exec 'hi! Published  term=bold cterm=bold guifg=black guibg=#50a070 ctermfg=16 ctermbg=darkblue'
+
 		call matchadd("Paid", "[Pp]aid")
 		call matchadd("Published", "[Pp]ublished")
 		call matchadd("Payment-Requested", "[Pp]ayment-[rR]equested")

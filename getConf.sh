@@ -31,15 +31,18 @@ backup_common(){
 	.bcrc
 	firefoxProxy.pac
 	)
+	COMMON_DOT_ZSH_FILES="$HOME/.zsh/completion"
 	for f in ${COMMON_FILES[@]}
 	do
-		rsync -a --exclude="todo.txt" $HOME/$f $COMMON_DIR
+		print_step "$f"
+		rsync -a --force --exclude="todo.txt" --exclude="$HOME/.zsh/variables.zsh" $HOME/$f $COMMON_DIR
 	done
-# zsh completion
-	mkdir -p $COMMON_ZSH_COMP > /dev/null 2>&1
-	rsync -a $ZSH_COMP/* $COMMON_ZSH_COMP
 
-	echo "done!"
+	DOT_ZSH_DIR="$HOME/.zsh"
+	print_step "$DOT_ZSH_DIR excluding .zsh/.zsh-* and .zsh/.zsh_*"
+	rsync -ar --exclude="variables.zsh" --exclude=".zsh_*" --exclude=".zsh-*" $DOT_ZSH_DIR $COMMON_DIR
+
+	echo "Common Part Done!"
 }
 
 
@@ -51,20 +54,21 @@ backup_host_config(){
 	mkdir -p $MY_DOTFILES > /dev/null 2>&1
 	print_sep
 	HOST_FILES=(.bashrc
+  .zsh/variables.zsh
 	.xinitrc 
 	.hgrc
 	.hgignore
 	.gitconfig
 	.gitignore)
 	for f in ${HOST_FILES[@]}; do
-		cp -f $HOME/$f $MY_DOTFILES/.
+		print_step "$f"
+		rsync -a --force $HOME/$f $MY_DOTFILES/.
 	done
-	rsync -arv --exclude=".zsh_*" --exclude="completion"  $HOME/.zsh $MY_DOTFILES/
 	# rsync -arv $HOME/.vim $MY_DOTFILES/ #don't sync .vim/backups for privcy reason
 	#cp ssh config and keep directory structure
 	mkdir -p $MY_DOTFILES/.ssh
 	cp  $HOME/.ssh/config  $MY_DOTFILES/.ssh/config	> /dev/null 2>&1
-	echo "done!"
+	echo "Host-spec Part Done!"
 }
 
 
@@ -87,11 +91,13 @@ backup_arch_config(){
 	)
 
 	for f in ${ARCH_FILES[@]}; do
+		print_step "$f"
+		rsync -a --force $f $MY_DOTFILES/.
 		cp -f $f  "$MY_Arch/systemd/confs/" > /dev/null 2>&1
 	done
 	sudo rsync -arv /etc/modules-load.d "$MY_Arch/systemd/" 
 	sudo chown -R $USER "$MY_Arch/systemd"
-	echo "done!"
+	echo "Arch Part Done!"
 }
 
 #======================
@@ -104,7 +110,7 @@ backup_cups_config(){
 	mkdir -p $HOST_DIR/cups > /dev/null 2>&1
 	sudo cp -rf /etc/cups/* $HOST_DIR/cups/
 	sudo chown -R $USER $HOST_DIR/cups
-	echo "done!"
+	echo "cups Part Done!"
 }
 
 
@@ -119,7 +125,7 @@ backup_etc_config(){
 	sudo cp /etc/mtab $HOST_DIR/etc/
 	sudo cp /etc/fstab $HOST_DIR/etc/
 	sudo chown -R $USER $HOST_DIR/etc
-	echo "done!"
+	echo "etc Part Done!"
 }
 
 backup_common
