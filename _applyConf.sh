@@ -16,7 +16,7 @@ __backup_and_apply(){
 			continue
 		else
 			echo "appling $file ..."
-			rsync -a "$HOME/$file" "$BACKUP" > /dev/null 2>&1
+			rsync -a --safe-links "$HOME/$file" "$BACKUP" > /dev/null 2>&1
 			rsync -a "$targetDir/$file" $HOME
 		fi
 	done
@@ -33,18 +33,30 @@ apply_common(){
 
 apply_host_cfg(){
 	print_sep
-	echo "appling host-specific config files"	
+	echo "appling hostConf directory"	
 	print_sep
-	__backup_and_apply "$HOST_DIR/dotfiles"
+	rsync -a "$HOST_CONF_DIR" "$BACKUP" > /dev/null 2>&1
+	rsync -av "$HOST_BKUP_DIR/hostConf" $HOME/
 	print_sep
+	echo "appling HOME/bin scripts"	
+	print_sep
+	rsync -a --safe-links "$HOME/bin" "$BACKUP" > /dev/null 2>&1
+	rsync -av "$HOST_BKUP_DIR/bin" "$HOME/" 
 }
 
 
 #prepare backupdir
 mkdir -p $BACKUP
-#backup and apply "common" at last, for the .zsh/completion (not clean solution, work-around)
 apply_host_cfg
 apply_common
-echo "old configurations were backuped on $BACKUP"
+print_sep
+echo "Re-link hostConf config files"
+print_sep
+bash relink.sh
+echo ""
+print_sep
+echo "Old configurations were backuped on $BACKUP"
+print_sep
+echo ""
 
 # vim:ts=2 sw=2

@@ -14,7 +14,7 @@ source var.sh
 #===========================
 backup_common(){
 	print_sep
-	echo "backing up common configs"
+	echo "Backing up common configs"
 	print_sep
 	mkdir -p $COMMON_DIR >/dev/null 2>&1
 	COMMON_FILES=(.Xdefaults
@@ -24,7 +24,6 @@ backup_common(){
 	.tmux.conf
 	.vimrc
 	.Xmodmap
-	.profile
 	base.vimrc
 	.ctags
 	.todo
@@ -35,12 +34,12 @@ backup_common(){
 	for f in ${COMMON_FILES[@]}
 	do
 		print_step "$f"
-		rsync -a --force --exclude="todo.txt" --exclude="$HOME/.zsh/variables.zsh" $HOME/$f $COMMON_DIR
+		rsync -a --force --exclude="todo.txt" --exclude="$HOME/.zsh/myZsh.zsh" $HOME/$f $COMMON_DIR
 	done
 
 	DOT_ZSH_DIR="$HOME/.zsh"
 	print_step "$DOT_ZSH_DIR excluding .zsh/.zsh-* and .zsh/.zsh_*"
-	rsync -ar --exclude="variables.zsh" --exclude=".zsh_*" --exclude=".zsh-*" $DOT_ZSH_DIR $COMMON_DIR
+	rsync -a --exclude="myZsh.zsh" --exclude=".zsh_*" --exclude=".zsh-*" $DOT_ZSH_DIR $COMMON_DIR
 
 	echo "Common Part Done!"
 }
@@ -51,54 +50,18 @@ backup_common(){
 #======================
 backup_host_config(){
 	print_sep
-	mkdir -p $MY_DOTFILES > /dev/null 2>&1
+	echo "Backing up Host specific configs"
 	print_sep
-	HOST_FILES=(.bashrc
-  .zsh/variables.zsh
-	.xinitrc 
-	.hgrc
-	.hgignore
-	.gitconfig
-	.gitignore)
-	for f in ${HOST_FILES[@]}; do
-		print_step "$f"
-		rsync -a --force $HOME/$f $MY_DOTFILES/.
-	done
-	# rsync -arv $HOME/.vim $MY_DOTFILES/ #don't sync .vim/backups for privcy reason
+	rsync -a --force --delete-after $HOST_CONF_DIR  $HOST_BKUP_DIR/
 	#cp ssh config and keep directory structure
-	mkdir -p $MY_DOTFILES/.ssh
-	cp  $HOME/.ssh/config  $MY_DOTFILES/.ssh/config	> /dev/null 2>&1
+	mkdir -p $HOST_BKUP_DIR/.ssh
+	cp  $HOME/.ssh/config  $HOST_DOTFILES/.ssh/config	> /dev/null 2>&1
+	echo "Backing up HOME/bin... "
+	rsync -a --safe-links --force --delete-after $HOME/bin  $HOST_BKUP_DIR/
+
 	echo "Host-spec Part Done!"
 }
 
-
-#======================
-# Arch config files
-#======================
-backup_arch_config(){
-	print_sep
-	echo "$ME - Arch configurations {/etc/confs, systemd modules}"
-	print_sep
-	mkdir -p $MY_Arch > /dev/null 2>&1
-	mkdir -p "$MY_Arch/systemd/confs" > /dev/null 2>&1
-
-
-	ARCH_FILES=(/etc/hostname
-	/etc/hosts
-	/etc/vconsole.conf
-	/etc/locale.conf
-	/etc/locale.gen
-	)
-
-	for f in ${ARCH_FILES[@]}; do
-		print_step "$f"
-		rsync -a --force $f $MY_DOTFILES/.
-		cp -f $f  "$MY_Arch/systemd/confs/" > /dev/null 2>&1
-	done
-	sudo rsync -arv /etc/modules-load.d "$MY_Arch/systemd/" 
-	sudo chown -R $USER "$MY_Arch/systemd"
-	echo "Arch Part Done!"
-}
 
 #======================
 # CUPS config
@@ -107,9 +70,9 @@ backup_cups_config(){
 	print_sep
 	echo "$ME  /etc/cups root password needed[sudo]"
 	print_sep
-	mkdir -p $HOST_DIR/cups > /dev/null 2>&1
-	sudo cp -rf /etc/cups/* $HOST_DIR/cups/
-	sudo chown -R $USER $HOST_DIR/cups
+	mkdir -p $HOST_BKUP_DIR/cups > /dev/null 2>&1
+	sudo cp -rf /etc/cups/* $HOST_BKUP_DIR/cups/
+	sudo chown -R $USER $HOST_BKUP_DIR/cups
 	echo "cups Part Done!"
 }
 
@@ -121,16 +84,29 @@ backup_etc_config(){
 	print_sep
 	echo "$ME /etc "
 	print_sep
-	mkdir -p $HOST_DIR/etc > /dev/null 2>&1
-	sudo cp /etc/mtab $HOST_DIR/etc/
-	sudo cp /etc/fstab $HOST_DIR/etc/
-	sudo chown -R $USER $HOST_DIR/etc
-	echo "etc Part Done!"
+	mkdir -p $HOST_ETC > /dev/null 2>&1
+	ETC_FILES=(/etc/hostname
+	/etc/hosts
+	/etc/vconsole.conf
+	/etc/locale.conf
+	/etc/locale.gen
+	/etc/pacman.conf
+	/etc/mtab
+	/etc/fstab
+	/etc/grub.d
+	/etc/X11
+	/etc/modprobe.d
+	)
+	for f in ${ETC_FILES[@]}; do
+		print_step "$f"
+		sudo rsync -a --copy-unsafe-links --force --delete-after $f $HOST_ETC/ 
+	done
+	sudo chown -R $USER $HOST_ETC
+	echo "/etc Part Done!"
 }
 
 backup_common
 backup_host_config
-backup_arch_config
 backup_etc_config
 backup_cups_config
 

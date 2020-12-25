@@ -1,0 +1,10 @@
+#! /bin/sh -e
+echo "Adding Windows" >&2
+cat << EOF
+menuentry 'Windows 7' --class windows --class os {
+insmod ntfs
+set root=(hd0,1)
+search --no-floppy --fs-uuid --set C0E45685E4567E1A
+chainloader +1
+}
+EOF

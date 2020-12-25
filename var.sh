@@ -14,12 +14,14 @@ pushd . > /dev/null
 cd $(dirname ${script_path}) > /dev/null
 script_path=$(pwd)
 
-ME=$(hostname)
 ROOT_DIR=$script_path
 COMMON_DIR="$ROOT_DIR/common"
-HOST_DIR="$ROOT_DIR/$ME"
-MY_DOTFILES="$HOST_DIR/dotfiles"
-MY_Arch="$HOST_DIR/arch"
+
+HOST_CONF_DIR=$HOME/hostConf
+
+HOST_NAME=$(hostname)
+HOST_BKUP_DIR="$ROOT_DIR/$HOST_NAME"
+HOST_ETC="$HOST_BKUP_DIR/etc"
 #ZSH_COMP="$HOME/.zsh/completion"
 #COMMON_ZSH_COMP="$COMMON_DIR/.zsh/completion"
 

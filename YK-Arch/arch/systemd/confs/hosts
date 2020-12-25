@@ -1,4 +1,0 @@
-# Static table lookup for hostnames.
-# See hosts(5) for details.
-127.0.0.1 www.xmind.net
-192.168.0.7 dl.akcloud.gleeze.com akcloud.gleeze.com docker.gleeze.com

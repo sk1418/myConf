@@ -126,9 +126,9 @@ zstyle ':completion:*:hosts' hosts $hosts
 #====[ Color and Terminal ]========================================================# {{{
 #set 256color for TERM
 case "$TERM" in
-    'xterm') TERM=xterm-256color;;
-    'screen') TERM=screen-256color;;
-    'Eterm') TERM=Eterm-256color;;
+  'xterm') TERM=xterm-256color;;
+  'screen') TERM=screen-256color;;
+  'Eterm') TERM=Eterm-256color;;
 esac
 export TERM
 
@@ -136,12 +136,12 @@ DIR_COLOR=$MY_LIB_DIR/dircolors/dircolors.ansi-universal
 DIR_COLOR256=$MY_LIB_DIR/dircolors/dircolors.256dark
 
 if [[ ("$TERM" = *256color || "$TERM" = screen* ) && -f $DIR_COLOR256 ]]; then
-    #use prefefined colors
-    eval $(dircolors -b $DIR_COLOR256)
-    use_256color=1
-    export TERMCAP=${TERMCAP/Co\#8/Co\#256}
-else
-    [[ -f $DIR_COLOR ]] && eval $(dircolors -b $DIR_COLOR)
+  #use prefefined colors
+  eval $(dircolors -b $DIR_COLOR256)
+  use_256color=1
+  export TERMCAP=${TERMCAP/Co\#8/Co\#256}
+  else
+  [[ -f $DIR_COLOR ]] && eval $(dircolors -b $DIR_COLOR)
 fi
 
 autoload colors 
@@ -162,8 +162,8 @@ source $MY_ZSH_DIR/promptrc
 #====[ Functions ]==================================================# {{{
 #display beijing time
 function when {
-    echo "北京时间: " $(TZ="Hongkong" date +"%F %H:%M:%S")
-    echo "首尔时间: " $(TZ="Asia/Seoul" date +"%F %H:%M:%S")
+  echo "北京时间: " $(TZ="Hongkong" date +"%F %H:%M:%S")
+  echo "首尔时间: " $(TZ="Asia/Seoul" date +"%F %H:%M:%S")
 }
 
 
@@ -182,43 +182,43 @@ function webHere {
 }
 # check zsh Version
 function is-at-least {
-    local IFS=".-" min_cnt=0 ver_cnt=0 part min_ver version
+  local IFS=".-" min_cnt=0 ver_cnt=0 part min_ver version
 
-    min_ver=(${=1})
-    version=(${=2:-$ZSH_VERSION} 0)
+  min_ver=(${=1})
+  version=(${=2:-$ZSH_VERSION} 0)
 
-    while (( $min_cnt <= ${#min_ver} )); do
-      while [[ "$part" != <-> ]]; do
-        (( ++ver_cnt > ${#version} )) && return 0
-        part=${version[ver_cnt]##*[^0-9]}
-      done
-
-      while true; do
-        (( ++min_cnt > ${#min_ver} )) && return 0
-        [[ ${min_ver[min_cnt]} = <-> ]] && break
-      done
-
-      (( part > min_ver[min_cnt] )) && return 0
-      (( part < min_ver[min_cnt] )) && return 1
-      part=''
+  while (( $min_cnt <= ${#min_ver} )); do
+    while [[ "$part" != <-> ]]; do
+      (( ++ver_cnt > ${#version} )) && return 0
+      part=${version[ver_cnt]##*[^0-9]}
     done
+
+    while true; do
+      (( ++min_cnt > ${#min_ver} )) && return 0
+      [[ ${min_ver[min_cnt]} = <-> ]] && break
+    done
+
+    (( part > min_ver[min_cnt] )) && return 0
+    (( part < min_ver[min_cnt] )) && return 1
+    part=''
+  done
 }
 
 # show a 256 color table
 function 256tab {
-    for k in `seq 0 1`;do 
-        for j in `seq $((16+k*18)) 36 $((196+k*18))`;do 
-            for i in `seq $j $((j+17))`; do 
-                printf "\e[01;$1;38;5;%sm%4s" $i $i;
-            done;echo;
-        done;
-    done
+  for k in `seq 0 1`;do 
+    for j in `seq $((16+k*18)) 36 $((196+k*18))`;do 
+      for i in `seq $j $((j+17))`; do 
+        printf "\e[01;$1;38;5;%sm%4s" $i $i;
+      done;echo;
+    done;
+  done
 }
 
 
 #calculator
 function calc {
-    echo "scale=2;$*"|bc|sed 's/\.0*$//'
+  echo "scale=2;$*"|bc|sed 's/\.0*$//'
 }
 
 
@@ -234,40 +234,40 @@ function pwd_color_preexec { __PROMPT_PWD="$pfg_magenta%~$pR" }
 #行编辑高亮模式 
 # Ctrl+@ 设置标记，标记和光标点之间为 region
 if (is-at-least 4.3); then
-    zle_highlight=(region:bg=magenta
-                   special:bold,fg=magenta
-                   default:bold
-                   isearch:underline
-                   )
+  zle_highlight=(region:bg=magenta
+                 special:bold,fg=magenta
+                 default:bold
+                 isearch:underline
+                 )
 fi
 
 # colorize command as blue if found in path or defined.
 TOKENS_FOLLOWED_BY_COMMANDS=('|' '||' ';' '&' '&&' 'sudo' 'do' 'time' 'strace')
 
 recolor-cmd() {
-    region_highlight=()
-    colorize=true
-    start_pos=0
-    for arg in ${(z)BUFFER}; do
-        ((start_pos+=${#BUFFER[$start_pos+1,-1]}-${#${BUFFER[$start_pos+1,-1]## #}}))
-        ((end_pos=$start_pos+${#arg}))
-        if $colorize; then
-            colorize=false
-            res=$(LC_ALL=C builtin type $arg 2>/dev/null)
-            case $res in
-                *'reserved word'*)   style="fg=magenta,bold";;
-                *'alias for'*)       style="fg=cyan,bold";;
-                *'shell builtin'*)   style="fg=yellow,bold";;
-                *'shell function'*)  style='fg=green,bold';;
-                *"$arg is"*)         
-                    [[ $arg = 'sudo' ]] && style="fg=red,bold" || style="fg=blue,bold";;
-                *)                   style='none,bold';;
-            esac
-            region_highlight+=("$start_pos $end_pos $style")
-        fi
-        [[ ${${TOKENS_FOLLOWED_BY_COMMANDS[(r)${arg//|/\|}]}:+yes} = 'yes' ]] && colorize=true
-        start_pos=$end_pos
-    done
+  region_highlight=()
+  colorize=true
+  start_pos=0
+  for arg in ${(z)BUFFER}; do
+    ((start_pos+=${#BUFFER[$start_pos+1,-1]}-${#${BUFFER[$start_pos+1,-1]## #}}))
+    ((end_pos=$start_pos+${#arg}))
+    if $colorize; then
+      colorize=false
+      res=$(LC_ALL=C builtin type $arg 2>/dev/null)
+      case $res in
+        *'reserved word'*)   style="fg=magenta,bold";;
+        *'alias for'*)       style="fg=cyan,bold";;
+        *'shell builtin'*)   style="fg=yellow,bold";;
+        *'shell function'*)  style='fg=green,bold';;
+        *"$arg is"*)         
+          [[ $arg = 'sudo' ]] && style="fg=red,bold" || style="fg=blue,bold";;
+        *)                   style='none,bold';;
+      esac
+      region_highlight+=("$start_pos $end_pos $style")
+    fi
+    [[ ${${TOKENS_FOLLOWED_BY_COMMANDS[(r)${arg//|/\|}]}:+yes} = 'yes' ]] && colorize=true
+    start_pos=$end_pos
+  done
 }
 
 check-cmd-self-insert() { zle .self-insert && recolor-cmd }
@@ -281,47 +281,47 @@ zle -N backward-delete-char check-cmd-backward-delete-char
 #====[ Title ]==================================================# {{{
 
 case $TERM in
-    xterm*|rxvt*)
-        function title() { print -nP "\e]0;$1\a" } 
-        ;;
-    screen*)
-        #only set screen title if it is in a local shell
-        if [ -n $STY ] && (screen -ls |grep $STY &>/dev/null); then
-            function title() 
-            {
-                #modify screen title
-                print -nP "\ek$1\e\\"
-                #modify window title bar
-                #print -nPR $'\033]0;'$2$'\a'
-            } 
-        elif [ -n $TMUX ]; then       # actually in tmux !
-            function title() {  print -nP "\e]2;$1\a" }
-        else
-            function title() {}
-        fi
-        ;;
-    *) 
-        function title() {} 
-        ;;
+  xterm*|rxvt*)
+    function title() { print -nP "\e]0;$1\a" } 
+    ;;
+  screen*)
+    #only set screen title if it is in a local shell
+    if [ -n $STY ] && (screen -ls |grep $STY &>/dev/null); then
+      function title() 
+      {
+        #modify screen title
+        print -nP "\ek$1\e\\"
+        #modify window title bar
+        #print -nPR $'\033]0;'$2$'\a'
+      } 
+  elif [ -n $TMUX ]; then       # actually in tmux !
+    function title() {  print -nP "\e]2;$1\a" }
+  else
+    function title() {}
+    fi
+    ;;
+  *) 
+    function title() {} 
+    ;;
 esac     
 screen_precmd() {
-    #a bell, urgent notification trigger
-    #echo -ne '\a'
-    #title "`print -Pn "%~" | sed "s:\([~/][^/]*\)/.*/:\1...:"`" "$TERM $PWD"
-    title "`print -Pn "%~" |sed "s:\([~/][^/]*\)/.*/:\1...:;s:\([^-]*-[^-]*\)-.*:\1:"`" "$TERM $PWD"
-    echo -ne '\033[?17;0;127c'
+  #a bell, urgent notification trigger
+  #echo -ne '\a'
+  #title "`print -Pn "%~" | sed "s:\([~/][^/]*\)/.*/:\1...:"`" "$TERM $PWD"
+  title "`print -Pn "%~" |sed "s:\([~/][^/]*\)/.*/:\1...:;s:\([^-]*-[^-]*\)-.*:\1:"`" "$TERM $PWD"
+  echo -ne '\033[?17;0;127c'
 }
 
 screen_preexec() {
-    local -a cmd; cmd=(${(z)1})
-    case $cmd[1]:t in
-        'ssh')          title "@""`echo $cmd[2]|sed 's:.*@::'`" "$TERM $cmd";;
-        'sudo')         title "#"$cmd[2]:t "$TERM $cmd[3,-1]";;
-        'for')          title "()"$cmd[7] "$TERM $cmd";;
-        'svn'|'git')    title "$cmd[1,2]" "$TERM $cmd";;
-        'ls'|'ll')      ;;
-        *)              title $cmd[1]:t "$TERM $cmd[2,-1]";;
-    esac
+  local -a cmd; cmd=(${(z)1})
+  case $cmd[1]:t in
+    'ssh')          title "@""`echo $cmd[2]|sed 's:.*@::'`" "$TERM $cmd";;
+    'sudo')         title "#"$cmd[2]:t "$TERM $cmd[3,-1]";;
+    'for')          title "()"$cmd[7] "$TERM $cmd";;
+    'svn'|'git')    title "$cmd[1,2]" "$TERM $cmd";;
+    'ls'|'ll')      ;;
+    *)              title $cmd[1]:t "$TERM $cmd[2,-1]";;
+  esac
 }
 
 #this works with zsh 4.3.*, will remove the above ones when possible
@@ -415,13 +415,13 @@ bindkey '\e]' vi-find-prev-char
 
 #   pressing TAB in an empty command makes a cd command with completion list
 function dumb-cd {
-    if [[ -n $BUFFER ]] ; then # 如果该行有内容
-        zle expand-or-complete # 执行 TAB 原来的功能
-    else # 如果没有
-        BUFFER="cd " # 填入 cd（空格）
-        zle end-of-line # 这时光标在行首，移动到行末
-        zle expand-or-complete # 执行 TAB 原来的功能
-    fi 
+  if [[ -n $BUFFER ]] ; then # 如果该行有内容
+    zle expand-or-complete # 执行 TAB 原来的功能
+  else # 如果没有
+    BUFFER="cd " # 填入 cd（空格）
+    zle end-of-line # 这时光标在行首，移动到行末
+    zle expand-or-complete # 执行 TAB 原来的功能
+  fi 
 }
 zle -N dumb-cd
 bindkey "\t" dumb-cd #将上面的功能绑定到 TAB 键
@@ -429,9 +429,9 @@ bindkey "\t" dumb-cd #将上面的功能绑定到 TAB 键
 
 #adding sudo to command
 function sudo-command-line {
-    [[ -z $BUFFER ]] && zle up-history
-    [[ $BUFFER != sudo\ * ]] && BUFFER="sudo $BUFFER"
-    zle end-of-line #move to EOL
+  [[ -z $BUFFER ]] && zle up-history
+  [[ $BUFFER != sudo\ * ]] && BUFFER="sudo $BUFFER"
+  zle end-of-line #move to EOL
 }
 zle -N sudo-command-line
 # [Esc] [Esc]
@@ -509,15 +509,15 @@ export FZF_DEFAULT_OPTS='--height 70% --reverse --border'
 export FZF_CTRL_T_OPTS="--preview '(highlight -O ansi -l {} 2> /dev/null || cat {} || tree -C {}) 2> /dev/null | head -200'"
 
 
-#fkill() {
-  #local pid
-  #pid=$(ps -ef | sed 1d | fzf -m | awk '{print $2}')
+fkill() {
+  local pid
+  pid=$(ps -ef | sed 1d | fzf -m | awk '{print $2}')
 
-  #if [ "x$pid" != "x" ]
-  #then
-	#echo $pid | xargs kill -${1:-9}
-  #fi
-#}
+  if [ "x$pid" != "x" ]
+  then
+    echo $pid | xargs kill -${1:-9}
+  fi
+}
 #}}}
 #
 #====[ fasd fast jump conf ]=============================================# {{{
@@ -546,7 +546,7 @@ bindkey "^[," copy-earlier-word
 #}}}
 mkdir -p /tmp/test
 #environment variables
-source $MY_ZSH_DIR/variables.zsh
+source $MY_ZSH_DIR/myZsh.zsh
 
 #CHANGES still in TESTING# {{{
 setopt PUSHD_MINUS
@@ -554,4 +554,4 @@ setopt LISTPACKED
 # }}}
 
 ### END OF FILE #################################################################
-# vim: filetype=zsh fdm=marker autoindent expandtab shiftwidth=4 
+# vim: filetype=zsh fdm=marker autoindent expandtab shiftwidth=2 ts=2 

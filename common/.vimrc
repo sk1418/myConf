@@ -169,7 +169,7 @@ vnoremap <space> za
 nnoremap <leader>zz zMzvzz
 
 "clear hl search by pressing ,/
-nnoremap <silent> <Leader>c  :noh<cr>
+nnoremap <silent> <Leader>/  :noh<cr>
 "Alt-j/k moving selected lines up and down only in visual mode
 set timeout timeoutlen=1000 ttimeoutlen=0
 "nmap <F14> :m+<CR>==
@@ -543,9 +543,13 @@ else
 	"let g:solarized_termtrans = 1
 	"colorscheme solarized
 endif
-set gfn=Monaco\ 13
-"set gfn=Inconsolata-g\ 13
-set gfw=WenQuanYi\ Micro\ Hei\ 12
+
+"Monaco style
+"set gfn=Monaco\ 13
+"set gfw=WenQuanYi\ Micro\ Hei\ 12
+
+set gfn=SF\ Mono\ 13
+set gfw=PingFang\ SC\ 13
 
 "-------[ Status bar ]------------------------------------❱----{{{1
 
@@ -949,13 +953,13 @@ augroup END
 
 function! Hi_Publish()
 		exec 'hi! Paid  term=bold cterm=bold guifg=black guibg=#999999 ctermfg=16 ctermbg=darkgray'
-		exec 'hi! Payment-Requested  term=bold cterm=bold guifg=black guibg=#f01060 ctermfg=16 ctermbg=red'
+		exec 'hi! PaymentRequested  term=bold cterm=bold guifg=black guibg=#d07777 ctermfg=16 ctermbg=red'
 		exec 'hi! Working  term=bold cterm=bold guifg=black guibg=#7080c0 ctermfg=16 ctermbg=darkgreen'
 		exec 'hi! Published  term=bold cterm=bold guifg=black guibg=#50a070 ctermfg=16 ctermbg=darkblue'
 
 		call matchadd("Paid", "[Pp]aid")
 		call matchadd("Published", "[Pp]ublished")
-		call matchadd("Payment-Requested", "[Pp]ayment-[rR]equested")
+		call matchadd("PaymentRequested", "[Pp]ayment-[rR]equested")
 		call matchadd("Working", "[Ww]orking")
 		exec 'normal zMgg)'
 endfunction
