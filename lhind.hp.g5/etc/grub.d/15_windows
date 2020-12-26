@@ -1,0 +1,15 @@
+#! /bin/sh -e
+#echo "Adding Windows" >&2
+#cat << EOF
+#menuentry 'Windows 7 - press ESC by boot, using HP boot menu' --class windows --class os {
+#
+#	insmod part_msdos
+#	insmod ntfs
+#	insmod ntldr     
+##	search --no-floppy --fs-uuid --set=root --hint-bios=hd0,msdos3 --hint-efi=hd0,msdos3 --hint-baremetal=ahci0,msdos1 98E0C12AE0C11004
+##	ntldr /bootmgr
+#
+#set root=(hd0,msdos3)
+#chainloader +1
+#}
+#EOF

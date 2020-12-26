@@ -1,0 +1,9 @@
+#!/bin/bash
+if [[ "$1" == "m" ]]
+then
+	echo "start Wireless AP for cell phone"
+	sudo $HOME/lib/wifiAP/create_ap wlo1 enp0s25 LinuxRocks ILoveVim
+else
+	echo "start Wireless AP for Pad"
+	sudo $HOME/lib/wifiAP/create_ap wlo1 enp0s25 VimRocks pwd_here
+fi

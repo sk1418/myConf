@@ -1,0 +1,99 @@
+[user]
+	name = Kent@lhind.hp.g5
+	email = kent.yuan@Gmail.com
+
+[core]
+	pager = cat
+	editor = vim
+
+[http]
+	proxy = http://localhost:8888
+
+[color]
+    diff = auto
+    interactive = auto
+	ui = always
+[color "branch"]
+	current = yellow reverse
+    local = green
+    remote = magenta
+[color "status"]
+	added = yellow
+	changed = green
+	untracked = red
+
+[alias]
+	tags = tag -l
+	branches = branch -a
+	remotes = remote -v
+	graft = cherry-pick -x
+
+	l   = log -30 --color=always --topo-order --pretty='format:%Cgreen%h%Creset %ai %s%Cred%d%Creset %C(bold)(%an)%Creset'
+	la   = log -30 --color=always --all --topo-order --pretty='format:%Cgreen%h%Creset %ai %s%Cred%d%Creset %C(bold)(%an)%Creset'
+	ll   = log -70 --color=always --topo-order --pretty='format:%Cgreen%h%Creset %ai %s%Cred%d%Creset %C(bold)(%an)%Creset'
+	lla   = log -70 --color=always --topo-order --pretty='format:%Cgreen%h%Creset %ai %s%Cred%d%Creset %C(bold)(%an)%Creset'
+    lll  = log     --color=always --all --topo-order --pretty='format:%Cgreen%h%Creset %s%Cred%d%Creset %C(bold)(%an)%Creset'
+    gl  = log -14 --color=always  --graph --topo-order --pretty='format:%Cgreen%h%Creset %s %C(bold)(%an)%Creset%C(red bold)%d%Creset%n'
+    gla  = log -14 --color=always --all --graph --topo-order --pretty='format:%Cgreen%h%Creset %s %C(bold)(%an)%Creset%C(red bold)%d%Creset%n'
+    gll  = log -34 --color=always --graph --topo-order --pretty='format:%Cgreen%h%Creset %s %C(bold)(%an)%Creset%C(red bold)%d%Creset%n'
+    glla  = log -34 --color=always --all --graph --topo-order --pretty='format:%Cgreen%h%Creset %s %C(bold)(%an)%Creset%C(red bold)%d%Creset%n'
+    glll = log     --color=always --all --graph --topo-order --pretty='format:%Cgreen%h%Creset %s %C(bold)(%cr by %an)%Creset%C(red bold)%d%Creset%n'
+
+	#changed file of a commit
+	cc = show --name-only
+
+	pull = pull --ff-only
+    up = merge --ff-only
+	ci = commit
+	cm = commit -m
+	co = checkout
+    st = status
+	unstage = reset HEAD
+	df = diffall
+	addjava = "!addjava(){ git add **/src/**/*.java > /dev/null 2>&1 || git add src/**/*.java ;}; addjava"
+
+	#show file in a commit/revision
+	showfile = "!showfiles(){ git diff-tree --no-commit-id --name-only -r $1;};showfiles"
+
+	file = "!locate(){ git ls-files **/$1;};locate"
+	#locate file by regex (grep)
+	filere = "!locate_re(){ git ls-files |grep --color -P $1;};locate_re"
+
+	#check outgoing changes
+	outgoing = "!outgoing(){ git fetch && git log origin/$(git rev-parse --abbrev-ref HEAD).. ; }; outgoing"
+
+	#check incoming changes
+	incoming = "!incoming(){ git fetch && git log ..origin/$(git rev-parse --abbrev-ref HEAD) ;}; incoming"
+
+	delTag = "!delTag(){ git push --delete origin $1;}; delTag"
+
+[push]
+    default = current
+
+;[merge]
+	;tool = vimdiff
+	;conflictstyle = diff3
+[merge]
+	tool = mygitmergetool
+[mergetool "mygitmergetool"]
+	cmd = $HOME/lib/gitmergetool vim $BASE $LOCAL $REMOTE $MERGED
+	trustExitCode = true
+	keepBackup = false
+	
+[mergetool]
+	prompt = false
+
+[diff]
+	tool = myGitVimDiff
+
+[difftool "myGitVimDiff"]
+	cmd = vim -f '+next' '+execute \"DirDiff\" argv(1) argv(0)' $LOCAL $REMOTE
+	prompt = false
+[difftool]
+	prompt = false
+
+[log]
+	 date = iso
+[credential]
+	helper = cache
+	helper = store --file ~/.git-credentials

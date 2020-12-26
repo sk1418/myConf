@@ -1,0 +1,7 @@
+!hidpi+ SF Mono
+
+URxvt*font:   xft:SF Mono:autohint=True:size=26:antialias=True,  xft:DejaVu Sans Mono:book:autohint=True:size=32 
+URxvt*boldFont:  xft:SF Mono:Bold:autohint=True:size=26:antialias=True, xft:DejaVu Sans Mono:bold:autohint=True:size=32
+
+
+! vim: fdm=marker
