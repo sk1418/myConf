@@ -53,6 +53,13 @@ print_sep
 echo "Re-link hostConf config files"
 print_sep
 bash relink.sh
+HOOK="post_hooks/${HOST_NAME}_hook.sh"
+if [ -f $HOOK ]; then
+	print_sep
+	echo "[Post Hook] Found post-hook, executing : $HOOK"
+	print_sep
+	bash $HOOK
+fi
 echo ""
 print_sep
 echo "Old configurations were backuped on $BACKUP"
