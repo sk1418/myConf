@@ -97,3 +97,5 @@
 [credential]
 	helper = cache
 	helper = store --file ~/.git-credentials
+[pull]
+	rebase = false

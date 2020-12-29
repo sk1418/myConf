@@ -15,3 +15,8 @@ export DEPENDS="fcitx"
 export QT_AUTO_SCREEN_SCALE_FACTOR=0 
 export QT_SCALE_FACTOR=2
 
+#Tune Capslock key (xcape is required)
+# press and release: ESC
+# press and hold: Ctrl
+/usr/bin/setxkbmap -option 'ctrl:nocaps'
+/usr/bin/xcape -e 'Control_L=Escape' -t 100
