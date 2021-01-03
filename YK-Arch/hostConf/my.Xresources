@@ -2,4 +2,5 @@
 URxvt*font:   xft:SF Mono:autohint=True:size=13:antialias=True,  xft:DejaVu Sans Mono:book:autohint=True:size=16 
 URxvt*boldFont:  xft:SF Mono:Bold:autohint=True:size=13:antialias=True, xft:DejaVu Sans Mono:bold:autohint=True:size=16
 
+URxvt*letterSpace: -1
 ! vim: fdm=marker

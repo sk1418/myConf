@@ -188,10 +188,6 @@ URxvt*boldFont: xft:Monaco:bold:autohint=True:size=13:antialias=True,  xft:DejaV
 
 #include "hostConf/my.Xresources"
 
-
-
-! These might also be useful depending on your monitor and personal preference:
-
 ! }}}
 
 ! vim: fdm=marker
