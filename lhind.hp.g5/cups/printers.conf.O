@@ -11,13 +11,11 @@ Location G250
 MakeModel KONICA MINOLTA C554SeriesPS(P)
 DeviceURI ipp://10.228.90.125/ipp/pa-7450
 State Idle
-StateTime 1608218035
+StateTime 1610030115
 ConfigTime 1591357929
 Reason cups-ipp-conformance-failure-report
 Reason cups-ipp-missing-job-history
-Reason other-report
 Reason media-low-warning
-Reason cups-waiting-for-job-completed
 Type 8401100
 Accepting Yes
 Shared Yes
@@ -33,12 +31,12 @@ Option output-bin 0
 Option print-color-mode color
 Option print-quality 5
 Attribute marker-colors \#00FFFF,#FF00FF,#FFFF00,#000000,#00FFFF,#00FFFF,#FF00FF,#FF00FF,#FFFF00,#FFFF00,#000000,#000000,none,none,none,none
-Attribute marker-levels 36,52,55,12,76,97,76,97,76,97,41,90,-1,90,80,84
+Attribute marker-levels 35,52,54,12,76,97,76,97,76,97,41,90,-1,90,80,84
 Attribute marker-low-levels 10,10,10,10,10,10,10,10,10,10,10,10,0,10,10,10
 Attribute marker-high-levels 100,100,100,100,100,100,100,100,100,100,100,100,99,100,100,100
 Attribute marker-names Toner Cartridge (C),Toner Cartridge (M),Toner Cartridge (Y),Toner Cartridge (K),Drum Cartridge(C),Developer Cartridge(C),Drum Cartridge(M),Developer Cartridge(M),Drum Cartridge(Y),Developer Cartridge(Y),Drum Cartridge(K),Developer Cartridge(K),Waste Toner Box,Fusing Unit,Image Transfer Belt Unit,Transfer Roller Unit
 Attribute marker-types toner,toner,toner,toner,opc,developer,opc,developer,opc,developer,opc,developer,waste-toner,fuser,transfer-unit,transfer-unit
-Attribute marker-change-time 1608218040
+Attribute marker-change-time 1610030099
 </Printer>
 <Printer OLD_Aviatar>
 PrinterId 2

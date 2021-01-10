@@ -130,7 +130,6 @@ iabbrev imp! !Important!
 iabbrev mk1 !MARK1
 iabbrev mk2 !MARK2
 iabbrev mk3 !MARK3
-
 "-------[ key mappying ]----------------------------------------{{{1
 
 " set mapleader
@@ -959,7 +958,7 @@ function! Hi_Publish()
 
 		call matchadd("Paid", "[Pp]aid")
 		call matchadd("Published", "[Pp]ublished")
-		call matchadd("PaymentRequested", "[Pp]ayment-[rR]equested")
+		call matchadd("PaymentRequested", "[Pp]ayment-[rR]equested[_0-9]*")
 		call matchadd("Working", "[Ww]orking")
 		exec 'normal zMgg)'
 endfunction

@@ -19,4 +19,4 @@ export QT_SCALE_FACTOR=2
 # press and release: ESC
 # press and hold: Ctrl
 /usr/bin/setxkbmap -option 'ctrl:nocaps'
-/usr/bin/xcape -e 'Control_L=Escape' -t 100
+/usr/bin/xcape -e 'Control_L=Escape'
