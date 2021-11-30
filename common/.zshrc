@@ -487,6 +487,9 @@ alias archinfo='screenfetch -D "archlinux" -s'
 alias bvim='vim -u ~/base.vimrc'
 alias bvi='vim -u ~/base.vimrc'
 
+alias vi='nvim'
+alias gvim='nvim-qt'
+
 #}}}
 
 #====[ todo.txt ]==================================================# {{{
@@ -522,8 +525,9 @@ fkill() {
 #
 #====[ fasd fast jump conf ]=============================================# {{{
 eval "$(fasd --init auto)"
-alias v='f -e vim'
+alias v='f -e nvim'
 alias o='a -e xdg-open'
+
 
 #combine fasd and fzf "cd/z" command
 source $MY_ZSH_DIR/fzf-fasd.zsh
@@ -547,6 +551,9 @@ bindkey "^[," copy-earlier-word
 mkdir -p /tmp/test
 #environment variables
 source $MY_ZSH_DIR/myZsh.zsh
+
+#tab setting (4 spaces)
+tabs -4
 
 #CHANGES still in TESTING# {{{
 setopt PUSHD_MINUS

@@ -16,8 +16,16 @@ __backup_and_apply(){
 			continue
 		else
 			echo "appling $file ..."
-			rsync -a --safe-links "$HOME/$file" "$BACKUP" > /dev/null 2>&1
-			rsync -a "$targetDir/$file" $HOME
+			file_tr="$file"
+			if [[ "$file" =~ .*%%.* ]]; then
+				file_tr=$(sed "s@%%@/@g" <<< "$file")
+				echo "replace %% to /  File: $file_tr"
+			fi
+			rsync -a --safe-links "$HOME/$file_tr" "$BACKUP" > /dev/null 2>&1
+			if [[ "$file" == ".todo" ]]; then
+				file_tr=""
+			fi
+			rsync -a "$targetDir/$file" $HOME/$file_tr
 		fi
 	done
 

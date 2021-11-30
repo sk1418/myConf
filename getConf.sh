@@ -23,6 +23,8 @@ backup_common(){
 	.screenrc
 	.tmux.conf
 	.vimrc
+	.config/nvim/init.vim
+	.config/nvim/ginit.vim
 	.Xmodmap
 	base.vimrc
 	.ctags
@@ -33,8 +35,14 @@ backup_common(){
 	COMMON_DOT_ZSH_FILES="$HOME/.zsh/completion"
 	for f in ${COMMON_FILES[@]}
 	do
-		print_step "$f"
-		rsync -a --force --exclude="todo.txt" --exclude="$HOME/.zsh/myZsh.zsh" $HOME/$f $COMMON_DIR
+		f_tr=""
+		if [[ ! $f == ".todo" ]]; then #exclude directories
+			f_tr=$(sed 's@/@%%@g' <<< "$f")
+		fi
+		print_step "$f_tr"
+
+		#backup ~/.x/y/z -> COMMON/.x%%y%%z
+		rsync -a --force --exclude="todo.txt" --exclude="$HOME/.zsh/myZsh.zsh" $HOME/$f $COMMON_DIR/$f_tr
 	done
 
 	DOT_ZSH_DIR="$HOME/.zsh"

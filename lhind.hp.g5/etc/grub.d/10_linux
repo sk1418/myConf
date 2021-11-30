@@ -91,10 +91,12 @@ linux_entry ()
   fi
   if [ x$type != xsimple ] ; then
       case $type in
-	  recovery)
-	      title="$(gettext_printf "%s, with Linux %s (recovery mode)" "${os}" "${version}")" ;;
+	  booster)
+	      title="$(gettext_printf "%s, with Linux %s (booster initramfs)" "${os}" "${version}")" ;;
 	  fallback)
 	      title="$(gettext_printf "%s, with Linux %s (fallback initramfs)" "${os}" "${version}")" ;;
+	  recovery)
+	      title="$(gettext_printf "%s, with Linux %s (recovery mode)" "${os}" "${version}")" ;;
 	  *)
 	      title="$(gettext_printf "%s, with Linux %s" "${os}" "${version}")" ;;
       esac
@@ -263,7 +265,15 @@ while [ "x$list" != "x" ] ; do
     fi
   fi
 
-  if [ "x$is_top_level" = xtrue ] && [ "x${GRUB_DISABLE_SUBMENU}" != xy ]; then
+  # The GRUB_DISABLE_SUBMENU option used to be different than others since it was
+  # mentioned in the documentation that has to be set to 'y' instead of 'true' to
+  # enable it. This caused a lot of confusion to users that set the option to 'y',
+  # 'yes' or 'true'. This was fixed but all of these values must be supported now.
+  if [ "x${GRUB_DISABLE_SUBMENU}" = xyes ] || [ "x${GRUB_DISABLE_SUBMENU}" = xy ]; then
+    GRUB_DISABLE_SUBMENU="true"
+  fi
+
+  if [ "x$is_top_level" = xtrue ] && [ "x${GRUB_DISABLE_SUBMENU}" != xtrue ]; then
     linux_entry "${OS}" "${version}" simple \
     "${GRUB_CMDLINE_LINUX} ${GRUB_CMDLINE_LINUX_DEFAULT}"
 
@@ -281,13 +291,24 @@ while [ "x$list" != "x" ] ; do
               "${GRUB_CMDLINE_LINUX} ${GRUB_CMDLINE_LINUX_DEFAULT}"
 
   if test -e "${dirname}/initramfs-${version}-fallback.img" ; then
-    initrd="initramfs-${version}-fallback.img"
+    initrd="${initrd_early} initramfs-${version}-fallback.img"
 
     if test -n "${initrd}" ; then
       gettext_printf "Found fallback initrd image(s) in %s:%s\n" "${dirname}" "${initrd_extra} ${initrd}" >&2
     fi
 
     linux_entry "${OS}" "${version}" fallback \
+                "${GRUB_CMDLINE_LINUX} ${GRUB_CMDLINE_LINUX_DEFAULT}"
+  fi
+
+  if test -e "${dirname}/booster-${version}.img" ; then
+    initrd="${initrd_early} booster-${version}.img"
+
+    if test -n "${initrd}" ; then
+      gettext_printf "Found booster initrd image(s) in %s:%s\n" "${dirname}" "${initrd_extra} ${initrd}" >&2
+    fi
+
+    linux_entry "${OS}" "${version}" booster \
                 "${GRUB_CMDLINE_LINUX} ${GRUB_CMDLINE_LINUX_DEFAULT}"
   fi
 

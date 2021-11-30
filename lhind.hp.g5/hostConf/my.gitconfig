@@ -29,6 +29,7 @@
 	graft = cherry-pick -x
 
 	l   = log -30 --color=always --topo-order --pretty='format:%Cgreen%h%Creset %ai %s%Cred%d%Creset %C(bold)(%an)%Creset'
+	slog   = log --topo-order --all --graph --pretty='format:%h %ai %s%d (%an)'
 	la   = log -30 --color=always --all --topo-order --pretty='format:%Cgreen%h%Creset %ai %s%Cred%d%Creset %C(bold)(%an)%Creset'
 	ll   = log -70 --color=always --topo-order --pretty='format:%Cgreen%h%Creset %ai %s%Cred%d%Creset %C(bold)(%an)%Creset'
 	lla   = log -70 --color=always --topo-order --pretty='format:%Cgreen%h%Creset %ai %s%Cred%d%Creset %C(bold)(%an)%Creset'
@@ -49,7 +50,7 @@
 	co = checkout
     st = status
 	unstage = reset HEAD
-	df = diffall
+	df = "difftool --dir-diff"
 	addjava = "!addjava(){ git add **/src/**/*.java > /dev/null 2>&1 || git add src/**/*.java ;}; addjava"
 
 	#show file in a commit/revision
@@ -87,7 +88,7 @@
 	tool = myGitVimDiff
 
 [difftool "myGitVimDiff"]
-	cmd = vim -f '+next' '+execute \"DirDiff\" argv(1) argv(0)' $LOCAL $REMOTE
+	cmd = nvim -f '+next' '+execute \"DirDiff\" argv(1) argv(0)' $LOCAL $REMOTE
 	prompt = false
 [difftool]
 	prompt = false

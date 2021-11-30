@@ -26,13 +26,13 @@ export NO_PROXY="localhost, 127.0.0.1, localdomain.com, 192.168.0.*, .dlh.de, 57
 
 #only for EC project
 export ANT_OPTS=-Dfile.encoding=iso-8859-1
-JAVA_TOOL_OPTIONS="-Dawt.useSystemAAFontSettings=on -Dswing.aatext=true"
+#JAVA_TOOL_OPTIONS="-Dawt.useSystemAAFontSettings=on -Dswing.aatext=true"
 #JAVA_TOOL_OPTIONS="$JAVA_TOOL_OPTIONS -Dsun.java2d.uiScale=2 "
 #_JAVA_OPTIONS="$_JAVA_OPTIONS -Dhttp.proxyHost=localhost -Dhttp.proxyPort=8888 -Dhttps.proxyHost=localhost -Dhttps.proxyPort=8888"
 #_JAVA_OPTIONS="$_JAVA_OPTIONS -Dhttp.nonProxyHosts='localhost|lht.app.lufthansa.com|caculon.ham.dlh.de'"
-JAVA_TOOL_OPTIONS="$JAVA_TOOL_OPTIONS -Djavax.net.ssl.trustStore=$JAVA_HOME/lib/security/cacerts -Djavax.net.ssl.trustStorePassword=changeit"
+#JAVA_TOOL_OPTIONS="$JAVA_TOOL_OPTIONS -Djavax.net.ssl.trustStore=$JAVA_HOME/lib/security/cacerts -Djavax.net.ssl.trustStorePassword=changeit"
 
-export JAVA_TOOL_OPTIONS
+#export JAVA_TOOL_OPTIONS
 #gnu bc default config file
 export BC_ENV_ARGS=$HOME/.bcrc
 #add project into cd path

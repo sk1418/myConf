@@ -21,6 +21,7 @@ if !isdirectory(expand(&backupdir))
 	call mkdir(expand(&backupdir), "p")
 endif
 
+
 "set autochdir            " auto change to buffer's directory
 syntax on 
 syntax enable
@@ -110,7 +111,7 @@ autocmd FileType java,javascript,vim,xml,html,xhtml set fdm=syntax
 "leave autocompletion setting to neocomplete plugin
 
 "increment completion (keep the options when typing)
-set completeopt=longest,menuone,popup
+set completeopt=longest,menuone
 "inoremap <expr> <cr> pumvisible() ? "\<c-y>" : "\<c-g>u\<cr>"
 "inoremap <expr> <c-n> pumvisible() ? "\<c-n>" : "\<c-n>\<c-r>=pumvisible() ? \"\\<down>\" : \"\\<cr>\""
 "inoremap <expr> <m-;> pumvisible() ? "\<c-n>" : "\<c-x>\<c-o>\<c-n>\<c-p>\<c-r>=pumvisible() ? \"\\<down>\" : \"\\<cr>\""
@@ -131,6 +132,10 @@ iabbrev mk1 !MARK1
 iabbrev mk2 !MARK2
 iabbrev mk3 !MARK3
 "-------[ key mappying ]----------------------------------------{{{1
+
+"Copying to X11 primary selection with the mouse doesn't work
+" clipboard=autoselect is not implemented yet. partial workaround:
+vnoremap <LeftRelease> "*ygv
 
 " set mapleader
 let mapleader        = ","
@@ -170,7 +175,7 @@ nnoremap <leader>zz zMzvzz
 "clear hl search by pressing ,/
 nnoremap <silent> <Leader>/  :noh<cr>
 "Alt-j/k moving selected lines up and down only in visual mode
-set timeout timeoutlen=1000 ttimeoutlen=0
+set timeout timeoutlen=1000 ttimeoutlen=100
 "nmap <F14> :m+<CR>==
 "nmap <F15> :m-2<CR>==
 vnoremap <c-j> :m'>+<CR>gv=gv
@@ -207,7 +212,7 @@ nnoremap <leader>O mzO<ESC>`z
 nnoremap <leader>hi :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<'
 			\ . synIDattr(synID(line("."),col("."),0),"name") . "> lo<"
 			\ . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . "> color:" 
-		  \ . synIDattr(synIDtrans(synID(line("."), col("."), 1)), "fg")<CR>
+			\ . synIDattr(synIDtrans(synID(line("."), col("."), 1)), "fg")<CR>
 
 "TODO map tc to show color
 "tab new,close,move (commented out, because buffer is more conveniet)
@@ -230,11 +235,12 @@ cnoremap <C-A> <Home>
 
 "-------[ Plugins / Bundles ]----------------------------------------{{{1
 
-call plug#begin('~/.vim/plugged')
+call plug#begin('~/.config/nvim/plugged')
 " color schemes
 Plug 'fugalh/desert.vim'
 Plug 'vim-scripts/desert256.vim'
-Plug 'sk1418/last256'
+"Plug 'sk1418/last256', {'branch': 'nvim-qt'}
+Plug 'sk1418/last256', {'branch': 'nvim-qt'}
 Plug 'altercation/vim-colors-solarized'
 
 Plug 'vim-scripts/L9'
@@ -260,6 +266,7 @@ Plug 'jeetsukumaran/vim-filebeagle'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-fugitive'
+Plug 'christoomey/vim-conflicted'
 Plug 'tpope/vim-markdown'
 Plug 'majutsushi/tagbar'
 "Plug 'vim-scripts/FuzzyFinder'
@@ -273,11 +280,10 @@ Plug 'mattn/calendar-vim'
 Plug 'vim-scripts/vimwiki'
 
 "Plug 'lilydjwg/colorizer'
-"Plug 'kien/ctrlp.vim'
 Plug 'tommcdo/vim-exchange'
 
 Plug 'Yggdroot/indentLine'
-"Plug 'sk1418/DirDiff.vim'
+Plug 'will133/vim-dirdiff'
 Plug 'sk1418/QFGrep'
 Plug 'sk1418/HowMuch'
 Plug 'sk1418/Join'
@@ -287,12 +293,13 @@ Plug 'Shougo/vimproc.vim', {'do' : 'make'}
 Plug 'Shougo/unite.vim'
 
 "Plug 'Shougo/neocomplete'
-Plug 'Shougo/deoplete.nvim'
-Plug 'roxma/nvim-yarp'
-Plug 'roxma/vim-hug-neovim-rpc'
-Plug 'deoplete-plugins/deoplete-jedi'
-Plug 'Shougo/neco-vim'
-
+"Plug 'Shougo/deoplete.nvim'
+"Plug 'roxma/nvim-yarp'
+"Plug 'roxma/vim-hug-neovim-rpc'
+"Plug 'deoplete-plugins/deoplete-jedi'
+"Plug 'Shougo/neco-vim'
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'udalov/kotlin-vim'
 Plug 'Shougo/neosnippet'
 Plug 'Shougo/neomru.vim'
 Plug 'Shougo/unite-outline'
@@ -382,11 +389,11 @@ let gundo_prefer_python3 = 1
 
 "-----------[ Unite plugin     ]------------{{{2
 call unite#custom#profile('default', 'context', {
-\   'prompt': '>>>',
-\   'start_insert': 1,
-\   'winheight': 20,
-\   'direction': 'botright'
-\ })
+			\   'prompt': '>>>',
+			\   'start_insert': 1,
+			\   'winheight': 20,
+			\   'direction': 'botright'
+			\ })
 call unite#custom#source('file,file/new,buffer,file_rec', 'matchers', 'matcher_fuzzy')
 call unite#custom#source('file_rec', 'ignore_globs', split(&wildignore, ','))
 call unite#filters#matcher_default#use(['matcher_fuzzy'])
@@ -411,17 +418,138 @@ nnoremap <Leader>fo :<c-u>Unite outline<CR>
 nnoremap <Leader>fa :<c-u>Unite -start-insert file_rec/async:! buffer file_mru outline<CR>
 
 
-"-----------[ deocomplete   ]------------{{{2
+"-----------[ coc config ]------------{{{2
+set cmdheight=1
+set updatetime=300
+set shortmess+=c
+if has("patch-8.1.1564")
+	" Recently vim can merge signcolumn and number column into one
+	set signcolumn=number
+else
+	set signcolumn=yes
+endif
+" Use tab for trigger completion with characters ahead and navigate.
+" NOTE: Use command ':verbose imap <tab>' to make sure tab is not mapped by
+" other plugin before putting this into your config.
+inoremap <silent><expr> <TAB>
+			\ pumvisible() ? "\<C-n>" :
+			\ <SID>check_back_space() ? "\<TAB>" :
+			\ coc#refresh()
+inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
 
-let g:deoplete#enable_at_startup = 1
+function! s:check_back_space() abort
+	let col = col('.') - 1
+	return !col || getline('.')[col - 1]  =~# '\s'
+endfunction
 
-"show python docstring
-let g:deoplete#sources#jedi#show_docstring=1
+" Use <c-space> to trigger completion.
+if has('nvim')
+	inoremap <silent><expr> <c-space> coc#refresh()
+else
+	inoremap <silent><expr> <c-@> coc#refresh()
+endif
+" Highlight the symbol and its references when holding the cursor.
+autocmd CursorHold * silent call CocActionAsync('highlight')
 
-"Close preview window after CompleteDone, only work with 'preview' in completeopt
-autocmd InsertLeave,CompleteDone * if pumvisible() == 0 | pclose | endif
+" Symbol renaming.
+nmap <leader>rn <Plug>(coc-rename)
+
+" Formatting selected code.
+xmap <leader>=  <Plug>(coc-format-selected)
+nmap <leader>=  <Plug>(coc-format-selected)
+
+augroup mygroup
+	autocmd!
+	" Setup formatexpr specified filetype(s).
+	autocmd FileType typescript,json setl formatexpr=CocAction('formatSelected')
+	" Update signature help on jump placeholder.
+	autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
+augroup end
+
+" Apply AutoFix to problem on the current line.
+nmap <leader>qf  <Plug>(coc-fix-current)
+
+" Map function and class text objects
+" NOTE: Requires 'textDocument.documentSymbol' support from the language server.
+xmap if <Plug>(coc-funcobj-i)
+omap if <Plug>(coc-funcobj-i)
+xmap af <Plug>(coc-funcobj-a)
+omap af <Plug>(coc-funcobj-a)
+xmap ic <Plug>(coc-classobj-i)
+omap ic <Plug>(coc-classobj-i)
+xmap ac <Plug>(coc-classobj-a)
+omap ac <Plug>(coc-classobj-a)
+
+" Remap <C-f> and <C-b> for scroll float windows/popups.
+if has('nvim-0.4.0') || has('patch-8.2.0750')
+	nnoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-f>"
+	nnoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-b>"
+	inoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(1)\<cr>" : "\<Right>"
+	inoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(0)\<cr>" : "\<Left>"
+	vnoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-f>"
+	vnoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-b>"
+endif
 
 
+" Add `:Format` command to format current buffer.
+command! -nargs=0 Format :call CocAction('format')
+
+" Add `:Fold` command to fold current buffer.
+command! -nargs=? Fold :call     CocAction('fold', <f-args>)
+
+" Add `:OR` command for organize imports of the current buffer.
+command! -nargs=0 OR   :call     CocAction('runCommand', 'editor.action.organizeImport')
+
+" Add (Neo)Vim's native statusline support.
+" NOTE: Please see `:h coc-status` for integrations with external plugins that
+" provide custom statusline: lightline.vim, vim-airline.
+set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
+
+"" Mappings for CoCList
+"" Show all diagnostics.
+"nnoremap <silent><nowait> <space>a  :<C-u>CocList diagnostics<cr>
+"" Manage extensions.
+"nnoremap <silent><nowait> <space>e  :<C-u>CocList extensions<cr>
+"" Show commands.
+"nnoremap <silent><nowait> <space>c  :<C-u>CocList commands<cr>
+"" Find symbol of current document.
+"nnoremap <silent><nowait> <space>o  :<C-u>CocList outline<cr>
+"" Search workspace symbols.
+"nnoremap <silent><nowait> <space>s  :<C-u>CocList -I symbols<cr>
+"" Do default action for next item.
+"nnoremap <silent><nowait> <space>j  :<C-u>CocNext<CR>
+"" Do default action for previous item.
+"nnoremap <silent><nowait> <space>k  :<C-u>CocPrev<CR>
+"" Resume latest coc list.
+"nnoremap <silent><nowait> <space>p  :<C-u>CocListResume<CR>
+"" Make <CR> auto-select the first completion item and notify coc.nvim to
+"" format on enter, <cr> could be remapped by other vim plugin
+"inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm()
+"			\: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
+
+" Use `[g` and `]g` to navigate diagnostics
+" Use `:CocDiagnostics` to get all diagnostics of current buffer in location list.
+nmap <silent> [g <Plug>(coc-diagnostic-prev)
+nmap <silent> ]g <Plug>(coc-diagnostic-next)
+
+" GoTo code navigation.
+nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gy <Plug>(coc-type-definition)
+nmap <silent> gi <Plug>(coc-implementation)
+nmap <silent> gr <Plug>(coc-references)
+
+" Use K to show documentation in preview window.
+nnoremap <silent> K :call <SID>show_documentation()<CR>
+
+function! s:show_documentation()
+	if (index(['vim','help'], &filetype) >= 0)
+		execute 'h '.expand('<cword>')
+	elseif (coc#rpc#ready())
+		call CocActionAsync('doHover')
+	else
+		execute '!' . &keywordprg . " " . expand('<cword>')
+	endif
+endfunction
 "-----------[ neosnippet   ]------------{{{2
 
 if has('conceal')
@@ -444,12 +572,12 @@ autocmd Filetype *
 
 
 "imap <expr><TAB> neosnippet#expandable_or_jumpable() ?
-"\ "\<Plug>(neosnippet_expand_or_jump)"
+			"\ "\<Plug>(neosnippet_expand_or_jump)"
 "\: pumvisible() ? "\<C-n>" : "\<TAB>"
 
 imap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
 "smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
-"\ "\<Plug>(neosnippet_expand_or_jump)"
+			"\ "\<Plug>(neosnippet_expand_or_jump)"
 "\: "\<TAB>"
 
 imap <expr><cr> neosnippet#expandable_or_jumpable() ?
@@ -501,7 +629,7 @@ augroup END
 "Ps = 6   Steady Bar (XTerm)
 
 if exists('$TMUX')
-" tmux will only forward escape sequences to the terminal if surrounded by a DCS sequence
+	" tmux will only forward escape sequences to the terminal if surrounded by a DCS sequence
 	let &t_SI .= "\<Esc>Ptmux;\<Esc>\<Esc>[5 q\<Esc>\\"
 	let &t_EI .= "\<Esc>Ptmux;\<Esc>\<Esc>[2 q\<Esc>\\"
 	autocmd VimLeave * silent !echo -ne "\033Ptmux;\033\033[2 q\033\\"
@@ -521,12 +649,12 @@ endif
 
 " true color
 if has("termguicolors")
-		" fix bug for vim
-		set t_8f=[38;2;%lu;%lu;%lum
-		set t_8b=[48;2;%lu;%lu;%lum
+	" fix bug for vim
+	set t_8f=[38;2;%lu;%lu;%lum
+	set t_8b=[48;2;%lu;%lu;%lum
 
-		" enable true color
-		set termguicolors
+	" enable true color
+	set termguicolors
 endif
 
 set background=dark
@@ -547,11 +675,11 @@ endif
 "set gfn=Monaco\ 13
 "set gfw=WenQuanYi\ Micro\ Hei\ 12
 
-set gfn=SF\ Mono\ 13
+"set gfn=SF\ Mono\ 13
+set gfn=JetBrains\ Mono\ 13
 set gfw=PingFang\ SC\ 13
 
 "-------[ Status bar ]------------------------------------❱----{{{1
-
 set statusline =%7*[%n]%*
 set statusline +=%1*%F\ %*%8*%m%r%*%1*%h%w%* "filename
 set statusline +=%7*\|%*
@@ -584,13 +712,12 @@ set laststatus=2
 
 "set cursor line color
 set cul "highlighting cusor line
-"-------[ plugins related color settings ]-------------------------------------{{{1
+"-------[ plugins related settings ]-------------------------------------{{{1
 
 "===========================================================================
 " Disable json conceal
 "===========================================================================
 let g:vim_json_conceal=0
-
 "===========================================================================
 " Ag (silver searcher)
 "===========================================================================
@@ -680,11 +807,11 @@ nnoremap <silent> <Leader>ms :call CenterInSpaces()<cr>
 "direction parameter is either '/' or '?'
 "---------------------------------------------------------
 function! VwordSearch(direction)
-  let temp = @v
-  normal! gv"vy
+	let temp = @v
+	normal! gv"vy
 	let v = @v
-  let @v = temp
-  let @/ = '\V' . substitute(escape(v, a:direction.'\'), '\n', '\\n', 'g')
+	let @v = temp
+	let @/ = '\V' . substitute(escape(v, a:direction.'\'), '\n', '\\n', 'g')
 endfunction
 xnoremap * :<C-u>call VwordSearch('/')<CR>/<C-R>=@/<CR><CR>
 xnoremap # :<C-u>call VwordSearch('?')<CR>?<C-R>=@/<CR><CR>
@@ -943,9 +1070,9 @@ autocmd bufwritepost .vimrc source $MYVIMRC
 augroup fugitive
 	autocmd!
 	autocmd User fugitive 
-  \ if fugitive#buffer().type() =~# '^\%(tree\|blob\)$' |
-  \   nnoremap <buffer> .. :edit %:h<CR> |
-  \ endif
+				\ if fugitive#buffer().type() =~# '^\%(tree\|blob\)$' |
+				\   nnoremap <buffer> .. :edit %:h<CR> |
+				\ endif
 	autocmd BufReadPost fugitive://* set bufhidden=delete
 augroup END
 
@@ -956,16 +1083,16 @@ augroup publishing
 augroup END
 
 function! Hi_Publish()
-		exec 'hi! Paid  term=bold cterm=bold guifg=black guibg=#999999 ctermfg=16 ctermbg=darkgray'
-		exec 'hi! PaymentRequested  term=bold cterm=bold guifg=black guibg=#d07777 ctermfg=16 ctermbg=red'
-		exec 'hi! Working  term=bold cterm=bold guifg=black guibg=#7080c0 ctermfg=16 ctermbg=darkgreen'
-		exec 'hi! Published  term=bold cterm=bold guifg=black guibg=#50a070 ctermfg=16 ctermbg=darkblue'
+	exec 'hi! Paid  term=bold cterm=bold guifg=black guibg=#999999 ctermfg=16 ctermbg=darkgray'
+	exec 'hi! PaymentRequested  term=bold cterm=bold guifg=black guibg=#d07777 ctermfg=16 ctermbg=red'
+	exec 'hi! Working  term=bold cterm=bold guifg=black guibg=#7080c0 ctermfg=16 ctermbg=darkgreen'
+	exec 'hi! Published  term=bold cterm=bold guifg=black guibg=#50a070 ctermfg=16 ctermbg=darkblue'
 
-		call matchadd("Paid", "[Pp]aid")
-		call matchadd("Published", "[Pp]ublished")
-		call matchadd("PaymentRequested", "[Pp]ayment-[rR]equested[_0-9]*")
-		call matchadd("Working", "[Ww]orking")
-		exec 'normal zMgg)'
+	call matchadd("Paid", "[Pp]aid")
+	call matchadd("Published", "[Pp]ublished")
+	call matchadd("PaymentRequested", "[Pp]ayment-[rR]equested[_0-9]*")
+	call matchadd("Working", "[Ww]orking")
+	exec 'normal zMgg)'
 endfunction
 
 
