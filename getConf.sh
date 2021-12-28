@@ -9,67 +9,11 @@
 
 source var.sh
 
-#===========================
-# backup common config files 
-#===========================
-backup_common(){
-	print_sep
-	echo "Backing up common configs"
-	print_sep
-	mkdir -p $COMMON_DIR >/dev/null 2>&1
-	COMMON_FILES=(.Xdefaults
-	.Xresources
-	.zshrc
-	.screenrc
-	.tmux.conf
-	.vimrc
-	.config/nvim/init.vim
-	.config/nvim/ginit.vim
-	.Xmodmap
-	base.vimrc
-	.ctags
-	.todo
-	.bcrc
-	firefoxProxy.pac
-	)
-	COMMON_DOT_ZSH_FILES="$HOME/.zsh/completion"
-	for f in ${COMMON_FILES[@]}
-	do
-		f_tr=""
-		if [[ ! $f == ".todo" ]]; then #exclude directories
-			f_tr=$(sed 's@/@%%@g' <<< "$f")
-		fi
-		print_step "$f_tr"
-
-		#backup ~/.x/y/z -> COMMON/.x%%y%%z
-		rsync -a --force --exclude="todo.txt" --exclude="$HOME/.zsh/myZsh.zsh" $HOME/$f $COMMON_DIR/$f_tr
-	done
-
-	DOT_ZSH_DIR="$HOME/.zsh"
-	print_step "$DOT_ZSH_DIR excluding .zsh/.zsh-* and .zsh/.zsh_*"
-	rsync -a --exclude="myZsh.zsh" --exclude=".zsh_*" --exclude=".zsh-*" $DOT_ZSH_DIR $COMMON_DIR
-
-	echo "Common Part Done!"
-}
-
-
-#======================
-# host specific configurations
-#======================
-backup_host_config(){
-	print_sep
-	echo "Backing up Host specific configs"
-	print_sep
-	rsync -a --force --delete-after $HOST_CONF_DIR  $HOST_BKUP_DIR/
-	#cp ssh config and keep directory structure
-	mkdir -p $HOST_BKUP_DIR/.ssh
-	cp  $HOME/.ssh/config  $HOST_DOTFILES/.ssh/config	> /dev/null 2>&1
-	echo "Backing up HOME/bin... "
+backup_host_bin(){
+	echo "Backing up $HOME/bin... "
 	rsync -a --safe-links --force --delete-after $HOME/bin  $HOST_BKUP_DIR/
-
-	echo "Host-spec Part Done!"
+	echo "$HOME/bin... DONE"
 }
-
 
 #======================
 # CUPS config
@@ -115,6 +59,7 @@ backup_etc_config(){
 
 #backup_common
 #backup_host_config
+backup_host_bin
 backup_etc_config
 backup_cups_config
 

@@ -1,4 +1,5 @@
-if [ -x /usr/bin/fcitx ] && [ -x /opt/apps/com.sogou.sogouimebs-uos/files/bin/sogouimebs-session ]; then
+sogouimebs_session=/opt/sogoupinyin/files/bin/sogouimebs-session
+if [ -x /usr/bin/fcitx ] && [ -x ${sogouimebs_session} ]; then
     if ([ -x /usr/bin/im-config ]) && (! [ -f $HOME/.xinputrc ]); then
         export XMODIFIERS=@im=fcitx || true
     elif ([ -x /usr/bin/imsettings-switch ]) && (! [ -f $HOME/.config/imsettings/xinputrc ]); then
@@ -6,7 +7,6 @@ if [ -x /usr/bin/fcitx ] && [ -x /opt/apps/com.sogou.sogouimebs-uos/files/bin/so
     elif [ "$XMODIFIERS" = "" ] || [ "$XMODIFIERS" = "@im=xim" ]; then
         export XMODIFIERS=@im=fcitx
     fi
-
     if [ "$XMODIFIERS" = "@im=fcitx" ]; then
         if [ -f /usr/lib/*/gtk-2.0/*/immodules/im-fcitx.so ] || \
           [ -f /usr/lib*/gtk-2.0/*/immodules/im-fcitx.so ]; then
@@ -23,6 +23,6 @@ if [ -x /usr/bin/fcitx ] && [ -x /opt/apps/com.sogou.sogouimebs-uos/files/bin/so
                 export QT_IM_MODULE=fcitx
            fi
         fi
-        STARTUP="/opt/apps/com.sogou.sogouimebs-uos/files/bin/sogouimebs-session $STARTUP"
+        STARTUP="${sogouimebs_session} $STARTUP"
     fi
 fi

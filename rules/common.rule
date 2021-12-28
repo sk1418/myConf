@@ -9,11 +9,15 @@
 .screenrc
 .tmux.conf
 .vimrc
+.ideavimrc
 .Xmodmap
 base.vimrc
 .ctags
 .todo/
 .bcrc
 firefoxProxy.pac
+.zsh/completion/
+.zsh/promptrc --> .zsh%%promptrc
+.zsh/fzf-fasd.zsh --> .zsh%%fzf-fasd.zsh
 .config/nvim/init.vim --> .config%%nvim%%init.vim
 .config/nvim/ginit.vim --> .config%%nvim%%ginit.vim

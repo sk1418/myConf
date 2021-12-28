@@ -1,14 +1,15 @@
-# real dotfile --> liveBaseCfg --> backupRepo
-# E.g.
-# ~/.gitconfig --> ~/confBase/host/my.gitconfig --> $HOST_BKUP_DIR/conf/.gitconfig
 # default parent dir: 
-# $HOME/... --> $LIVE_CFG_HOST/... --> $HOST_BKUP_DIR/...
+# $HOME/...  --> $HOST_BKUP_DIR/...
 # Default patterns
 #
 # if only one field:
 # .foo
 # is same as:
-# .foo --> my.foo --> .foo
+# .foo --> .foo
+# otherwise:
+#
+# .foo/bar/file --> .foo%%bar%%file
+#
 
 .zsh/myZsh.zsh --> .zsh%%myZsh.zsh
 .gitconfig
@@ -17,8 +18,9 @@
 .xinitrc
 .bashrc
 .bash_profile
-fonts/*.sh
-fonts/*.md
-fonts/*.conf
-bin/*
+fonts/installFonts.sh
+fonts/installFonts.md
+fonts/20-kent-fonts-settings.conf
+hostConf/my.Xresources --> hostConf%%my.Xresources
+#bin/*
 #.ssh/config
