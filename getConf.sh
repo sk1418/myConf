@@ -92,7 +92,7 @@ backup_etc_config(){
 	print_sep
 	echo "$ME /etc "
 	print_sep
-	mkdir -p $HOST_ETC > /dev/null 2>&1
+	mkdir -p $HOST_BKUP_ETC_DIR > /dev/null 2>&1
 	ETC_FILES=(/etc/hostname
 	/etc/hosts
 	/etc/vconsole.conf
@@ -107,14 +107,14 @@ backup_etc_config(){
 	)
 	for f in ${ETC_FILES[@]}; do
 		print_step "$f"
-		sudo rsync -a --copy-unsafe-links --force --delete-after $f $HOST_ETC/ 
+		sudo rsync -a --copy-unsafe-links --force --delete-after $f $HOST_BKUP_ETC_DIR/ 
 	done
-	sudo chown -R $USER $HOST_ETC
+	sudo chown -R $USER $HOST_BKUP_ETC_DIR
 	echo "/etc Part Done!"
 }
 
-backup_common
-backup_host_config
+#backup_common
+#backup_host_config
 backup_etc_config
 backup_cups_config
 

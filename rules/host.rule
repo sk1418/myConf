@@ -1,0 +1,24 @@
+# real dotfile --> liveBaseCfg --> backupRepo
+# E.g.
+# ~/.gitconfig --> ~/confBase/host/my.gitconfig --> $HOST_BKUP_DIR/conf/.gitconfig
+# default parent dir: 
+# $HOME/... --> $LIVE_CFG_HOST/... --> $HOST_BKUP_DIR/...
+# Default patterns
+#
+# if only one field:
+# .foo
+# is same as:
+# .foo --> my.foo --> .foo
+
+.zsh/myZsh.zsh --> .zsh%%myZsh.zsh
+.gitconfig
+.gitignore
+.profile
+.xinitrc
+.bashrc
+.bash_profile
+fonts/*.sh
+fonts/*.md
+fonts/*.conf
+bin/*
+#.ssh/config

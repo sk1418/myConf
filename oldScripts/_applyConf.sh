@@ -6,7 +6,7 @@
 source var.sh
 
 #dir variables
-BACKUP="$HOME/myConfBackup"
+BACKUP="$HOME/myConfBackup/$(date +%F_%T)"
 
 __backup_and_apply(){
 	targetDir="$1"
@@ -35,7 +35,7 @@ apply_common(){
 	print_sep
 	echo "appling common config files"	
 	print_sep
-	__backup_and_apply $COMMON_DIR
+	__backup_and_apply $LIVE_CFG_COMMON
 	print_sep
 }
 
@@ -54,7 +54,10 @@ apply_host_cfg(){
 
 
 #prepare backupdir
-mkdir -p $BACKUP
+echo "Backing up...."
+rsync -av "$LIVE_CFG_BASE" $BACKUP
+echo "Old config files have been archived: $BACKUP"
+
 apply_host_cfg
 apply_common
 print_sep

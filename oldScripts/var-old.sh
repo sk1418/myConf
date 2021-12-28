@@ -17,10 +17,10 @@ script_path=$(pwd)
 ROOT_DIR=$script_path
 
 #common
-COMMON_CONF_DIR="$ROOT_DIR/common"
+COMMON_BKUP_DIR="$ROOT_DIR/common"
 RULE_COMMON=$ROOT_DIR/rules/common.rule
 SH_BKUP_COMMON="$ROOT_DIR/scripts/backupCommon.sh $RULE_COMMON"
-#echo "backup common script: $SH_BKUP_COMMON"
+echo "backup common script: $SH_BKUP_COMMON"
 
 #host
 HOST_NAME=$(hostname)
@@ -29,6 +29,14 @@ HOST_BKUP_CONF_DIR=$HOST_BKUP_DIR/hostConf
 HOST_BKUP_ETC_DIR="$HOST_BKUP_DIR/etc"
 
 HOST_CONF_DIR=$HOME/hostConf #deprecated
+
+#live config dir
+LIVE_CFG_BASE=$HOME/myConfigBase
+LIVE_CFG_COMMON=$LIVE_CFG_BASE/common
+LIVE_CFG_HOST=$LIVE_CFG_BASE/hostConf
+
+mkdir -p "$LIVE_CFG_HOST"
+mkdir -p "$LIVE_CFG_COMMON"
 
 #ZSH_COMP="$HOME/.zsh/completion"
 #COMMON_ZSH_COMP="$COMMON_DIR/.zsh/completion"

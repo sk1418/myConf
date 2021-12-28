@@ -1,0 +1,19 @@
+# base dir is $HOME
+# left --> right
+# if right is empty, left == right
+# if left ends with /, it's a dir level cp and ln
+
+.Xdefaults
+.Xresources
+.zshrc
+.screenrc
+.tmux.conf
+.vimrc
+.Xmodmap
+base.vimrc
+.ctags
+.todo/
+.bcrc
+firefoxProxy.pac
+.config/nvim/init.vim --> .config%%nvim%%init.vim
+.config/nvim/ginit.vim --> .config%%nvim%%ginit.vim
