@@ -36,6 +36,7 @@ set cindent
 set tabstop=4
 set softtabstop=4
 set shiftwidth=4
+set expandtab
 
 "set backspace option
 set backspace=indent,eol,start
@@ -982,4 +983,4 @@ cnoreabbrev nnn e /tmp/foo_<c-r>=strftime("%Y-%m-%d_%H:%M:%S")<cr>
 
 map <leader>c<space> <plug>NERDCommenterToggle
 
-" vim: fdm=marker ts=2 sw=2
+" vim: fdm=marker ts=2 sw=2 et
