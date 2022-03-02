@@ -489,6 +489,7 @@ alias bvi='vim -u ~/base.vimrc'
 
 alias vi='nvim'
 alias gvim='nvim-qt'
+alias activeServices='systemctl list-unit-files --state enabled'
 
 #}}}
 
