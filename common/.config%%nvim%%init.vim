@@ -206,7 +206,11 @@ nnoremap zl zt4<c-y>
 "Fast saving
 nnoremap <Leader>x :xa!<cr>
 nnoremap <Leader>w :w!<cr>
-nnoremap <Leader>su :w !sudo tee %>/dev/null <cr>
+
+" nnoremap <Leader>su :w !sudo tee %>/dev/null <cr>
+" Sudo plugin settings
+nnoremap <Leader>su :SudaWrite<cr>
+let g:suda#prompt = 'sudo Password'
 
 "add empty line above/below current line
 nnoremap <leader>o mzo<ESC>`z
@@ -218,7 +222,7 @@ nnoremap <leader>hi :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") 
 			\ . synIDattr(synIDtrans(synID(line("."), col("."), 1)), "fg")<CR>
 
 "TODO map tc to show color
-"tab new,close,move (commented out, because buffer is more conveniet)
+"tab new,close,move (commented ou/t, because buffer is more conveniet)
 "map <Leader>tn :tabnew<cr>
 "map <Leader>tc :tabclose<cr>
 "map <Leader>tm :tabmove
@@ -240,6 +244,7 @@ cnoremap <C-A> <Home>
 
 call plug#begin('~/.config/nvim/plugged')
 " color schemes
+Plug 'lambdalisue/suda.vim' " :w ! sudo tee % > /dev/nul  replacement due to a nvim bug
 Plug 'fugalh/desert.vim'
 Plug 'vim-scripts/desert256.vim'
 "Plug 'sk1418/last256', {'branch': 'nvim-qt'}
@@ -691,7 +696,7 @@ set statusline+=%{&ff}:  "dos/unix
 set statusline+=%{&fenc!=''?&fenc:&enc}\ %* "encoding
 
 "fugitve branch
-set statusline +=%8*%{fugitive#head()!=''?'['.fugitive#head().']':''}%2*\ 
+set statusline +=%8*%{fugitive#Head()!=''?'['.fugitive#Head().']':''}%2*\ 
 
 set statusline +=%7*\|%*
 set statusline+=%2*\ ASCII:%b\ %*  " ascii 
@@ -1071,12 +1076,12 @@ autocmd bufwritepost .vimrc source $MYVIMRC
 
 " autocmd for fugitive plugin
 augroup fugitive
-	autocmd!
-	autocmd User fugitive 
-				\ if fugitive#buffer().type() =~# '^\%(tree\|blob\)$' |
-				\   nnoremap <buffer> .. :edit %:h<CR> |
-				\ endif
-	autocmd BufReadPost fugitive://* set bufhidden=delete
+  autocmd!
+  autocmd User fugitive 
+        \ if fugitive#buffer().type() =~# '^\%(tree\|blob\)$' |
+        \   nnoremap <buffer> .. :edit %:h<CR> |
+        \ endif
+  autocmd BufReadPost fugitive://* set bufhidden=delete
 augroup END
 
 "highlight some keywords in my 'publish.md'
