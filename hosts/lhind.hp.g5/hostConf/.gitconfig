@@ -5,6 +5,7 @@
 [core]
 	pager = cat
 	editor = vim
+    hooksPath = /home/kent/lib/git-hooks
 
 [http]
 	proxy = http://localhost:8888

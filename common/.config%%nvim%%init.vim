@@ -135,7 +135,7 @@ iabbrev mk3 !MARK3
 "-------[ key mappying ]----------------------------------------{{{1
 "
 "nvim default map to y$
-nnoremap Y yy 
+nnoremap Y mmyy`m
 "Copying to X11 primary selection with the mouse doesn't work
 " clipboard=autoselect is not implemented yet. partial workaround:
 vnoremap <LeftRelease> "*ygv
@@ -275,7 +275,7 @@ Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-fugitive'
 Plug 'christoomey/vim-conflicted'
-Plug 'tpope/vim-markdown'
+"Plug 'tpope/vim-markdown'
 Plug 'majutsushi/tagbar'
 "Plug 'vim-scripts/FuzzyFinder'
 Plug 'Lokaltog/vim-easymotion'
@@ -683,9 +683,9 @@ endif
 "set gfn=Monaco\ 13
 "set gfw=WenQuanYi\ Micro\ Hei\ 12
 
-"set gfn=SF\ Mono\ 13
-set gfn=JetBrains\ Mono\ 13
-set gfw=PingFang\ SC\ 13
+"set gfn=SF\ Mono:13
+set gfn=JetBrains\ Mono:h13
+set gfw=PingFang\ SC:13
 
 "-------[ Status bar ]------------------------------------❱----{{{1
 set statusline =%7*[%n]%*
