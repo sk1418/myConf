@@ -1091,18 +1091,31 @@ augroup publishing
 augroup END
 
 function! Hi_Publish()
-	exec 'hi! Paid  term=bold cterm=bold guifg=black guibg=#999999 ctermfg=16 ctermbg=darkgray'
-	exec 'hi! PaymentRequested  term=bold cterm=bold guifg=black guibg=#d07777 ctermfg=16 ctermbg=red'
-	exec 'hi! Working  term=bold cterm=bold guifg=black guibg=#7080c0 ctermfg=16 ctermbg=darkgreen'
-	exec 'hi! Published  term=bold cterm=bold guifg=black guibg=#50a070 ctermfg=16 ctermbg=darkblue'
+	exec 'hi! Paid  term=bold cterm=bold gui=bold guifg=black guibg=#999999 ctermfg=16 ctermbg=darkgray'
+	exec 'hi! PaymentRequested  term=bold cterm=bold gui=bold  guifg=black guibg=#d07777 ctermfg=16 ctermbg=red'
+	exec 'hi! Working  term=bold cterm=bold gui=bold guifg=black guibg=#7080c0 ctermfg=16 ctermbg=darkgreen'
+	exec 'hi! Published  term=bold cterm=bold gui=bold guifg=black guibg=#50a070 ctermfg=16 ctermbg=darkblue'
 
 	call matchadd("Paid", "[Pp]aid")
 	call matchadd("Published", "[Pp]ublished")
 	call matchadd("PaymentRequested", "[Pp]ayment-[rR]equested[_0-9]*")
 	call matchadd("Working", "[Ww]orking")
+  nnoremap <buffer> <leader>$ :vs %:p:h/budgets.md<cr>
 	exec 'normal zMgg)'
 endfunction
 
+augroup budget
+	autocmd!
+	autocmd BufEnter budgets.md call Hi_Budget()
+augroup END
+
+function! Hi_Budget()
+	exec 'hi! ArticleType  term=bold cterm=bold gui=bold guifg=black guibg=#7080c0 ctermfg=16 ctermbg=darkgreen'
+
+	call matchadd("ArticleType", '\s*\(Java\|Linux\|Kotlin\)\s*')
+  nnoremap <buffer> q :close<cr>
+	exec 'normal zMgg)'
+endfunction
 
 
 " autocmd for python project to update tags
@@ -1110,11 +1123,8 @@ autocmd BufWritePost *.py call UpdateTags()
 
 
 "-------[ Machine Specific stuff ]------------------------------------- {{{1
-"quick open  my timesheet
-nnoremap <leader>rh :vs /home/kent/Desktop/Projects/mje/ts.csv<cr>
-
-cnoreabbrev nnn e /tmp/foo_<c-r>=strftime("%Y-%m-%d_%H:%M:%S")<cr>
 
 map <leader>c<space> <plug>NERDCommenterToggle
 
-" vim: fdm=marker ts=2 sw=2
+
+" vim: fdm=marker ts=2 sw=2 et
