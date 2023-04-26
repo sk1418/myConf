@@ -163,9 +163,8 @@ source $MY_ZSH_DIR/promptrc
 
 #====[ Functions ]==================================================# {{{
 #display beijing time
-function when {
+function bjtime {
   echo "北京时间: " $(TZ="Hongkong" date +"%F %H:%M:%S")
-  echo "首尔时间: " $(TZ="Asia/Seoul" date +"%F %H:%M:%S")
 }
 
 

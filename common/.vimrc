@@ -27,6 +27,9 @@ syntax enable
 set encoding=utf-8
 "file encodings
 set fileencodings=utf-8,iso-8859-1,gb2312,ucs-bom,euc-cn,euc-tw,gb18030,gbk,cp936 
+
+set fo+=mM
+
 " auto indent setting
 set smartindent
 set cindent

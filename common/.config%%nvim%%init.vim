@@ -1113,7 +1113,7 @@ function! Hi_Budget()
 	exec 'hi! ArticleType  term=bold cterm=bold gui=bold guifg=black guibg=#7080c0 ctermfg=16 ctermbg=darkgreen'
 
 	call matchadd("ArticleType", '\s*\(Java\|Linux\|Kotlin\)\s*')
-  nnoremap <buffer> q :close<cr>
+  nnoremap <buffer> <silent> q :bd<cr>
 	exec 'normal zMgg)'
 endfunction
 
