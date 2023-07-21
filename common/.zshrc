@@ -3,6 +3,11 @@
 export EDITOR=vim
 export MY_ZSH_DIR="$HOME/.zsh"
 export MY_LIB_DIR="$HOME/lib"
+
+if [[ -f $MY_ZSH_DIR/first.zsh ]]; then
+  source $MY_ZSH_DIR/first.zsh
+fi
+  
 setopt brace_ccl      #brace expansion
 limit coredumpsize 0  #disable coredumpsize
 WORDCHARS='*?_-[]~=&;!#$%^(){}<>'          #those characters would be considered as a part of a word
@@ -517,7 +522,9 @@ source $MY_ZSH_DIR/completion/*
 #====[ fzf config]=============================================# {{{
 
 #source the default key-bindings
-source  /usr/share/fzf/key-bindings.zsh
+
+[[ -f /usr/share/fzf/key-bindings.zsh ]] && source /usr/share/fzf/key-bindings.zsh
+[[ -f $HOME/.fzf.zsh ]] && source $HOME/.fzf.zsh
 
 export FZF_DEFAULT_COMMAND='ag --hidden --ignore .git -l -g ""'
 export FZF_DEFAULT_OPTS='--height 70% --reverse --border'
@@ -574,3 +581,5 @@ setopt LISTPACKED
 
 ### END OF FILE #################################################################
 # vim: filetype=zsh fdm=marker autoindent expandtab shiftwidth=2 ts=2 
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh

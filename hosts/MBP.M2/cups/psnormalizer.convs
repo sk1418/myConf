@@ -1,0 +1,20 @@
+#
+# Apple PSNormalizer MIME conversions file for CUPS.
+#
+# Copyright 2022 Apple Inc. All rights reserved.
+#
+
+# AirPrint
+application/vnd.apple-postscript application/pdf              200    pstopdffilter
+application/vnd.cups-postscript  application/pdf              200    pstopdffilter
+application/vnd.apple-postscript image/urf                    250    pstocupsraster
+application/vnd.cups-postscript  image/urf                    250    pstocupsraster
+
+# Filter that efficiently combines pstopdffilter with cgpdftoraster.  The
+# cost for this filter MUST be less than that of pstopdffilter + cgpdftoraster.
+application/vnd.apple-postscript application/vnd.cups-raster  250    pstocupsraster
+application/vnd.cups-postscript  application/vnd.cups-raster  250    pstocupsraster
+
+# Handle PC format eps data
+application/pc-eps               application/pdf              200    pstopdffilter
+application/pc-eps               application/vnd.cups-raster  50     pstocupsraster

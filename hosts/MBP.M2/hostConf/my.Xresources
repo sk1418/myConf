@@ -1,0 +1,7 @@
+!hidpi+ SF Mono
+
+URxvt*font:   xft:JetBrains Mono:autohint=True:size=26:antialias=True,  xft:PingFang SC:autohint=True:size=26,  xft:DejaVu Sans Mono:book:autohint=True:size=26
+URxvt*boldFont:  xft:JetBrains Mono:Bold:autohint=True:size=26:antialias=True, xft:PingFang SC:Bold:autohint=True:size=26, xft:DejaVu Sans Mono:bold:autohint=True:size=26
+
+
+! vim: fdm=marker

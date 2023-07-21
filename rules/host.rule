@@ -10,7 +10,7 @@
 #
 # .foo/bar/file --> .foo%%bar%%file
 #
-
+.zsh/first.zsh --> .zsh%%first.zsh
 .zsh/myZsh.zsh --> .zsh%%myZsh.zsh
 .gitconfig
 .gitignore
