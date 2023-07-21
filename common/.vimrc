@@ -564,7 +564,7 @@ set statusline+=%{&ff}:  "dos/unix
 set statusline+=%{&fenc!=''?&fenc:&enc}\ %* "encoding
 
 "fugitve branch
-set statusline +=%8*%{fugitive#head()!=''?'['.fugitive#head().']':''}%2*\ 
+set statusline +=%8*%{fugitive#statusline()!=''?'['.fugitive#statusline().']':''}%2*\ 
 
 set statusline +=%7*\|%*
 set statusline+=%2*\ ASCII:%b\ %*  " ascii 

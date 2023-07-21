@@ -162,6 +162,16 @@ source $MY_ZSH_DIR/promptrc
 #}}}
 
 #====[ Functions ]==================================================# {{{
+
+function wordRange {
+  awk -v target=$1 'BEGIN{
+    low=target*0.65
+    top=target*1.3
+    top2=target*1.45
+    printf "between %d and %d (%d -2L )\n", low, top, top2
+  }'
+}
+
 #display beijing time
 function bjtime {
   echo "北京时间: " $(TZ="Hongkong" date +"%F %H:%M:%S")

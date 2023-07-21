@@ -1,5 +1,5 @@
 [user]
-	name = Kent@lhind.hp.g5
+	name = Kai Yuan
 	email = kent.yuan@Gmail.com
 
 [core]
@@ -24,6 +24,7 @@
 	untracked = red
 
 [alias]
+    resetPwd = config --unset credential.helper
 	tags = tag -l
 	branches = branch -a
 	remotes = remote -v
@@ -53,6 +54,7 @@
 	unstage = reset HEAD
 	df = "difftool --dir-diff"
 	addjava = "!addjava(){ git add **/src/**/*.java > /dev/null 2>&1 || git add src/**/*.java ;}; addjava"
+	addkt = "!addkt(){ git add **/src/**/*.kt > /dev/null 2>&1 || git add src/**/*.kt ;}; addkt"
 
 	#show file in a commit/revision
 	showfile = "!showfiles(){ git diff-tree --no-commit-id --name-only -r $1;};showfiles"
