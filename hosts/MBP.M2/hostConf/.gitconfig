@@ -4,7 +4,7 @@
 
 [core]
 	pager = cat
-	editor = vim
+	editor = nvim
 	hooksPath = /User/kent/lib/git-hooks
 
 [color]

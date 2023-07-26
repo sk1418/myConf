@@ -6,6 +6,10 @@ if exists(':GuiFont')
     " Use GuiFont! to ignore font errors
     "GuiFont SF Mono:h13
     GuiFont JetBrains Mono:h13:w57
+
+    if has('macunix')
+        GuiFont JetBrains Mono:h16:w57
+    endif
 endif
 
 " Enable GUI ScrollBar
