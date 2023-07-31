@@ -1,0 +1,122 @@
+{
+  "rules": [
+
+    {
+      "description": "HHKB left: Option + ;",
+      "manipulators": [
+        {
+          "from": {
+            "key_code": "semicolon",
+            "modifiers": {
+              "mandatory": [
+                "option"
+              ],
+              "optional": [
+                "shift"
+              ]
+            }
+          },
+          "to": [
+            {
+              "key_code": "left_arrow"
+            }
+          ],
+          "type": "basic"
+        }
+      ]
+    },
+    {
+      "description": "HHKB down: Option + /",
+      "manipulators": [
+        {
+          "from": {
+            "key_code": "slash",
+            "modifiers": {
+              "mandatory": [
+                "option"
+              ],
+              "optional": [
+                "shift"
+              ]
+            }
+          },
+          "to": [
+            {
+              "key_code": "down_arrow"
+            }
+          ],
+          "type": "basic"
+        }
+      ]
+    },
+    {
+      "description": "HHKB up: Option + [",
+        "manipulators": [
+          {
+            "from": {
+              "key_code": "open_bracket",
+              "modifiers": {
+                "mandatory": [
+                  "option"
+                ],
+                "optional": [
+                  "shift"
+                ]
+              }
+            },
+            "to": [
+              {
+                "key_code": "up_arrow"
+              }
+            ],
+            "type": "basic"
+          }
+        ]
+    },
+    {
+      "description": "HHKB Right: Option + '",
+      "manipulators": [
+        {
+          "from": {
+            "key_code": "quote",
+            "modifiers": {
+              "mandatory": [
+                "option"
+              ],
+              "optional": [
+                "shift"
+              ]
+            }
+          },
+          "to": [
+            {
+              "key_code": "right_arrow"
+            }
+          ],
+          "type": "basic"
+        }
+      ]
+    },
+    {
+      "description": "Option + Del -> real delete",
+      "manipulators": [
+        {
+          "from": {
+            "key_code": "delete_or_backspace",
+            "modifiers": {
+              "mandatory": [
+                "option"
+              ]
+            }
+          },
+          "to": [
+            {
+              "key_code": "delete_forward"
+            }
+          ],
+          "type": "basic"
+        }
+      ]
+    }
+      ]
+}

@@ -1062,6 +1062,7 @@ augroup file_types
 	"Java
 	autocmd FileType java set tags+=$HOME/.jdkTags
 	autocmd FileType java hi link javaDocComment String
+  autocmd FileType json setlocal ts=2 sw=2 et
 augroup END
 
 " Make sure Vim returns to the same line when you reopen a file.

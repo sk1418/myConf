@@ -1,0 +1,43 @@
+{
+    "rules": [
+        {
+            "description": "Shift to Change from/to English input. （Required: MacOS built-in Option:  Cmd+space to switch from/to ABC.）",
+            "manipulators": [
+                {
+                    "from": {
+                        "key_code": "left_shift"
+                    },
+                    "to": [
+                        {
+                            "key_code": "left_shift"
+                        }
+                    ],
+                    "to_if_alone": [
+                        {
+                            "key_code": "spacebar",
+                            "modifiers": [ "command" ]
+                        }
+                    ],
+                    "type": "basic"
+                },
+                {
+                    "from": {
+                        "key_code": "right_shift"
+                    },
+                    "to": [
+                        {
+                            "key_code": "right_shift"
+                        }
+                    ],
+                    "to_if_alone": [
+                        {
+                            "key_code": "spacebar",
+                            "modifiers": [ "command" ]
+                        }
+                    ],
+                    "type": "basic"
+                }
+            ]
+        }
+    ]
+}
