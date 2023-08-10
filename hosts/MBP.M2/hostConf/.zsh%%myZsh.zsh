@@ -16,6 +16,7 @@ export BC_ENV_ARGS=$HOME/.bcrc
 #add project into cd path
 export CDPATH=$CDPATH:$HOME/Desktop/Projects
 
+export EDITOR=nvim
 
 #freetds, used by pymssql lib to aviatar panda db connection
 export TDSVER=7.0
