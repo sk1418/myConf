@@ -1,30 +1,30 @@
 {
-    "rules": [
+  "rules": [
+    {
+      "description": "press ESC is ESC, press & hold ESC -> option ",
+      "manipulators": [
         {
-            "description": "press ESC is ESC, press & hold ESC -> option ",
-            "manipulators": [
-                {
-                    "from": {
-                        "key_code": "escape",
-                        "modifiers": {
-                            "optional": [
-                                "any"
-                            ]
-                        }
-                    },
-                    "to_if_alone": [
-                        {
-                            "key_code": "escape"
-                        }
-                    ],
-                    "to_if_held_down": [
-                        {
-                            "key_code": "left_option"
-                        }
-                    ],
-                    "type": "basic"
-                }
-            ]
+          "from": {
+            "key_code": "escape",
+            "modifiers": {
+              "optional": [
+                "any"
+              ]
+            }
+          },
+          "to_if_alone": [
+            {
+              "key_code": "escape"
+            }
+          ],
+          "to_if_held_down": [
+            {
+              "key_code": "left_option"
+            }
+          ],
+          "type": "basic"
         }
-    ]
+      ]
+    }
+  ]
 } 

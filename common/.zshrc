@@ -142,12 +142,12 @@ export TERM
 DIR_COLOR=$MY_LIB_DIR/dircolors/dircolors.ansi-universal
 DIR_COLOR256=$MY_LIB_DIR/dircolors/dircolors.256dark
 
-if [[ ("$TERM" = *256color || "$TERM" = screen* ) && -f $DIR_COLOR256 ]]; then
+if [[ ("$TERM" = *256color || "$TERM" = screen* || "$TERM" = alacritty ) && -f $DIR_COLOR256 ]]; then
   #use prefefined colors
   eval $(dircolors -b $DIR_COLOR256)
   use_256color=1
   export TERMCAP=${TERMCAP/Co\#8/Co\#256}
-  else
+else
   [[ -f $DIR_COLOR ]] && eval $(dircolors -b $DIR_COLOR)
 fi
 
@@ -196,6 +196,19 @@ function webHere {
         python -m http.server
     fi
 }
+
+function weather {
+  curl 'wttr.in/Hamburg?format=4'
+  sleep 1
+  curl 'wttr.in/Jiangyou?format=4'
+  sleep 1
+  curl 'wttr.in/Tianjin?format=4'
+}
+
+function wttr {
+  curl 'wttr.in/Hamburg'
+}
+
 # check zsh Version
 function is-at-least {
   local IFS=".-" min_cnt=0 ver_cnt=0 part min_ver version
@@ -247,50 +260,50 @@ function pwd_color_chpwd { [ $PWD = $OLDPWD ] || __PROMPT_PWD="$pU$pfg_cyan%~$pR
 function pwd_color_preexec { __PROMPT_PWD="$pfg_magenta%~$pR" }
 
 
-#行编辑高亮模式 
-# Ctrl+@ 设置标记，标记和光标点之间为 region
-if (is-at-least 4.3); then
-  zle_highlight=(region:bg=magenta
-                 special:bold,fg=magenta
-                 default:bold
-                 isearch:underline
-                 )
-fi
-
-# colorize command as blue if found in path or defined.
-TOKENS_FOLLOWED_BY_COMMANDS=('|' '||' ';' '&' '&&' 'sudo' 'do' 'time' 'strace')
-
-recolor-cmd() {
-  region_highlight=()
-  colorize=true
-  start_pos=0
-  for arg in ${(z)BUFFER}; do
-    ((start_pos+=${#BUFFER[$start_pos+1,-1]}-${#${BUFFER[$start_pos+1,-1]## #}}))
-    ((end_pos=$start_pos+${#arg}))
-    if $colorize; then
-      colorize=false
-      res=$(LC_ALL=C builtin type $arg 2>/dev/null)
-      case $res in
-        *'reserved word'*)   style="fg=magenta,bold";;
-        *'alias for'*)       style="fg=cyan,bold";;
-        *'shell builtin'*)   style="fg=yellow,bold";;
-        *'shell function'*)  style='fg=green,bold';;
-        *"$arg is"*)         
-          [[ $arg = 'sudo' ]] && style="fg=red,bold" || style="fg=blue,bold";;
-        *)                   style='none,bold';;
-      esac
-      region_highlight+=("$start_pos $end_pos $style")
-    fi
-    [[ ${${TOKENS_FOLLOWED_BY_COMMANDS[(r)${arg//|/\|}]}:+yes} = 'yes' ]] && colorize=true
-    start_pos=$end_pos
-  done
-}
-
-check-cmd-self-insert() { zle .self-insert && recolor-cmd }
-check-cmd-backward-delete-char() { zle .backward-delete-char && recolor-cmd }
-
-zle -N self-insert check-cmd-self-insert
-zle -N backward-delete-char check-cmd-backward-delete-char
+##行编辑高亮模式 
+## Ctrl+@ 设置标记，标记和光标点之间为 region
+#if (is-at-least 4.3); then
+#  zle_highlight=(region:bg=magenta
+#                 special:bold,fg=magenta
+#                 default:bold
+#                 isearch:underline
+#                 )
+#fi
+#
+## colorize command as blue if found in path or defined.
+#TOKENS_FOLLOWED_BY_COMMANDS=('|' '||' ';' '&' '&&' 'sudo' 'do' 'time' 'strace')
+#
+#recolor-cmd() {
+#  region_highlight=()
+#  colorize=true
+#  start_pos=0
+#  for arg in ${(z)BUFFER}; do
+#    ((start_pos+=${#BUFFER[$start_pos+1,-1]}-${#${BUFFER[$start_pos+1,-1]## #}}))
+#    ((end_pos=$start_pos+${#arg}))
+#    if $colorize; then
+#      colorize=false
+#      res=$(LC_ALL=C builtin type $arg 2>/dev/null)
+#      case $res in
+#        *'reserved word'*)   style="fg=magenta,bold";;
+#        *'alias for'*)       style="fg=cyan,bold";;
+#        *'shell builtin'*)   style="fg=yellow,bold";;
+#        *'shell function'*)  style='fg=green,bold';;
+#        *"$arg is"*)         
+#          [[ $arg = 'sudo' ]] && style="fg=red,bold" || style="fg=blue,bold";;
+#        *)                   style='none,bold';;
+#      esac
+#      region_highlight+=("$start_pos $end_pos $style")
+#    fi
+#    [[ ${${TOKENS_FOLLOWED_BY_COMMANDS[(r)${arg//|/\|}]}:+yes} = 'yes' ]] && colorize=true
+#    start_pos=$end_pos
+#  done
+#}
+#
+#check-cmd-self-insert() { zle .self-insert && recolor-cmd }
+#check-cmd-backward-delete-char() { zle .backward-delete-char && recolor-cmd }
+#
+#zle -N self-insert check-cmd-self-insert
+#zle -N backward-delete-char check-cmd-backward-delete-char
 
 # }}}
 
@@ -568,7 +581,16 @@ bindkey "^[," copy-earlier-word
 
 #}}}
 mkdir -p /tmp/test
-#environment variables
+
+
+# fuzzy finder
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+# syntax highlighting
+SYNTAX_HL_ZSH=$MY_ZSH_DIR/syn-highlighting.zsh
+[ -f $SYNTAX_HL_ZSH ] && source $SYNTAX_HL_ZSH
+
+#environment variable
 source $MY_ZSH_DIR/myZsh.zsh
 
 #tab setting (4 spaces)
@@ -582,4 +604,3 @@ setopt LISTPACKED
 ### END OF FILE #################################################################
 # vim: filetype=zsh fdm=marker autoindent expandtab shiftwidth=2 ts=2 
 
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh

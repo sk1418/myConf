@@ -1,0 +1,70 @@
+{
+  "rules":[
+    {
+      "description": "alt + double click max the current window (ctrl+alt+9) ",
+      "manipulators": [
+        {
+          "type": "basic",
+          "from": {
+            "pointing_button": "button1",
+            "modifiers": {
+              "mandatory": ["left_option"]
+            }
+          },
+          "to": [
+            {
+              "key_code": "9",
+              "modifiers": ["left_control", "left_option"]
+            }
+          ],
+          "conditions": [
+            {
+              "type": "variable_if",
+              "name": "alt_clicked",
+              "value": 1
+            }
+          ]
+        },
+        {
+          "type": "basic",
+          "from": {
+            "pointing_button": "button1",
+            "modifiers": {
+              "mandatory": ["left_option"]
+            }
+          },
+          "to": [
+            {
+              "set_variable": {
+                "name": "alt_clicked",
+                "value": 1
+              }
+            },
+            {
+              "pointing_button": "button1",
+              "modifiers": ["option"]
+            }
+          ],
+          "to_delayed_action": {
+            "to_if_invoked": [
+              {
+                "set_variable": {
+                  "name": "alt_clicked",
+                  "value": 0
+                }
+              }
+            ],
+            "to_if_canceled": [
+              {
+                "set_variable": {
+                  "name": "alt_clicked",
+                  "value": 0
+                }
+              }
+            ]
+          }
+    }
+      ]
+}
+  ]
+}

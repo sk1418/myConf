@@ -1,0 +1,6 @@
+#!/bin/bash
+#export PYENV_VERSION=2.7.18
+
+cd $HOME/MyStuff/myCodes/python/retmux/
+python retmux $@
+#export PYENV_VERSION=

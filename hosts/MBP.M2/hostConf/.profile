@@ -20,3 +20,4 @@ export QT_SCALE_FACTOR=2
 # press and hold: Ctrl
 /usr/bin/setxkbmap -option 'ctrl:nocaps'
 /usr/bin/xcape -e 'Control_L=Escape'
+. "$HOME/.cargo/env"

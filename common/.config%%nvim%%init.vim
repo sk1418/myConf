@@ -135,7 +135,9 @@ iabbrev mk3 !MARK3
 "-------[ key mappying ]----------------------------------------{{{1
 "
 "nvim default map to y$
-nnoremap Y mmyy`m
+"nnoremap Y mmyy`m
+unmap Y
+
 "Copying to X11 primary selection with the mouse doesn't work
 " clipboard=autoselect is not implemented yet. partial workaround:
 vnoremap <LeftRelease> "*ygv

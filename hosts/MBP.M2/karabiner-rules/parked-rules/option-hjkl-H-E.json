@@ -1,133 +1,133 @@
 {
-    "rules": [
+  "rules": [
+    {
+      "description": "Option + HJKL, i(HOME), comma(END)",
+      "manipulators": [
         {
-            "description": "Option + HJKL, i(HOME), comma(END)",
-            "manipulators": [
-                {
-                    "description": "Option + H",
-                    "from": {
-                        "key_code": "h",
-                        "modifiers": {
-                            "mandatory": [
-                                "option"
-                            ],
-                            "optional": [
-                                "shift"
-                            ]
-                        }
-                    },
-                    "to": [
-                        {
-                            "key_code": "left_arrow"
-                        }
-                    ],
-                    "type": "basic"
-                },
-                {
-                    "description": "Option + J",
-                    "from": {
-                        "key_code": "j",
-                        "modifiers": {
-                            "mandatory": [
-                                "option"
-                            ],
-                            "optional": [
-                                "shift"
-                            ]
-                        }
-                    },
-                    "to": [
-                        {
-                            "key_code": "down_arrow"
-                        }
-                    ],
-                    "type": "basic"
-                },
-                {
-                    "description": "Option + K",
-                    "from": {
-                        "key_code": "k",
-                        "modifiers": {
-                            "mandatory": [
-                                "option"
-                            ],
-                            "optional": [
-                                "shift"
-                            ]
-                        }
-                    },
-                    "to": [
-                        {
-                            "key_code": "up_arrow"
-                        }
-                    ],
-                    "type": "basic"
-                },
-                {
-                    "description": "Option + L",
-                    "from": {
-                        "key_code": "l",
-                        "modifiers": {
-                            "mandatory": [
-                                "option"
-                            ],
-                            "optional": [
-                                "shift"
-                            ]
-                        }
-                    },
-                    "to": [
-                        {
-                            "key_code": "right_arrow"
-                        }
-                    ],
-                    "type": "basic"
-                },
-                {
-                    "description": "Option + i",
-                    "from": {
-                        "key_code": "i",
-                        "modifiers": {
-                            "mandatory": [
-                                "option"
-                            ],
-                            "optional": [
-                                "shift"
-                            ]
-                        }
-                    },
-                    "to": [
-                        {
-                            "key_code": "left_arrow",
-                            "modifiers": [
-                                "command"
-                            ]
-                        }
-                    ],
-                    "type": "basic"
-                },
-                {
-                    "description": "Option + ,",
-                    "from": {
-                        "key_code": "comma",
-                        "modifiers": {
-                            "mandatory": [
-                                "option"
-                            ],
-                            "optional": [
-                                "shift"
-                            ]
-                        }
-                    },
-                    "to": [
-                        {
-                            "key_code": "right_arrow",
-                            "modifiers": [ "command" ]
-                        }
-                    ],
-                    "type": "basic"
-                }
-            ]
+          "description": "Option + H",
+          "from": {
+            "key_code": "h",
+            "modifiers": {
+              "mandatory": [
+                "option"
+              ],
+              "optional": [
+                "shift"
+              ]
+            }
+          },
+          "to": [
+            {
+              "key_code": "left_arrow"
+            }
+          ],
+          "type": "basic"
+        },
+        {
+          "description": "Option + J",
+          "from": {
+            "key_code": "j",
+            "modifiers": {
+              "mandatory": [
+                "option"
+              ],
+              "optional": [
+                "shift"
+              ]
+            }
+          },
+          "to": [
+            {
+              "key_code": "down_arrow"
+            }
+          ],
+          "type": "basic"
+        },
+        {
+          "description": "Option + K",
+          "from": {
+            "key_code": "k",
+            "modifiers": {
+              "mandatory": [
+                "option"
+              ],
+              "optional": [
+                "shift"
+              ]
+            }
+          },
+          "to": [
+            {
+              "key_code": "up_arrow"
+            }
+          ],
+          "type": "basic"
+        },
+        {
+          "description": "Option + L",
+          "from": {
+            "key_code": "l",
+            "modifiers": {
+              "mandatory": [
+                "option"
+              ],
+              "optional": [
+                "shift"
+              ]
+            }
+          },
+          "to": [
+            {
+              "key_code": "right_arrow"
+            }
+          ],
+          "type": "basic"
+        },
+        {
+          "description": "Option + i",
+          "from": {
+            "key_code": "i",
+            "modifiers": {
+              "mandatory": [
+                "option"
+              ],
+              "optional": [
+                "shift"
+              ]
+            }
+          },
+          "to": [
+            {
+              "key_code": "left_arrow",
+              "modifiers": [
+                "command"
+              ]
+            }
+          ],
+          "type": "basic"
+        },
+        {
+          "description": "Option + ,",
+          "from": {
+            "key_code": "comma",
+            "modifiers": {
+              "mandatory": [
+                "option"
+              ],
+              "optional": [
+                "shift"
+              ]
+            }
+          },
+          "to": [
+            {
+              "key_code": "right_arrow",
+              "modifiers": [ "command" ]
+            }
+          ],
+          "type": "basic"
         }
-    ]
+      ]
+    }
+  ]
 }           

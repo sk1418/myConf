@@ -23,3 +23,38 @@ export TDSVER=7.0
 
 # keychain  https://wiki.archlinux.org/index.php/SSH_keys#Keychain
 #eval $(keychain --eval --quiet --agents ssh id_rsa)
+#
+#
+if [[ "${TERM}" != "" && "${TERM}" == "alacritty" ]]
+then
+    precmd()
+    {
+        # output on which level (%L) this shell is running on.
+        # append the current directory (%~), substitute home directories with a tilde.
+        # "\a" bell (man 1 echo)
+        # "print" must be used here; echo cannot handle prompt expansions (%L)
+        print -Pn "\e]0; %~\a"
+    }
+
+    preexec()
+    {
+        # output current executed command with parameters
+        echo -en "\e]0; ${1}\a"
+    }
+fi
+
+# https://zsh.sourceforge.io/Doc/Release/Prompt-Expansion.html#Visual-effects
+# %F{} frontground %K{}
+function git_prompt {
+    gp="$(git_super_status) "
+    if [[ "$gp" == " " ]]; then
+        gp=""
+    fi
+    echo "$gp"
+}
+
+export PROMPT='%F{240}%K{251}%B%M%K{reset} %F{202}%B%*% %F{187} %/
+%F{green}%n$%b $(git_prompt)'
+
+#%{$bg[green]%}%{$fg_bold[black]%}%M%{$reset_color%} %{$fg_bold[red]%}%*% %{$fg_bold[green]%} %/
+#%{$fg[green]%}%n%B$ $(git_super_status) 

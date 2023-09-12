@@ -1,11 +1,10 @@
 [user]
-	name = Kent@lhind.mbp.m2
 	email = kent.yuan@Gmail.com
 
 [core]
 	pager = cat
 	editor = nvim
-	hooksPath = /User/kent/lib/git-hooks
+	hooksPath = /Users/kent/lib/git-hooks
 
 [color]
     diff = auto
