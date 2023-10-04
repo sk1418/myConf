@@ -198,6 +198,7 @@ nnoremap <Leader>rz :vsplit $HOME/.zshrc<cr>
 
 "easier copy paste to clipboard
 vnoremap <C-C> "+y
+
 nnoremap <Leader>p :silent set paste<cr>"+P:set nopaste<cr>
 
 "format codes without changing screen
@@ -284,7 +285,11 @@ Plug 'Lokaltog/vim-easymotion'
 "
 Plug 'vim-scripts/ShowMarks'
 Plug 'kana/vim-scratch'
-Plug 'vim-scripts/fcitx.vim'
+if (has('mac'))
+  Plug 'xcodebuild/fcitx-vim-osx'
+else
+  Plug 'vim-scripts/fcitx.vim'
+endif
 
 Plug 'mattn/calendar-vim'
 Plug 'vim-scripts/vimwiki'
@@ -345,12 +350,11 @@ let g:cycle_default_groups = [
 			\   [["get", "post"]],
 			\   [["to", "from"]],
 			\   [["read", "write"]],
-			\   [["only", "except"]],
 			\   [['with', 'without']],
 			\   [["exclude", "include"]],
 			\   [["asc", "desc"]],
+			\   [["Writing", "Editing", "Published", "Payment-Requested", "Paid"]],
 			\   [['{:}', '[:]', '(:)'], 'sub_pairs'],
-			\   [['(:)', '「:」', '『:』'], 'sub_pairs'],
 			\   [['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday',
 			\     'Friday', 'Saturday'], 'hard_case', {'name': 'Days'}],
 			\ ]
@@ -1044,6 +1048,9 @@ command! Delete if delete(expand('%')) |echohl WarningMsg | echo 'deleting file 
 "find matched count 
 command! -range=% -nargs=1 Count <line1>,<line2>s/<args>//gn|nohls
 
+"prepare payment request
+command! PaymentReq %s/## \d\+.*Published/##/ | g/\.\.\./norm! 2dd
+
 "-------[ AutoCmd ]------------------------------------- {{{1
 "add chmod+x if a shbang was found
 autocmd BufWritePost * call AutoCmd_chmodx()
@@ -1096,14 +1103,20 @@ augroup END
 function! Hi_Publish()
 	exec 'hi! Paid  term=bold cterm=bold gui=bold guifg=black guibg=#999999 ctermfg=16 ctermbg=darkgray'
 	exec 'hi! PaymentRequested  term=bold cterm=bold gui=bold  guifg=black guibg=#d07777 ctermfg=16 ctermbg=red'
-	exec 'hi! Working  term=bold cterm=bold gui=bold guifg=black guibg=#7080c0 ctermfg=16 ctermbg=darkgreen'
+	exec 'hi! Editing  term=bold cterm=bold gui=bold guifg=black guibg=#6484cc ctermfg=16 ctermbg=darkgreen'
+	exec 'hi! Writing  term=bold cterm=bold gui=bold guifg=black guibg=#84a800 ctermfg=16 ctermbg=darkyellow'
 	exec 'hi! Published  term=bold cterm=bold gui=bold guifg=black guibg=#50a070 ctermfg=16 ctermbg=darkblue'
 
 	call matchadd("Paid", "[Pp]aid")
 	call matchadd("Published", "[Pp]ublished")
 	call matchadd("PaymentRequested", "[Pp]ayment-[rR]equested[_0-9]*")
-	call matchadd("Working", "[Ww]orking")
+	call matchadd("Writing", "[Ww]riting")
+	call matchadd("Editing", "[Ee]diting")
+  "show budgets.md in the right split
   nnoremap <buffer> <leader>$ :vs %:p:h/budgets.md<cr>
+
+  "quick calculate budget sum of selected articles
+  vnoremap <buffer> ? !gawk '1; /[0-9.]+[$]/{x+=gensub(/.*[ =]([0-9.]+)[$]/, "\\1", "g")}END{print "Sum:"x"$"}'<cr>`>
 	exec 'normal zMgg)'
 endfunction
 

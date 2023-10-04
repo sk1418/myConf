@@ -8,6 +8,12 @@ export TOMCAT_HOME=$DEV_HOME/tomcat5
 export PYTHON2_BIN=$HOME/.pyenv/shims
 export PATH=$PATH:$DEV_HOME/maven3/bin:$HOME/bin:$DEV_HOME/.npm_modules/bin:$DEV_HOME/Desktop/Projects/Aviatar/openshift/:$PYTHON2_BIN
 #export TERM=xterm-256color
+##### podman
+export DOCKER_HOST=unix:///Users/kent/.local/share/containers/podman/machine/qemu/podman.sock
+export TESTCONTAINERS_DOCKER_SOCKET_OVERRIDE=/var/run/user/504/podman/podman.sock
+export TESTCONTAINERS_RYUK_CONTAINER_PRIVILEGED=true
+
+alias docker=podman
 
 #proxy setting
 #export JAVA_TOOL_OPTIONS
@@ -53,7 +59,7 @@ function git_prompt {
     echo "$gp"
 }
 
-export PROMPT='%F{240}%K{251}%B%M%K{reset} %F{202}%B%*% %F{187} %/
+export PROMPT='%F{240}%K{251}%B%M%K{reset} %F{red}%B%*% %F{yellow} %/
 %F{green}%n$%b $(git_prompt)'
 
 #%{$bg[green]%}%{$fg_bold[black]%}%M%{$reset_color%} %{$fg_bold[red]%}%*% %{$fg_bold[green]%} %/

@@ -271,7 +271,11 @@ Plug 'Lokaltog/vim-easymotion'
 "
 Plug 'vim-scripts/ShowMarks'
 Plug 'kana/vim-scratch'
-Plug 'vim-scripts/fcitx.vim'
+if(has('mac'))
+  Plug 'xcodebuild/fcitx-vim-osx'
+else
+  Plug 'vim-scripts/fcitx.vim'
+endif
 
 Plug 'mattn/calendar-vim'
 Plug 'vim-scripts/vimwiki'

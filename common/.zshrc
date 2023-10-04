@@ -517,7 +517,7 @@ alias bvim='vim -u ~/base.vimrc'
 alias bvi='vim -u ~/base.vimrc'
 
 alias vi='nvim'
-alias gvim='nvim-qt'
+#alias gvim='nvim-qt'
 alias activeServices='systemctl list-unit-files --state enabled'
 
 #}}}
@@ -570,6 +570,7 @@ source $MY_ZSH_DIR/fzf-fasd.zsh
 #export ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=240"
 #export ZSH_AUTOSUGGEST_BUFFER_MAX_SIZE=25
 #export ZSH_AUTOSUGGEST_USE_ASYNC=1
+export LANG=en_US.UTF-8
 #FIXME do some cleanup
 autoload -Uz history-beginning-search-menu
 zle -N history-beginning-search-menu
