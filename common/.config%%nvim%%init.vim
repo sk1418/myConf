@@ -353,11 +353,13 @@ let g:cycle_default_groups = [
 			\   [['with', 'without']],
 			\   [["exclude", "include"]],
 			\   [["asc", "desc"]],
-			\   [["Writing", "Editing", "Published", "Payment-Requested", "Paid"]],
+      \   [["Writing", "InEdit", "Done", "Payment-Requested", "Paid"], {'hard_case': 1}],
 			\   [['{:}', '[:]', '(:)'], 'sub_pairs'],
 			\   [['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday',
 			\     'Friday', 'Saturday'], 'hard_case', {'name': 'Days'}],
 			\ ]
+nnoremap <silent> <Leader>b <Plug>CyclePrev
+vnoremap <silent> <Leader>b <Plug>CyclePrev
 
 "-----------[ Scratch.vim ]------------{{{2
 " F3 to toggle scratch window
@@ -1103,15 +1105,15 @@ augroup END
 function! Hi_Publish()
 	exec 'hi! Paid  term=bold cterm=bold gui=bold guifg=black guibg=#999999 ctermfg=16 ctermbg=darkgray'
 	exec 'hi! PaymentRequested  term=bold cterm=bold gui=bold  guifg=black guibg=#d07777 ctermfg=16 ctermbg=red'
-	exec 'hi! Editing  term=bold cterm=bold gui=bold guifg=black guibg=#6484cc ctermfg=16 ctermbg=darkgreen'
+	exec 'hi! InEdit  term=bold cterm=bold gui=bold guifg=black guibg=#6484cc ctermfg=16 ctermbg=darkgreen'
 	exec 'hi! Writing  term=bold cterm=bold gui=bold guifg=black guibg=#84a800 ctermfg=16 ctermbg=darkyellow'
-	exec 'hi! Published  term=bold cterm=bold gui=bold guifg=black guibg=#50a070 ctermfg=16 ctermbg=darkblue'
+	exec 'hi! Done  term=bold cterm=bold gui=bold guifg=black guibg=#50a070 ctermfg=16 ctermbg=darkblue'
 
 	call matchadd("Paid", "[Pp]aid")
-	call matchadd("Published", "[Pp]ublished")
+	call matchadd("Done", "[Dd]one")
 	call matchadd("PaymentRequested", "[Pp]ayment-[rR]equested[_0-9]*")
 	call matchadd("Writing", "[Ww]riting")
-	call matchadd("Editing", "[Ee]diting")
+	call matchadd("InEdit", "[Ii]n[Ee]dit")
   "show budgets.md in the right split
   nnoremap <buffer> <leader>$ :vs %:p:h/budgets.md<cr>
 

@@ -14,6 +14,7 @@ export TESTCONTAINERS_DOCKER_SOCKET_OVERRIDE=/var/run/user/504/podman/podman.soc
 export TESTCONTAINERS_RYUK_CONTAINER_PRIVILEGED=true
 
 alias docker=podman
+alias df='df -h'
 
 #proxy setting
 #export JAVA_TOOL_OPTIONS
