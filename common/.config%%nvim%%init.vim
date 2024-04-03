@@ -675,7 +675,9 @@ endif
 
 set background=dark
 if $DISPLAY == ""
-	colorscheme desert
+	"colorscheme desert
+	set t_Co=256
+	colorscheme last256
 else
 	set t_Co=256
 	colorscheme last256

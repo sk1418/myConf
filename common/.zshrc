@@ -604,4 +604,3 @@ setopt LISTPACKED
 
 ### END OF FILE #################################################################
 # vim: filetype=zsh fdm=marker autoindent expandtab shiftwidth=2 ts=2 
-
