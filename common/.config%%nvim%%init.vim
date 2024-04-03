@@ -693,7 +693,7 @@ endif
 
 "set gfn=SF\ Mono:13
 set gfn=JetBrains\ Mono:h13
-set gfw=PingFang\ SC:13
+set gfw=PingFang\ SC:26
 
 "-------[ Status bar ]------------------------------------❱----{{{1
 set statusline =%7*[%n]%*
