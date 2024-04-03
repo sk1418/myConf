@@ -674,10 +674,8 @@ if has("termguicolors")
 endif
 
 set background=dark
-if $DISPLAY == ""
-	"colorscheme desert
-	set t_Co=256
-	colorscheme last256
+if $DISPLAY != "" && !has("termguicolors") 
+  colorscheme desert
 else
 	set t_Co=256
 	colorscheme last256
