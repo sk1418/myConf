@@ -15,6 +15,7 @@ export TESTCONTAINERS_RYUK_CONTAINER_PRIVILEGED=true
 
 alias docker=podman
 alias df='df -h'
+alias akserver='ssh akcloud.gleeze.com  -p 9222 "/AK-Server-Storage/scripts/st.py"'
 
 #proxy setting
 #export JAVA_TOOL_OPTIONS
@@ -50,18 +51,3 @@ then
     }
 fi
 
-# https://zsh.sourceforge.io/Doc/Release/Prompt-Expansion.html#Visual-effects
-# %F{} frontground %K{}
-function git_prompt {
-    gp="$(git_super_status) "
-    if [[ "$gp" == " " ]]; then
-        gp=""
-    fi
-    echo "$gp"
-}
-
-export PROMPT='%F{240}%K{251}%B%M%K{reset} %F{red}%B%*% %F{yellow} %/
-%F{green}%n$%b $(git_prompt)'
-
-#%{$bg[green]%}%{$fg_bold[black]%}%M%{$reset_color%} %{$fg_bold[red]%}%*% %{$fg_bold[green]%} %/
-#%{$fg[green]%}%n%B$ $(git_super_status) 
