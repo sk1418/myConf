@@ -12,7 +12,7 @@ relink_rule(){
     exit 1
   fi
 
-  awk -F '-->' -v home="$HOME" -v bkDir="$bkDir" \
+  gawk -F '-->' -v home="$HOME" -v bkDir="$bkDir" \
     -v lnsf='test -f "%s" && ln -svf "%s" "%s"\n' \
     -v lnsd='ln -svf "%s"* "%s"\n' \
     -v echo='echo "[^_^] %s"\n' \

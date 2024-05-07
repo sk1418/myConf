@@ -10,8 +10,20 @@ function git_prompt {
     echo "$gp"
 }
 
-export PROMPT='%F{240}%K{251}%B%M%K{reset} %F{red}%B%*% %F{yellow} %/
+if [[ "$OSTYPE" == "darwin"* ]]; then
+
+    #company Mac, without Host, user
+    export PROMPT='%F{240}%K{251}%BLHT-Mac%K{reset} %F{red}%B%*% %F{yellow} %/
+%F{green}$%b $(git_prompt)'
+
+else 
+
+    #linux
+    export PROMPT='%F{240}%K{251}%B%M%K{reset} %F{red}%B%*% %F{yellow} %/
 %F{green}%n$%b $(git_prompt)'
+
+fi
+
 
 # %{$bg[green]%}%{$fg_bold[black]%}%M%{$reset_color%} %{$fg_bold[red]%}%*% %{$fg_bold[green]%} %/
 # %{$fg[green]%}%n%B$ $(git_super_status) 
@@ -19,5 +31,4 @@ export PROMPT='%F{240}%K{251}%B%M%K{reset} %F{red}%B%*% %F{yellow} %/
 
 #PROMPT='%{$bg[cyan]%}%{$fg_bold[black]%}%M%{$reset_color%} %{$fg_bold[red]%}%*% %{$fg_bold[yellow]%} %/
 #%{$fg[green]%}%n%B$ $(git_super_status) '
-#
 #

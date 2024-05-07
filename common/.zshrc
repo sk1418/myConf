@@ -189,7 +189,7 @@ function webcam {
 }
 
 function webHere {
-    py_ver=$(python -V 2>&1|grep -Po 'Python\s*\K\d')
+    py_ver=$(python -V 2>&1|sed 's/Python *//; s/[.].*//')
     if [[ $py_ver = "2" ]]; then
         python -m SimpleHTTPServer
     elif [[ $py_ver = "3" ]];then
@@ -539,6 +539,7 @@ source $MY_ZSH_DIR/completion/*
 [[ -f /usr/share/fzf/key-bindings.zsh ]] && source /usr/share/fzf/key-bindings.zsh
 [[ -f $HOME/.fzf.zsh ]] && source $HOME/.fzf.zsh
 
+eval "$(fzf --zsh)"
 export FZF_DEFAULT_COMMAND='ag --hidden --ignore .git -l -g ""'
 export FZF_DEFAULT_OPTS='--height 70% --reverse --border'
 export FZF_CTRL_T_OPTS="--preview '(highlight -O ansi -l {} 2> /dev/null || cat {} || tree -C {}) 2> /dev/null | head -200'"

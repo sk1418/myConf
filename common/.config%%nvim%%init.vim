@@ -1065,7 +1065,7 @@ augroup file_types
 	"python
 	autocmd FileType python call AutoCmd_python()
 
-	"au FileType xml exe ":silent 1,$!xmllint --format --recover - 2>/dev/null"
+	au FileType xml exe ":silent 1,$!xmllint --format --recover - 2>/dev/null"
 
 	"Help in vertical split (right)
 	autocmd FileType help  wincmd L|setlocal nolist|setlocal number
