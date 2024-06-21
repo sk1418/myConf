@@ -559,6 +559,7 @@ fkill() {
 #====[ fasd fast jump conf ]=============================================# {{{
 eval "$(fasd --init auto)"
 alias v='f -e nvim'
+alias b='f -e bat'
 alias o='a -e xdg-open'
 
 

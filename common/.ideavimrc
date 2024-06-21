@@ -1,4 +1,4 @@
-source ~/base.vimrc
+"source ~/base.vimrc
 
 autocmd!
 set nocompatible        " use vim defaults
@@ -8,7 +8,7 @@ set ai                  " set auto-indenting on for programming
 set showcmd             " display incomplete commands
 set nobackup            " do not keep a backup file
 set number              " show line numbers
-set ruler               " show the current row and column
+set ruler               " show the current row and colomn
 set cul                 " cursor line and color (below)
 
 set hlsearch            " highlight searches
@@ -24,11 +24,10 @@ set novisualbell        " turn off visual bell
 set backspace=indent,eol,start  " make that backspace key work the way it should
 
 syntax on               " turn syntax highlighting on by default
-filetype on             " detect type of file
-filetype indent plugin on      " load indent file for specific file type
+filetype indent plugin on  " load indent file for specific file type
 
 
-"mappings
+" some mappings
 "Copying to X11 primary selection with the mouse doesn't work
 " clipboard=autoselect is not implemented yet. partial workaround:
 vnoremap <LeftRelease> "*ygv
@@ -53,7 +52,7 @@ nnoremap k gk
 nnoremap gj j
 nnoremap gk k
 
-" Source
+ Source
 vnoremap <leader>so y:execute @@<cr>:echo 'selection Sourced .'<cr>
 nnoremap <leader>so ^vg_y:execute @@<cr>:echo 'line Sourced.'<cr>
 
@@ -104,6 +103,12 @@ nnoremap <Leader>su :w !sudo tee %>/dev/null <cr>
 "add empty line above/below current line
 nnoremap <leader>o mzo<ESC>`z
 nnoremap <leader>O mzO<ESC>`z
+
+" Easy window jnavigation
+nnoremap <C-h> <C-w>h
+nnoremap <C-j> <C-w>j
+nnoremap <C-k> <C-w>k
+nnoremap <C-l> <C-w>l
 
 
 "-- idevim plugins

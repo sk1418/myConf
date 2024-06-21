@@ -291,11 +291,11 @@ Plug 'sk1418/HowMuch'
 Plug 'sk1418/Join'
 Plug 'sk1418/blockit'
 Plug 'bootleq/vim-cycle'
-Plug 'Shougo/vimproc.vim', {'do' : 'make'}
-Plug 'Shougo/unite.vim'
+"Plug 'Shougo/vimproc.vim', {'do' : 'make'}
+"Plug 'Shougo/unite.vim'
 
-"Plug 'Shougo/neocomplete'
-Plug 'Shougo/deoplete.nvim'
+""Plug 'Shougo/neocomplete'
+"Plug 'Shougo/deoplete.nvim'
 Plug 'roxma/nvim-yarp'
 Plug 'roxma/vim-hug-neovim-rpc'
 Plug 'deoplete-plugins/deoplete-jedi'

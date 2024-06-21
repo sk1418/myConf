@@ -16,6 +16,7 @@ export TESTCONTAINERS_RYUK_CONTAINER_PRIVILEGED=true
 alias docker=podman
 alias df='df -h'
 alias akserver='ssh akcloud.gleeze.com  -p 9222 "/AK-Server-Storage/scripts/st.py"'
+alias python='/opt/homebrew/bin/python3'
 
 #proxy setting
 #export JAVA_TOOL_OPTIONS

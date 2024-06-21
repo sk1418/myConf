@@ -1,5 +1,9 @@
 [user]
 	email = kent.yuan@Gmail.com
+    name = Kent
+
+[includeif "gitdir:~/IdeaProjects/CM/"]
+    path = ~/IdeaProjects/CM/work.gitconfig
 
 [core]
 	pager = cat
