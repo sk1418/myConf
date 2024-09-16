@@ -5,10 +5,11 @@ set mouse=a
 if exists(':GuiFont')
     " Use GuiFont! to ignore font errors
     "GuiFont SF Mono:h13
-    GuiFont! JetBrains Mono:h16:w57
+    GuiFont! JetBrains Mono:h18:w57
+    set gfw=PingFang\ SC:26
 
     if has('macunix')
-        GuiFont JetBrains Mono:h16:w57
+        GuiFont JetBrains Mono:h18:w57
     endif
 endif
 

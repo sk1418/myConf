@@ -6,3 +6,4 @@
 *.bak
 *.egg-info/*.*
 .idea/
+.vim/

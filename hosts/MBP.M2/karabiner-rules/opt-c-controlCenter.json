@@ -1,0 +1,31 @@
+{
+  "title": "Open Control Center using option+c",
+  "rules": [
+    {
+      "description": "Option + C -> Fn + C -> Control center",
+      "manipulators": [
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "c",
+            "modifiers": {
+              "mandatory": [
+                "option"
+              ]
+            }
+          },
+          "to": [
+            {
+              "key_code": "c",
+              "modifiers": [
+                "fn"
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
+
+

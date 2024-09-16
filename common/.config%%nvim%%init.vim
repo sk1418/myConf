@@ -286,7 +286,7 @@ Plug 'Lokaltog/vim-easymotion'
 Plug 'vim-scripts/ShowMarks'
 Plug 'kana/vim-scratch'
 if (has('mac'))
-  Plug 'xcodebuild/fcitx-vim-osx'
+  Plug 'sk1418/toggleMacIM'
 else
   Plug 'vim-scripts/fcitx.vim'
 endif
@@ -692,7 +692,7 @@ endif
 "set gfw=WenQuanYi\ Micro\ Hei\ 12
 
 "set gfn=SF\ Mono:13
-set gfn=JetBrains\ Mono:h13
+set gfn=JetBrains\ Mono:h18:w57
 set gfw=PingFang\ SC:26
 
 "-------[ Status bar ]------------------------------------❱----{{{1
