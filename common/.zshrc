@@ -338,7 +338,7 @@ screen_precmd() {
   #echo -ne '\a'
   #title "`print -Pn "%~" | sed "s:\([~/][^/]*\)/.*/:\1...:"`" "$TERM $PWD"
   title "`print -Pn "%~" |sed "s:\([~/][^/]*\)/.*/:\1...:;s:\([^-]*-[^-]*\)-.*:\1:"`" "$TERM $PWD"
-  echo -ne '\033[?17;0;127c'
+  #echo -ne '\033[?17;0;127c'
 }
 
 screen_preexec() {
