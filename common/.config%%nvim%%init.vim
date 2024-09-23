@@ -405,12 +405,12 @@ let gundo_prefer_python3 = 1
 
 "-----------[ Unite plugin     ]------------{{{2
 call unite#custom#profile('default', 'context', {
-			\   'prompt': '>>>',
-			\   'start_insert': 1,
+      \   'prompt': '>>>',
+      \   'start_insert': 1,
 			\   'winheight': 20,
-			\   'direction': 'botright'
+      \   'direction': 'dynamicbottom'
 			\ })
-call unite#custom#source('file,file/new,buffer,file_rec', 'matchers', 'matcher_fuzzy')
+call unite#custom#source('file,file/new,buffer,file_rec', 'matchers', 'pmatcher_fuzzy')
 call unite#custom#source('file_rec', 'ignore_globs', split(&wildignore, ','))
 call unite#filters#matcher_default#use(['matcher_fuzzy'])
 call unite#filters#sorter_default#use(['sorter_rank'])
@@ -427,7 +427,7 @@ function! s:unite_my_setting()
 	imap <silent><buffer><expr> <C-v> unite#do_action('vsplit')
 endfunction
 
-nnoremap <c-p> :<c-u>Unite -start-insert file_rec/async:!<CR>
+nnoremap <c-p> :<c-u>Unite file_rec/async:!<CR>
 nnoremap <Leader>fb :<c-u>Unite buffer<CR>
 nnoremap <Leader>fr :<c-u>Unite file_mru<CR>
 nnoremap <Leader>fo :<c-u>Unite outline<CR>
