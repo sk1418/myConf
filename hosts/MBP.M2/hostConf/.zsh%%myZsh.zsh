@@ -9,8 +9,8 @@ export PYTHON2_BIN=$HOME/.pyenv/shims
 export PATH=$PATH:$DEV_HOME/maven3/bin:$HOME/bin:$DEV_HOME/.npm_modules/bin:$DEV_HOME/Desktop/Projects/Aviatar/openshift/:$PYTHON2_BIN
 #export TERM=xterm-256color
 ##### podman
-export DOCKER_HOST=unix:///Users/kent/.local/share/containers/podman/machine/qemu/podman.sock
-export TESTCONTAINERS_DOCKER_SOCKET_OVERRIDE=/var/run/user/504/podman/podman.sock
+#export DOCKER_HOST='unix:///var/folders/pt/07m3hc_s21900q5yz2t5d_8h0000gp/T/podman/podman-machine-default-api.sock'
+#export TESTCONTAINERS_DOCKER_SOCKET_OVERRIDE=/var/run/user/504/podman/podman.sock
 export TESTCONTAINERS_RYUK_CONTAINER_PRIVILEGED=true
 
 alias docker=podman
