@@ -2,8 +2,10 @@
 
 # https://zsh.sourceforge.io/Doc/Release/Prompt-Expansion.html#Visual-effects
 # %F{} frontground %K{}
+
 function git_prompt {
-    gp="$(git_super_status) "
+    #gp="$(git_super_status)"
+    gp="$(gitprompt)"
     if [[ "$gp" == " " ]]; then
         gp=""
     fi

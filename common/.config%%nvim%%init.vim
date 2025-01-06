@@ -407,9 +407,10 @@ let gundo_prefer_python3 = 1
 call unite#custom#profile('default', 'context', {
       \   'prompt': '>>>',
       \   'start_insert': 1,
-			\   'winheight': 20,
-      \   'direction': 'dynamicbottom'
-			\ })
+      \   'winheight': 20
+      "\   'direction': 'dynamictop',
+      "\   'direction': 'belowright'
+      \ })
 call unite#custom#source('file,file/new,buffer,file_rec', 'matchers', 'pmatcher_fuzzy')
 call unite#custom#source('file_rec', 'ignore_globs', split(&wildignore, ','))
 call unite#filters#matcher_default#use(['matcher_fuzzy'])

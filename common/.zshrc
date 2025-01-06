@@ -160,7 +160,8 @@ autoload colors
 #====[ Prompt ]========================================================# {{{
 
 #git prompt
-source $MY_LIB_DIR/git-prompt/zshrc.sh
+#source $MY_LIB_DIR/git-prompt/zshrc.sh
+source $MY_LIB_DIR/awk-git-prompt/git-prompt.zsh
 #
 #zsh prompt
 source $MY_ZSH_DIR/promptrc

@@ -1,4 +1,3 @@
-
 export JAVA_HOME=/Library/Java/JavaVirtualMachines/default
 export DEV_HOME=$HOME/devEnv
 export M2_HOME=$DEV_HOME/maven3
@@ -13,10 +12,12 @@ export PATH=$PATH:$DEV_HOME/maven3/bin:$HOME/bin:$DEV_HOME/.npm_modules/bin:$DEV
 #export TESTCONTAINERS_DOCKER_SOCKET_OVERRIDE=/var/run/user/504/podman/podman.sock
 export TESTCONTAINERS_RYUK_CONTAINER_PRIVILEGED=true
 
+
 alias docker=podman
 alias df='df -h'
 alias akserver='ssh kent@akcloud.gleeze.com  -p 9222 "/AK-Server-Storage/scripts/st.py"'
 alias python='/opt/homebrew/bin/python3'
+alias ncalc='numi-cli'
 
 #proxy setting
 #export JAVA_TOOL_OPTIONS

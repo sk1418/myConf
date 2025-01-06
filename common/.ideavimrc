@@ -123,3 +123,8 @@ imap  <C-j> <C-j>
 imap  <C-k> <C-k>
 imap  <C-n> <C-n>
 imap  <C-b> <C-b>
+
+"mac command key cp/paste
+vnoremap <D-C> "+y
+nnoremap <D-v> :silent set paste<cr>"+p:set nopaste<cr>
+inoremap <D-v> <esc>:silent set paste<cr>"+p:set nopaste<cr>a
