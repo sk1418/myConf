@@ -543,7 +543,13 @@ source $MY_ZSH_DIR/completion/*
 eval "$(fzf --zsh)"
 export FZF_DEFAULT_COMMAND='ag --hidden --ignore .git -l -g ""'
 export FZF_DEFAULT_OPTS='--height 70% --reverse --border'
-export FZF_CTRL_T_OPTS="--preview '(highlight -O ansi -l {} 2> /dev/null || cat {} || tree -C {}) 2> /dev/null | head -200'"
+
+if command -v bat &> /dev/null; then
+  show_file_or_dir_preview="if [ -d {} ]; then tree -C {} | head -200; else bat -n --color=always --line-range :500 {}; fi"
+  export FZF_CTRL_T_OPTS="--preview '$show_file_or_dir_preview'"
+else
+  export FZF_CTRL_T_OPTS="--preview '(highlight -O ansi -l {} 2> /dev/null || cat {} || tree -C {}) 2> /dev/null | head -200'"
+fi
 
 
 fkill() {
@@ -568,6 +574,7 @@ alias o='a -e xdg-open'
 source $MY_ZSH_DIR/fzf-fasd.zsh
 
 #}}}
+
 #====[ zsh-autosuggestions ]=============================================# {{{
 #source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
 #export ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=240"
@@ -587,8 +594,9 @@ bindkey "^[," copy-earlier-word
 mkdir -p /tmp/test
 
 
-# fuzzy finder
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+#====[ bat theme ]=============================================# {{{
+export BAT_THEME="Solarized (dark)"
+#}}}
 
 # syntax highlighting
 SYNTAX_HL_ZSH=$MY_ZSH_DIR/syn-highlighting.zsh
@@ -604,6 +612,6 @@ tabs -4
 setopt PUSHD_MINUS
 setopt LISTPACKED
 # }}}
-
+#
 ### END OF FILE #################################################################
 # vim: filetype=zsh fdm=marker autoindent expandtab shiftwidth=2 ts=2 

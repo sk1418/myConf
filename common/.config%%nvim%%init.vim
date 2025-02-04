@@ -679,13 +679,12 @@ if $DISPLAY != "" && !has("termguicolors")
   colorscheme desert
 else
 	set t_Co=256
-	colorscheme last256
-	"colorscheme gruvbox
+  colorscheme last256
 
 	" below are solarized settings
-	"let g:solarized_termcolors = 256
-	"let g:solarized_termtrans = 1
-	"colorscheme solarized
+  "let g:solarized_termcolors = 256
+  "let g:solarized_termtrans = 1
+  "colorscheme solarized
 endif
 
 "Monaco style
