@@ -22,3 +22,5 @@ firefoxProxy.pac
 .zsh/fzf-fasd.zsh --> .zsh%%fzf-fasd.zsh
 .config/nvim/init.vim --> .config%%nvim%%init.vim
 .config/nvim/ginit.vim --> .config%%nvim%%ginit.vim
+.config/nvim/coc-settings --> .config%%nvim%%coc-settings.json
+.config/nvim/ --> nvim-lua-plugins

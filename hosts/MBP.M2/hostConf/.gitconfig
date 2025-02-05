@@ -52,9 +52,8 @@
 	cm = commit -m
 	co = checkout
     st = status
-	unstage = reset HEAD
 	df = "difftool --dir-diff"
-	addjava = "!addjava(){ git add **/src/**/*.java > /dev/null 2>&1 || git add src/**/*.java ;}; addjava"
+	addkt = "!addkt(){ git add **/src/**/*.kt > /dev/null 2>&1 || git add src/**/*.kt ;}; addkt"
 
 	#show file in a commit/revision
 	showfile = "!showfiles(){ git diff-tree --no-commit-id --name-only -r $1;};showfiles"
@@ -70,7 +69,9 @@
 	incoming = "!incoming(){ git fetch && git log ..origin/$(git rev-parse --abbrev-ref HEAD) ;}; incoming"
 
 	delTag = "!delTag(){ git push --delete origin $1;}; delTag"
+	unstage = reset HEAD
     pushf = push --force-with-lease
+    conflicted = "!nvim +Conflicted"
 
 [push]
     default = current
@@ -92,7 +93,7 @@
 	tool = myGitVimDiff
 
 [difftool "myGitVimDiff"]
-	cmd = nvim -f '+next' '+execute \"DirDiff\" argv(1) argv(0)' $LOCAL $REMOTE
+	cmd = nvim '+next' '+execute \"DirDiff\" argv(1) argv(0)' $LOCAL $REMOTE
 	prompt = false
 [difftool]
 	prompt = false

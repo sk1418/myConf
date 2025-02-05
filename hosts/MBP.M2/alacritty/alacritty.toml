@@ -40,22 +40,22 @@ foreground = "0x93a1a1"
 TERM = "xterm-256color"
 
 [font]
-size = 17.0
+size = 18.0
 
 [font.bold]
-family = "JetBrains Mono"
+family = "JetBrainsMono Nerd Font"
 style = "Regular"
 
 [font.bold_italic]
-family = "JetBrains Mono"
+family = "JetBrainsMono Nerd Font"
 style = "Regular Italic"
 
 [font.italic]
-family = "JetBrains Mono"
+family = "JetBrainsMono Nerd Font"
 style = "Thin Italic"
 
 [font.normal]
-family = "JetBrains Mono"
+family = "JetBrainsMono Nerd Font"
 style = "Thin"
 
 [selection]

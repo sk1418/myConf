@@ -1,5 +1,4 @@
 "-------[ General Options ]----------------------------------------"{{{1
-
 set nocompatible
 "remove all autocommand
 autocmd!  
@@ -136,7 +135,10 @@ iabbrev mk3 !MARK3
 "
 "nvim default map to y$
 "nnoremap Y mmyy`m
-unmap Y
+if len(mapcheck("Y", "N"))>0
+  unmap Y
+endif
+
 
 "Copying to X11 primary selection with the mouse doesn't work
 " clipboard=autoselect is not implemented yet. partial workaround:
@@ -155,7 +157,7 @@ inoremap <F1> <esc>:checktime<cr>
 "reload current file
 nnoremap <F5> :e!<cr>
 "show/hide list
-nnoremap <leader>l :set list!<cr>:IndentLinesToggle<cr>
+nnoremap <leader>l :set list!<cr>:IBLToggle<cr>
 
 nnoremap j gj
 nnoremap k gk
@@ -224,13 +226,6 @@ nnoremap <leader>hi :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") 
 			\ . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . "> color:" 
 			\ . synIDattr(synIDtrans(synID(line("."), col("."), 1)), "fg")<CR>
 
-"TODO map tc to show color
-"tab new,close,move (commented ou/t, because buffer is more conveniet)
-"map <Leader>tn :tabnew<cr>
-"map <Leader>tc :tabclose<cr>
-"map <Leader>tm :tabmove
-"map <Leader>te :tabedit
-
 "Switch to current dir
 nnoremap <Leader>cd :cd %:p:h<cr>
 " Easy window navigation
@@ -244,43 +239,38 @@ cnoremap <C-A> <Home>
 
 
 "-------[ Plugins / Bundles ]----------------------------------------{{{1
+function! Load_lua_plugin(script_name)
+  let lua_plugins_dir = "$HOME/.config/nvim/nvim-lua-plugins/"
+  execute "luafile ". lua_plugins_dir . a:script_name
+endfunction
+
 
 call plug#begin('~/.config/nvim/plugged')
 " color schemes
 Plug 'lambdalisue/suda.vim' " :w ! sudo tee % > /dev/nul  replacement due to a nvim bug
 Plug 'fugalh/desert.vim'
 Plug 'vim-scripts/desert256.vim'
-"Plug 'sk1418/last256', {'branch': 'nvim-qt'}
 Plug 'sk1418/last256', {'branch': 'nvim-qt'}
-Plug 'altercation/vim-colors-solarized'
 
 Plug 'vim-scripts/L9'
-Plug 'morhetz/gruvbox'
 Plug 'mileszs/ack.vim'
 Plug 'rking/ag.vim'
 Plug 'othree/xml.vim'
 Plug 'vim-scripts/Align'
 
+Plug 'mbbill/undotree'
 Plug 'Raimondi/delimitMate'
 Plug 'vim-scripts/cecutil'
 Plug 'vim-scripts/DrawIt'
 Plug 'mbbill/fencview'
-Plug 'sjl/gundo.vim'
 Plug 'vim-scripts/matchit.zip'
-Plug 'vim-scripts/mru.vim'
-"Plug 'scrooloose/nerdtree'
 Plug 'scrooloose/nerdcommenter'
-Plug 'scrooloose/syntastic'
-
 
 Plug 'jeetsukumaran/vim-filebeagle'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-fugitive'
 Plug 'christoomey/vim-conflicted'
-"Plug 'tpope/vim-markdown'
-Plug 'majutsushi/tagbar'
-"Plug 'vim-scripts/FuzzyFinder'
 Plug 'Lokaltog/vim-easymotion'
 "
 Plug 'vim-scripts/ShowMarks'
@@ -294,33 +284,30 @@ endif
 Plug 'mattn/calendar-vim'
 Plug 'vim-scripts/vimwiki'
 
-"Plug 'lilydjwg/colorizer'
 Plug 'tommcdo/vim-exchange'
 
-Plug 'Yggdroot/indentLine'
 Plug 'will133/vim-dirdiff'
 Plug 'sk1418/QFGrep'
 Plug 'sk1418/HowMuch'
 Plug 'sk1418/Join'
 Plug 'sk1418/blockit'
 Plug 'bootleq/vim-cycle'
-Plug 'Shougo/vimproc.vim', {'do' : 'make'}
-Plug 'Shougo/unite.vim'
 
-"Plug 'Shougo/neocomplete'
-"Plug 'Shougo/deoplete.nvim'
-"Plug 'roxma/nvim-yarp'
-"Plug 'roxma/vim-hug-neovim-rpc'
-"Plug 'deoplete-plugins/deoplete-jedi'
-"Plug 'Shougo/neco-vim'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'udalov/kotlin-vim'
 Plug 'Shougo/neosnippet'
-Plug 'Shougo/neomru.vim'
-Plug 'Shougo/unite-outline'
 Plug 'Shougo/neosnippet-snippets'
 Plug 'dbakker/vim-projectroot'
-Plug 'lifepillar/vim-solarized8'
+
+" --------    nvim lua plugins --
+Plug 'nvim-lua/plenary.nvim'
+
+Plug 'nvim-tree/nvim-tree.lua'
+Plug 'nvim-tree/nvim-web-devicons' 
+Plug 'nvim-telescope/telescope.nvim', { 'tag': '0.1.x' }
+Plug 'nvim-telescope/telescope-fzf-native.nvim', {'do' : 'make'}
+Plug 'maxmx03/solarized.nvim'
+Plug 'lukas-reineke/indent-blankline.nvim'
 
 call plug#end()
 filetype plugin indent on  
@@ -330,9 +317,6 @@ filetype plugin indent on
 "-----------[ Ack  plugin   ]------------{{{2
 let g:ackprg = "ag --vimgrep"
 
-"-----------[ syntastic plugin ]------------{{{2
-"syntastic is nice, but not for java
-let g:syntastic_ignore_files = ['\.java$']
 "-----------[ vim-cycle plugin ]------------{{{2
 let g:cycle_default_groups = [
 			\   [['true', 'false']],
@@ -358,103 +342,59 @@ let g:cycle_default_groups = [
 			\   [['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday',
 			\     'Friday', 'Saturday'], 'hard_case', {'name': 'Days'}],
 			\ ]
-nnoremap <silent> <Leader>b <Plug>CyclePrev
-vnoremap <silent> <Leader>b <Plug>CyclePrev
+nnoremap <silent> <Leader>> <Plug>CycleNext
+vnoremap <silent> <Leader>> <Plug>CycleNext
+nnoremap <silent> <Leader>< <Plug>CyclePrev
+vnoremap <silent> <Leader>< <Plug>CyclePrev
 
 "-----------[ Scratch.vim ]------------{{{2
 " F3 to toggle scratch window
 nnoremap <expr> <F3> bufwinnr(bufnr(g:scratch_buffer_name))>0?  ':ScratchClose<CR>': ':ScratchOpen<CR>'
 
 
-"-----------[ TagBar plugin ]------------{{{2
+"-----------[ Telescope nvim plugin]------------{{{2
+call Load_lua_plugin("telescope.lua")
+nnoremap <C-p> <cmd>Telescope find_files<cr>
+nnoremap <leader>fg <cmd>Telescope live_grep<cr>
+nnoremap <leader>fb <cmd>Telescope buffers<cr>
+nnoremap <leader>fh <cmd>Telescope help_tags<cr>
+nnoremap <leader>fr <cmd>Telescope oldfiles<cr>
 
-nmap <F4> :TagbarToggle<CR>
+"-----------[ NvimTree plugin      ]------------{{{2
+call Load_lua_plugin('nvim-tree.lua')
+nnoremap <F2> :NvimTreeToggle<cr>
+"hi link NvimTreeFolderIcon Directory
 
-" tagbar supports for vimwiki & markdown
-" vimwiki
-let g:tagbar_type_vimwiki = { 'ctagstype' : 'vimwiki', 'kinds'     : [ 'h:header', ], 'sort'    : 0 }
-" markdown
-"let g:tagbar_type_md = { 'ctagstype' : 'markdown', 'kinds' : [ 'h:Heading_L1', 'i:Heading_L2', 'k:Heading_L3' ] } 
-let g:tagbar_type_markdown = { 'ctagstype' : 'markdown', 'kinds' : ['h:headings',], 'sort' :0 } 
-
-
-"-----------[ MRU plugin      ]------------{{{2
-" MRU plugin still here, since not yet get used to ctrlP 
-"let MRU_Max_Entries=49
-"nnoremap <Leader>fr :MRU<cr>
-
-"-----------[ NERDTree plugin      ]------------{{{2
-"open current file in NERDTree
-nnoremap <silent> <Leader>n :NERDTree<CR><C-w>p:NERDTreeFind<CR>
-
-"toggle nerdtree
-nnoremap <F2> :NERDTreeToggle<cr>
-
-
-"-----------[ AutoClose plugin     ]------------{{{2
-"nnoremap <Leader>ac :AutoCloseToggle<CR>
-"" with this variable true(default), <space> was imapped. it disables abbrevation 
-"let g:AutoCloseExpandSpace = 0
-""disable autoclose handle popup menu
-"let g:AutoClosePumvisible ={"ESC":"\<ESC>"}
-
-"-----------[ Gundo plugin      ]------------{{{2
-nnoremap <Leader>u :silent GundoToggle<CR>
-let gundo_prefer_python3 = 1
-
-
-"-----------[ Unite plugin     ]------------{{{2
-call unite#custom#profile('default', 'context', {
-      \   'prompt': '>>>',
-      \   'start_insert': 1,
-      \   'winheight': 20
-      "\   'direction': 'dynamictop',
-      "\   'direction': 'belowright'
-      \ })
-call unite#custom#source('file,file/new,buffer,file_rec', 'matchers', 'pmatcher_fuzzy')
-call unite#custom#source('file_rec', 'ignore_globs', split(&wildignore, ','))
-call unite#filters#matcher_default#use(['matcher_fuzzy'])
-call unite#filters#sorter_default#use(['sorter_rank'])
-autocmd FileType unite call s:unite_my_setting()
-function! s:unite_my_setting() 
-	nmap <buffer> <ESC> <Plug>(unite_exit)
-	nmap <buffer> <c-c> <Plug>(unite_exit)
-	imap <buffer> <c-c> <Plug>(unite_exit)
-	imap <buffer> <C-j>   <Plug>(unite_select_next_line)
-	imap <buffer> <C-k>   <Plug>(unite_select_previous_line)
-	imap <buffer> <C-n>   <Plug>(unite_rotate_next_source)
-	imap <buffer> <C-b>   <Plug>(unite_rotate_previous_source)
-
-	imap <silent><buffer><expr> <C-v> unite#do_action('vsplit')
-endfunction
-
-nnoremap <c-p> :<c-u>Unite file_rec/async:!<CR>
-nnoremap <Leader>fb :<c-u>Unite buffer<CR>
-nnoremap <Leader>fr :<c-u>Unite file_mru<CR>
-nnoremap <Leader>fo :<c-u>Unite outline<CR>
-nnoremap <Leader>fa :<c-u>Unite -start-insert file_rec/async:! buffer file_mru outline<CR>
-
+"-----------[ Undotree plugin      ]------------{{{2
+nnoremap <Leader>u :silent UndotreeToggle<CR>
+let g:undotree_WindowLayout = 2
+let g:undotree_SplitWidth = 40
+let g:undotree_SetFocusWhenToggle = 1
 
 "-----------[ coc config ]------------{{{2
 set cmdheight=1
 set updatetime=300
 set shortmess+=c
-if has("patch-8.1.1564")
-	" Recently vim can merge signcolumn and number column into one
-	set signcolumn=number
-else
-	set signcolumn=yes
-endif
-" Use tab for trigger completion with characters ahead and navigate.
-" NOTE: Use command ':verbose imap <tab>' to make sure tab is not mapped by
-" other plugin before putting this into your config.
-inoremap <silent><expr> <TAB>
-			\ pumvisible() ? "\<C-n>" :
-			\ <SID>check_back_space() ? "\<TAB>" :
-			\ coc#refresh()
-inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+set signcolumn=yes
 
-function! s:check_back_space() abort
+nnoremap <silent><expr> ]c get(b:, 'coc_git_blame', '') ==# 'Not committed yet' ? "<Plug>(coc-git-chunkinfo)" : "<Plug>(coc-git-commit)"
+
+" Use tab for trigger completion with characters ahead and navigate
+" NOTE: There's always complete item selected by default, you may want to enable
+" no select by `"suggest.noselect": true` in your configuration file
+" NOTE: Use command ':verbose imap <tab>' to make sure tab is not mapped by
+" other plugin before putting this into your config
+
+inoremap <silent><expr> <c-j>
+      \ coc#pum#visible() ? coc#pum#next(1) :
+      \ CheckBackspace() ? "\<Tab>" :
+      \ coc#refresh()
+inoremap <expr><c-k> coc#pum#visible() ? coc#pum#prev(1) : "\<C-h>"
+" Make <CR> to accept selected completion item or notify coc.nvim to format
+" <C-g>u breaks current undo, please make your own choice
+inoremap <silent><expr> <CR> coc#pum#visible() ? coc#pum#confirm()
+                              \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
+function! CheckBackspace() abort
 	let col = col('.') - 1
 	return !col || getline('.')[col - 1]  =~# '\s'
 endfunction
@@ -465,6 +405,29 @@ if has('nvim')
 else
 	inoremap <silent><expr> <c-@> coc#refresh()
 endif
+
+" Use `[g` and `]g` to navigate diagnostics
+" Use `:CocDiagnostics` to get all diagnostics of current buffer in location list
+nmap <silent> [g <Plug>(coc-diagnostic-prev)
+nmap <silent> ]g <Plug>(coc-diagnostic-next)
+
+" GoTo code navigation
+nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gy <Plug>(coc-type-definition)
+nmap <silent> gi <Plug>(coc-implementation)
+nmap <silent> gr <Plug>(coc-references)
+
+function! ShowDocumentation()
+  if CocAction('hasProvider', 'hover')
+    call CocActionAsync('doHover')
+  else
+    call feedkeys('K', 'in')
+  endif
+endfunction
+" Use K to show documentation in preview window
+nnoremap <silent> K :call ShowDocumentation()<CR>
+nnoremap <f4> :CocOutline<cr>
+
 " Highlight the symbol and its references when holding the cursor.
 autocmd CursorHold * silent call CocActionAsync('highlight')
 
@@ -475,7 +438,7 @@ nmap <leader>rn <Plug>(coc-rename)
 xmap <leader>=  <Plug>(coc-format-selected)
 nmap <leader>=  <Plug>(coc-format-selected)
 
-augroup mygroup
+augroup cocgroup
 	autocmd!
 	" Setup formatexpr specified filetype(s).
 	autocmd FileType typescript,json setl formatexpr=CocAction('formatSelected')
@@ -520,89 +483,6 @@ command! -nargs=0 OR   :call     CocAction('runCommand', 'editor.action.organize
 " Add (Neo)Vim's native statusline support.
 " NOTE: Please see `:h coc-status` for integrations with external plugins that
 " provide custom statusline: lightline.vim, vim-airline.
-set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
-
-"" Mappings for CoCList
-"" Show all diagnostics.
-"nnoremap <silent><nowait> <space>a  :<C-u>CocList diagnostics<cr>
-"" Manage extensions.
-"nnoremap <silent><nowait> <space>e  :<C-u>CocList extensions<cr>
-"" Show commands.
-"nnoremap <silent><nowait> <space>c  :<C-u>CocList commands<cr>
-"" Find symbol of current document.
-"nnoremap <silent><nowait> <space>o  :<C-u>CocList outline<cr>
-"" Search workspace symbols.
-"nnoremap <silent><nowait> <space>s  :<C-u>CocList -I symbols<cr>
-"" Do default action for next item.
-"nnoremap <silent><nowait> <space>j  :<C-u>CocNext<CR>
-"" Do default action for previous item.
-"nnoremap <silent><nowait> <space>k  :<C-u>CocPrev<CR>
-"" Resume latest coc list.
-"nnoremap <silent><nowait> <space>p  :<C-u>CocListResume<CR>
-"" Make <CR> auto-select the first completion item and notify coc.nvim to
-"" format on enter, <cr> could be remapped by other vim plugin
-"inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm()
-"			\: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
-
-" Use `[g` and `]g` to navigate diagnostics
-" Use `:CocDiagnostics` to get all diagnostics of current buffer in location list.
-nmap <silent> [g <Plug>(coc-diagnostic-prev)
-nmap <silent> ]g <Plug>(coc-diagnostic-next)
-
-" GoTo code navigation.
-nmap <silent> gd <Plug>(coc-definition)
-nmap <silent> gy <Plug>(coc-type-definition)
-nmap <silent> gi <Plug>(coc-implementation)
-nmap <silent> gr <Plug>(coc-references)
-
-" Use K to show documentation in preview window.
-nnoremap <silent> K :call <SID>show_documentation()<CR>
-
-function! s:show_documentation()
-	if (index(['vim','help'], &filetype) >= 0)
-		execute 'h '.expand('<cword>')
-	elseif (coc#rpc#ready())
-		call CocActionAsync('doHover')
-	else
-		execute '!' . &keywordprg . " " . expand('<cword>')
-	endif
-endfunction
-"-----------[ neosnippet   ]------------{{{2
-
-if has('conceal')
-	"set conceallevel=2 concealcursor=i
-endif
-
-"=======================================================
-"the following two variables are for using vim-snippets
-"commented out because now using the default neosnippet-snippets
-"=======================================================
-" Enable snipMate compatibility feature.
-"let g:neosnippet#enable_snipmate_compatibility = 1
-" Tell Neosnippet about the other snippets
-"let g:neosnippet#snippets_directory='~/.vim/bundle/vim-snippets/snippets'
-
-autocmd Filetype *
-			\ if &omnifunc == "" |
-			\   setlocal omnifunc=syntaxcomplete#Complete |
-			\ endif
-
-
-"imap <expr><TAB> neosnippet#expandable_or_jumpable() ?
-			"\ "\<Plug>(neosnippet_expand_or_jump)"
-"\: pumvisible() ? "\<C-n>" : "\<TAB>"
-
-imap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
-"smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
-			"\ "\<Plug>(neosnippet_expand_or_jump)"
-"\: "\<TAB>"
-
-imap <expr><cr> neosnippet#expandable_or_jumpable() ?
-			\ "\<Plug>(neosnippet_expand_or_jump)"
-			\: pumvisible() ? "\<c-y>" : "\<cr>"
-
-
-
 
 "-----------[ EasyMotion   ]------------{{{2
 hi EasyMotionTarget ctermbg=none ctermfg=red guifg=red
@@ -681,10 +561,6 @@ else
 	set t_Co=256
   colorscheme last256
 
-	" below are solarized settings
-  "let g:solarized_termcolors = 256
-  "let g:solarized_termtrans = 1
-  "colorscheme solarized
 endif
 
 "Monaco style
@@ -692,7 +568,8 @@ endif
 "set gfw=WenQuanYi\ Micro\ Hei\ 12
 
 "set gfn=SF\ Mono:13
-set gfn=JetBrains\ Mono:h18:w57
+set gfn=JetBrainsMono\ Nerd\ Font:h18:w57
+"set gfw=JetBrainsMono\ Nerd\ Font:h18:w57
 set gfw=PingFang\ SC:26
 
 "-------[ Status bar ]------------------------------------❱----{{{1
@@ -756,30 +633,22 @@ let showmarks_include = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
 "let showmarks_hlline_lower = 0
 "let showmarks_hlline_upper = 0
 
-"===========================================================================
-" IndentLine settings
-"===========================================================================
-let g:indentLine_char='┊'
-let g:indentLine_color_term='darkgray'
-let g:indentLine_color_gui='darkgray'
-"don't let indentLine change the concealCursor option
-let g:indentLine_noConcealCursor='true'
-let g:indentLine_fileTypeExclude=['help']
-"nnoremap <Leader>in = :IndentLinesToggle<cr>
+"-----------[ Indent Blackline (ibl) ]------------{{{2
+call Load_lua_plugin("indent-blackline.lua")
 
 "-------[ Functions ]-------------------------------------{{{1
 
 "do chmod +x if the first line of the buffer beginning with #!
 "this would be called on autocmd event BufWritePost
 function! AutoCmd_chmodx()
-	if getline(1) =~ '#!'
-		let f = expand('%:p')
-		if stridx(getfperm(f), 'x') != 2
-			call system("chmod +x ".f)
-			e!
-			filetype detect
-		endif
-	endif
+  if getline(1) =~ '#!'
+    let f = expand('%:p')
+    if stridx(getfperm(f), 'x') != 2
+      call system("chmod +x ".f)
+      e!
+      filetype detect
+    endif
+  endif
 endfunction
 
 " function for autocmd python filetype
@@ -1085,6 +954,7 @@ augroup line_return
 				\ endif
 augroup END
 autocmd bufwritepost .vimrc source $MYVIMRC
+autocmd bufwritepost init.vim source $MYVIMRC
 
 " autocmd for fugitive plugin
 augroup fugitive
@@ -1139,10 +1009,14 @@ endfunction
 " autocmd for python project to update tags
 autocmd BufWritePost *.py call UpdateTags()
 
+"-------[ Highlights ]------------------------------------- {{{1
+" for nvim-tree
+hi link NvimTreeFolderIcon Directory
+hi link NvimTreeFileIcon Title
 
-"-------[ Machine Specific stuff ]------------------------------------- {{{1
-
-map <leader>c<space> <plug>NERDCommenterToggle
-
+" for coc-git
+highlight GitAdd    guifg=#009900 ctermfg=2
+highlight GitChange guifg=#6484cc ctermfg=blue
+highlight GitDelete guifg=#ff2222 ctermfg=1
 
 " vim: fdm=marker ts=2 sw=2 et
