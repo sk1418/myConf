@@ -1,6 +1,6 @@
 #====[ Gernal options ]==================================================# {{{1
 
-export EDITOR=vim
+export EDITOR=nvim
 export MY_ZSH_DIR="$HOME/.zsh"
 export MY_LIB_DIR="$HOME/lib"
 
@@ -27,8 +27,8 @@ export SAVEHIST=10000         #the     size  of   saving history entries after l
 
 setopt inc_append_history     #the size of saving history entries after logout
 setopt hist_ignore_dups       #ignore duplicated command in history
-setopt extended_history       #add additional information (timestamp) in history
-setopt hist_ignore_space    #add space before command, the command will not be added into history
+setopt extended_history       # add additional information (timestamp) in history
+setopt hist_ignore_space    # add space before command, the command will not be added into history
 
 #====[ Directories ]========================================================# {{{1
 setopt AUTO_PUSHD           #make cd push the old directory to the dirstack, cd - <tab> could show the list
@@ -39,7 +39,7 @@ export CDPATH=.:~:~/MyStuff
 #====[ Corrections ]========================================================# {{{1
 setopt correct_all #try to correct every word, this can be dangerous with some commands (e.g. mv)
 
-#====[ Completion ]========================================================# {{{
+#====[ Completion ]========================================================# {{{1
 setopt auto_list # Automatically list choices on an ambiguous completion.
 setopt auto_menu
 setopt complete_in_word     #stays where it is and completion is done from both ends e.g. /v/c/p/p => /var/cache/pacman/pkg
@@ -128,8 +128,6 @@ hosts=(
 )
 zstyle ':completion:*:hosts' hosts $hosts
 #}}}
-
-
 #====[ Color and Terminal ]========================================================# {{{
 #set 256color for TERM
 case "$TERM" in
@@ -156,7 +154,6 @@ autoload colors
 [[ $terminfo[colors] -ge 8 ]] && colors
 
 #}}}
-
 #====[ Prompt ]========================================================# {{{
 
 #git prompt
@@ -166,7 +163,6 @@ source $MY_LIB_DIR/awk-git-prompt/git-prompt.zsh
 #zsh prompt
 source $MY_ZSH_DIR/promptrc
 #}}}
-
 #====[ Functions ]==================================================# {{{
 
 function wordRange {
@@ -183,19 +179,19 @@ function bjtime {
   echo "北京时间: " $(TZ="Hongkong" date +"%F %H:%M:%S")
 }
 
-
 # webcam
 function webcam {
-    mplayer -tv driver=v4l2:gain=1:width=640:height=480:device=/dev/video0 tv://
+  mplayer -tv driver=v4l2:gain=1:width=640:height=480:device=/dev/video0 tv://
 }
-
-function webHere {
-    py_ver=$(python -V 2>&1|sed 's/Python *//; s/[.].*//')
-    if [[ $py_ver = "2" ]]; then
-        python -m SimpleHTTPServer
-    elif [[ $py_ver = "3" ]];then
-        python -m http.server
-    fi
+function webHere() {
+  py_ver=$(python -V 2>&1|sed 's/Python *//; s/[.].*//')
+  if [[ $py_ver == "2" ]]; then
+    python -m SimpleHTTPServer
+  elif [[ $py_ver == "3" ]]; then
+    echo "Want to change port?\n $0 [port]\n====="
+    port="$1"
+    python -m http.server "${port:-8000}"
+  fi
 }
 
 function weather {
@@ -252,7 +248,6 @@ function calc {
 }
 
 
-
 #functions to set prompt pwd color
 __PROMPT_PWD="$pfg_magenta%~$pR"
 #change PWD color
@@ -261,53 +256,52 @@ function pwd_color_chpwd { [ $PWD = $OLDPWD ] || __PROMPT_PWD="$pU$pfg_cyan%~$pR
 function pwd_color_preexec { __PROMPT_PWD="$pfg_magenta%~$pR" }
 
 
-##行编辑高亮模式 
-## Ctrl+@ 设置标记，标记和光标点之间为 region
-#if (is-at-least 4.3); then
-#  zle_highlight=(region:bg=magenta
-#                 special:bold,fg=magenta
-#                 default:bold
-#                 isearch:underline
-#                 )
-#fi
-#
-## colorize command as blue if found in path or defined.
-#TOKENS_FOLLOWED_BY_COMMANDS=('|' '||' ';' '&' '&&' 'sudo' 'do' 'time' 'strace')
-#
-#recolor-cmd() {
-#  region_highlight=()
-#  colorize=true
-#  start_pos=0
-#  for arg in ${(z)BUFFER}; do
-#    ((start_pos+=${#BUFFER[$start_pos+1,-1]}-${#${BUFFER[$start_pos+1,-1]## #}}))
-#    ((end_pos=$start_pos+${#arg}))
-#    if $colorize; then
-#      colorize=false
-#      res=$(LC_ALL=C builtin type $arg 2>/dev/null)
-#      case $res in
-#        *'reserved word'*)   style="fg=magenta,bold";;
-#        *'alias for'*)       style="fg=cyan,bold";;
-#        *'shell builtin'*)   style="fg=yellow,bold";;
-#        *'shell function'*)  style='fg=green,bold';;
-#        *"$arg is"*)         
-#          [[ $arg = 'sudo' ]] && style="fg=red,bold" || style="fg=blue,bold";;
-#        *)                   style='none,bold';;
-#      esac
-#      region_highlight+=("$start_pos $end_pos $style")
-#    fi
-#    [[ ${${TOKENS_FOLLOWED_BY_COMMANDS[(r)${arg//|/\|}]}:+yes} = 'yes' ]] && colorize=true
-#    start_pos=$end_pos
-#  done
-#}
-#
-#check-cmd-self-insert() { zle .self-insert && recolor-cmd }
-#check-cmd-backward-delete-char() { zle .backward-delete-char && recolor-cmd }
-#
-#zle -N self-insert check-cmd-self-insert
-#zle -N backward-delete-char check-cmd-backward-delete-char
+#行编辑高亮模式 
+# Ctrl+@ 设置标记，标记和光标点之间为 region
+if (is-at-least 4.3); then
+  zle_highlight=(region:bg=magenta
+                 special:bold,fg=magenta
+                 default:bold
+                 isearch:underline
+                 )
+fi
+
+# colorize command as blue if found in path or defined.
+TOKENS_FOLLOWED_BY_COMMANDS=('|' '||' ';' '&' '&&' 'sudo' 'do' 'time' 'strace')
+
+recolor-cmd() {
+  region_highlight=()
+  colorize=true
+  start_pos=0
+  for arg in ${(z)BUFFER}; do
+    ((start_pos+=${#BUFFER[$start_pos+1,-1]}-${#${BUFFER[$start_pos+1,-1]## #}}))
+    ((end_pos=$start_pos+${#arg}))
+    if $colorize; then
+      colorize=false
+      res=$(LC_ALL=C builtin type $arg 2>/dev/null)
+      case $res in
+        *'reserved word'*)   style="fg=magenta,bold";;
+        *'alias for'*)       style="fg=cyan,bold";;
+        *'shell builtin'*)   style="fg=yellow,bold";;
+        *'shell function'*)  style='fg=green,bold';;
+        *"$arg is"*)         
+          [[ $arg = 'sudo' ]] && style="fg=red,bold" || style="fg=blue,bold";;
+        *)                   style='none,bold';;
+      esac
+      region_highlight+=("$start_pos $end_pos $style")
+    fi
+    [[ ${${TOKENS_FOLLOWED_BY_COMMANDS[(r)${arg//|/\|}]}:+yes} = 'yes' ]] && colorize=true
+    start_pos=$end_pos
+  done
+}
+
+check-cmd-self-insert() { zle .self-insert && recolor-cmd }
+check-cmd-backward-delete-char() { zle .backward-delete-char && recolor-cmd }
+
+zle -N self-insert check-cmd-self-insert
+zle -N backward-delete-char check-cmd-backward-delete-char
 
 # }}}
-
 #====[ Title ]==================================================# {{{
 
 case $TERM in
@@ -317,8 +311,7 @@ case $TERM in
   screen*)
     #only set screen title if it is in a local shell
     if [ -n $STY ] && (screen -ls |grep $STY &>/dev/null); then
-      function title() 
-      {
+      function title() {
         #modify screen title
         print -nP "\ek$1\e\\"
         #modify window title bar
@@ -364,53 +357,6 @@ preexec_functions+=screen_preexec
 #chpwd_functions+=hg_prompt_info
 #chpwd_functions+=git_branch_chpwd
 
-# 
-#function title {
-#  if [[ "$DISABLE_AUTO_TITLE" == "true" ]] || [[ "$EMACS" == *term* ]]; then
-#    return
-#  fi
-#  if [[ "$TERM" == screen* ]]; then
-#    #print -Pn "\ek$1:q\e\\" #set screen hardstatus, usually truncated at 20 chars
-#    precmd(){
-#			# Restore tmux-title to 'zsh'
-#			printf "\033kzsh\033\\"
-#			# Restore urxvt-title to 'zsh'
-#			print -Pn "\e]2;zsh:%~\a"
-#		}
-#		preexec(){
-#			# set tmux-title to running program
-#			printf "\033k$(echo "$1" | cut -d" " -f1)\033\\"
-#			# set urxvt-title to running program
-#			print -Pn "\e]2;zsh:$(echo "$1" | cut -d" " -f1)\a"
-#                }
-#  elif [[ "$TERM_PROGRAM" == "Apple_Terminal" ]]; then
-#    print -Pn "\e]1;$1:q\a" #set icon (=tab) name (will override window name on broken terminal)
-#  elif [[ "$TERM" == xterm* ]] || [[ $TERM == rxvt* ]] || [[ "$TERM_PROGRAM" == "iTerm.app" ]]; then
-#    print -Pn "\e]2;$2:q\a" #set window name
-#    print -Pn "\e]1;$1:q\a" #set icon (=tab) name (will override window name on broken terminal)
-#  fi
-#}
-#
-#ZSH_THEME_TERM_TAB_TITLE_IDLE="%15<..<%~%<<" #15 char left truncated PWD
-#ZSH_THEME_TERM_TITLE_IDLE="%n@%m: %~"
-#
-##Appears when you have the prompt
-#function omz_termsupport_precmd {
-#  title $ZSH_THEME_TERM_TAB_TITLE_IDLE $ZSH_THEME_TERM_TITLE_IDLE
-#}
-#
-##Appears at the beginning of (and during) of command execution
-#function omz_termsupport_preexec {
-#  emulate -L zsh
-#  setopt extended_glob
-#  local CMD=${1[(wr)^(*=*|sudo|ssh|rake|-*)]} #cmd name only, or if this is sudo or ssh, the next cmd
-#  title "$CMD" "%100>...>${2:gs/%/%%}%<<"
-#}
-#
-#autoload -U add-zsh-hook
-#add-zsh-hook precmd  omz_termsupport_precmd
-#add-zsh-hook preexec omz_termsupport_preexec
-##}}}
 
 #====[command line/key-bind]==================================================# {{{
 
@@ -442,21 +388,6 @@ bindkey '^]' vi-find-next-char
 #alt-] to search previous char in command line same as 'F' in vim
 bindkey '\e]' vi-find-prev-char
 
-
-#   pressing TAB in an empty command makes a cd command with completion list
-function dumb-cd {
-  if [[ -n $BUFFER ]] ; then # 如果该行有内容
-    zle expand-or-complete # 执行 TAB 原来的功能
-  else # 如果没有
-    BUFFER="cd " # 填入 cd（空格）
-    zle end-of-line # 这时光标在行首，移动到行末
-    zle expand-or-complete # 执行 TAB 原来的功能
-  fi 
-}
-zle -N dumb-cd
-bindkey "\t" dumb-cd #将上面的功能绑定到 TAB 键
-
-
 #adding sudo to command
 function sudo-command-line {
   [[ -z $BUFFER ]] && zle up-history
@@ -473,7 +404,7 @@ zle -N self-insert url-quote-magic
 
   
 
-#====[ alias ]==================================================# {{{
+#====[ alias ]==================================================# {{{1
 #fast back to parents dir
 alias ..="cd .."
 alias ..2="cd ../.."
@@ -521,6 +452,10 @@ alias vi='nvim'
 #alias gvim='nvim-qt'
 alias activeServices='systemctl list-unit-files --state enabled'
 
+alias fd='fd --hidden --exclude .git --exclude node_module --exclude target'
+
+mkdir -p /tmp/test
+
 #}}}
 
 #====[ todo.txt ]==================================================# {{{
@@ -541,16 +476,25 @@ source $MY_ZSH_DIR/completion/*
 [[ -f $HOME/.fzf.zsh ]] && source $HOME/.fzf.zsh
 
 eval "$(fzf --zsh)"
-export FZF_DEFAULT_COMMAND='ag --hidden --ignore .git -l -g ""'
-export FZF_DEFAULT_OPTS='--height 70% --reverse --border'
 
+export FZF_DEFAULT_OPTS='--tmux --height 70% --reverse --border --walker-skip=.git,target,node_modules,.idea'
+export FZF_DEFAULT_COMMAND='fd --type f'
+
+fzf_switch_support="--bind 'ctrl-d:reload(fd --type d),ctrl-f:reload(eval "$FZF_DEFAULT_COMMAND")'"
+      
 if command -v bat &> /dev/null; then
   show_file_or_dir_preview="if [ -d {} ]; then tree -C {} | head -200; else bat -n --color=always --line-range :500 {}; fi"
-  export FZF_CTRL_T_OPTS="--preview '$show_file_or_dir_preview'"
+  export FZF_CTRL_T_OPTS="$fzf_switch_support --preview '$show_file_or_dir_preview'"
 else
-  export FZF_CTRL_T_OPTS="--preview '(highlight -O ansi -l {} 2> /dev/null || cat {} || tree -C {}) 2> /dev/null | head -200'"
+  export FZF_CTRL_T_OPTS="$fzf_switch_support --preview '(highlight -O ansi -l {} 2> /dev/null || cat {} || tree -C {}) 2> /dev/null | head -200'"
 fi
 
+#support switch dir/file
+alias fzf2="fzf $fzf_switch_support"
+
+#alt-c
+export FZF_ALT_C_COMMAND=""
+export FZF_ALT_C_OPTS="--preview 'tree -C {}'"
 
 fkill() {
   local pid
@@ -563,15 +507,16 @@ fkill() {
 }
 #}}}
 #
-#====[ fasd fast jump conf ]=============================================# {{{
+#====[ fasd fast jump conf ]=============================================# {{{1
 eval "$(fasd --init auto)"
-alias v='f -e nvim'
+
+# combine fasd and fzf, also support 'z' and 'v' commands
+source $MY_LIB_DIR/fzf-fasd/fzf-fasd.plugin.zsh
+alias v='nvim'
+
+#alias v='f -e nvim'
 alias b='f -e bat'
 alias o='a -e xdg-open'
-
-
-#combine fasd and fzf "cd/z" command
-source $MY_ZSH_DIR/fzf-fasd.zsh
 
 #}}}
 
@@ -591,12 +536,10 @@ zle -N copy-earlier-word
 bindkey "^[," copy-earlier-word
 
 #}}}
-mkdir -p /tmp/test
 
 
 #====[ bat theme ]=============================================# {{{
 export BAT_THEME="Solarized (dark)"
-#}}}
 
 # syntax highlighting
 SYNTAX_HL_ZSH=$MY_ZSH_DIR/syn-highlighting.zsh
@@ -608,10 +551,13 @@ source $MY_ZSH_DIR/myZsh.zsh
 #tab setting (4 spaces)
 tabs -4
 
+#}}}
+
 #CHANGES still in TESTING# {{{
 setopt PUSHD_MINUS
 setopt LISTPACKED
 # }}}
 #
 ### END OF FILE #################################################################
-# vim: filetype=zsh fdm=marker autoindent expandtab shiftwidth=2 ts=2 
+#
+# vim: ft=zsh ts=2 sw=2 et ai

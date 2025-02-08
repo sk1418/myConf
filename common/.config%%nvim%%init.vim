@@ -1,3 +1,4 @@
+
 "-------[ General Options ]----------------------------------------"{{{1
 set nocompatible
 "remove all autocommand
@@ -377,7 +378,9 @@ set updatetime=300
 set shortmess+=c
 set signcolumn=yes
 
-nnoremap <silent><expr> ]c get(b:, 'coc_git_blame', '') ==# 'Not committed yet' ? "<Plug>(coc-git-chunkinfo)" : "<Plug>(coc-git-commit)"
+nnoremap <silent> ]c <Plug>(coc-git-nextchunk)
+nnoremap <silent> [c <Plug>(coc-git-prevchunk)
+nnoremap <silent> ]i <Plug>(coc-git-chunkinfo)
 
 " Use tab for trigger completion with characters ahead and navigate
 " NOTE: There's always complete item selected by default, you may want to enable
@@ -403,13 +406,14 @@ endfunction
 if has('nvim')
 	inoremap <silent><expr> <c-space> coc#refresh()
 else
-	inoremap <silent><expr> <c-@> coc#refresh()
+	inoremap <silent><expr> <c-@> coc#refresh[)
 endif
 
-" Use `[g` and `]g` to navigate diagnostics
 " Use `:CocDiagnostics` to get all diagnostics of current buffer in location list
-nmap <silent> [g <Plug>(coc-diagnostic-prev)
-nmap <silent> ]g <Plug>(coc-diagnostic-next)
+unmap ]d
+unmap [d
+nmap <silent> [e <Plug>(coc-diagnostic-prev)
+nmap <silent> ]e <Plug>(coc-diagnostic-next)
 
 " GoTo code navigation
 nmap <silent> gd <Plug>(coc-definition)
@@ -1018,5 +1022,11 @@ hi link NvimTreeFileIcon Title
 highlight GitAdd    guifg=#009900 ctermfg=2
 highlight GitChange guifg=#6484cc ctermfg=blue
 highlight GitDelete guifg=#ff2222 ctermfg=1
+let g:python3_host_prog = '/opt/homebrew/bin/python3.13'
+
+"coc popup
+hi CocFloating ctermbg=234 guibg=#002b36
+
+
 
 " vim: fdm=marker ts=2 sw=2 et
