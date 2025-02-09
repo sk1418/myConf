@@ -132,13 +132,28 @@ iabbrev imp! !Important!
 iabbrev mk1 !MARK1
 iabbrev mk2 !MARK2
 iabbrev mk3 !MARK3
+
+"
+"-------[ Helper Function ]----------------------------------------{{{1
+
+"unmap keys 
+function UnmapKey(theLhs, theMode) abort
+  if len(mapcheck(a:theLhs, a:theMode))>0
+    exec tolower(a:theMode).'unmap ' .a:theLhs
+  endif
+endfunction
+
+"load lua script
+function! Load_lua_plugin(script_name)
+  let lua_plugins_dir = "$HOME/.config/nvim/nvim-lua-plugins/"
+  execute "luafile ". lua_plugins_dir . a:script_name
+endfunction
+
 "-------[ key mappying ]----------------------------------------{{{1
 "
 "nvim default map to y$
 "nnoremap Y mmyy`m
-if len(mapcheck("Y", "N"))>0
-  unmap Y
-endif
+call UnmapKey("Y", "N")
 
 
 "Copying to X11 primary selection with the mouse doesn't work
@@ -240,11 +255,6 @@ cnoremap <C-A> <Home>
 
 
 "-------[ Plugins / Bundles ]----------------------------------------{{{1
-function! Load_lua_plugin(script_name)
-  let lua_plugins_dir = "$HOME/.config/nvim/nvim-lua-plugins/"
-  execute "luafile ". lua_plugins_dir . a:script_name
-endfunction
-
 
 call plug#begin('~/.config/nvim/plugged')
 " color schemes
@@ -273,17 +283,14 @@ Plug 'tpope/vim-surround'
 Plug 'tpope/vim-fugitive'
 Plug 'christoomey/vim-conflicted'
 Plug 'Lokaltog/vim-easymotion'
-"
-Plug 'vim-scripts/ShowMarks'
+Plug 'szw/vim-maximizer'
 Plug 'kana/vim-scratch'
+
 if (has('mac'))
   Plug 'sk1418/toggleMacIM'
 else
   Plug 'vim-scripts/fcitx.vim'
 endif
-
-Plug 'mattn/calendar-vim'
-Plug 'vim-scripts/vimwiki'
 
 Plug 'tommcdo/vim-exchange'
 
@@ -309,11 +316,23 @@ Plug 'nvim-telescope/telescope.nvim', { 'tag': '0.1.x' }
 Plug 'nvim-telescope/telescope-fzf-native.nvim', {'do' : 'make'}
 Plug 'maxmx03/solarized.nvim'
 Plug 'lukas-reineke/indent-blankline.nvim'
+Plug 'tylerw/marks.nvim'
 
 call plug#end()
 filetype plugin indent on  
 
 "-------[ plugin mappings/settings ]-------------------------------------{{{1
+
+"===========================================================================
+" Disable json conceal
+"===========================================================================
+let g:vim_json_conceal=0
+
+"-----------[ Ag (silver searcher) ]------------{{{2
+command! AGG exe 'Ag -Q ' . expand('<cword>')
+
+"-----------[ Indent Blackline (ibl) ]------------{{{2
+call Load_lua_plugin("indent-blackline.lua")
 
 "-----------[ Ack  plugin   ]------------{{{2
 let g:ackprg = "ag --vimgrep"
@@ -348,10 +367,13 @@ vnoremap <silent> <Leader>> <Plug>CycleNext
 nnoremap <silent> <Leader>< <Plug>CyclePrev
 vnoremap <silent> <Leader>< <Plug>CyclePrev
 
+"-----------[ maximizer.vim ]------------{{{2
+let g:maximizer_set_default_mapping = 0
+nnoremap <silent><c-w>o :MaximizerToggle<CR>
+
 "-----------[ Scratch.vim ]------------{{{2
 " F3 to toggle scratch window
 nnoremap <expr> <F3> bufwinnr(bufnr(g:scratch_buffer_name))>0?  ':ScratchClose<CR>': ':ScratchOpen<CR>'
-
 
 "-----------[ Telescope nvim plugin]------------{{{2
 call Load_lua_plugin("telescope.lua")
@@ -360,6 +382,13 @@ nnoremap <leader>fg <cmd>Telescope live_grep<cr>
 nnoremap <leader>fb <cmd>Telescope buffers<cr>
 nnoremap <leader>fh <cmd>Telescope help_tags<cr>
 nnoremap <leader>fr <cmd>Telescope oldfiles<cr>
+"nnoremap <leader>fm <cmd>Telescope marks<cr>
+nnoremap <Leader>fm <cmd>lua require('telescope').extensions.marks_nvim.marks_list_all({'smart'})<cr>
+
+"-----------[ Nvim Marks ]------------{{{2
+"!Important! this plugin should be loaded after the Telescope plugin
+call Load_lua_plugin("marks.lua")
+nnoremap <leader>md <Plug>(Marks-deleteline)
 
 "-----------[ NvimTree plugin      ]------------{{{2
 call Load_lua_plugin('nvim-tree.lua')
@@ -376,7 +405,7 @@ let g:undotree_SetFocusWhenToggle = 1
 set cmdheight=1
 set updatetime=300
 set shortmess+=c
-set signcolumn=yes
+set signcolumn=auto:2
 
 nnoremap <silent> ]c <Plug>(coc-git-nextchunk)
 nnoremap <silent> [c <Plug>(coc-git-prevchunk)
@@ -410,8 +439,7 @@ else
 endif
 
 " Use `:CocDiagnostics` to get all diagnostics of current buffer in location list
-unmap ]d
-unmap [d
+call UnmapKey("]d", "N")
 nmap <silent> [e <Plug>(coc-diagnostic-prev)
 nmap <silent> ]e <Plug>(coc-diagnostic-next)
 
@@ -492,31 +520,12 @@ command! -nargs=0 OR   :call     CocAction('runCommand', 'editor.action.organize
 hi EasyMotionTarget ctermbg=none ctermfg=red guifg=red
 hi EasyMotionShade  ctermbg=none ctermfg=gray guifg=grey
 
-"-----------[ vimwiki      ]------------{{{2
-" ctrl-space trigger IM, so <leader>space check todo list
-nmap <Leader><space> <Plug>VimwikiToggleListItem
-"reset wiki code block highlights
-hi link VimwikiCode String
-hi link VimwikiCodeT String
-hi link VimwikiPre String
-hi link VimwikiPreT String
+"-----------[ markdown & obsidian TODO ]------------{{{2
 
-let g:vimwiki_list = [{'path': '~/vimwiki/',
-			\ 'path_html'        : '$HOME/MyStuff/myCodes/wikipages/',
-			\ 'template_path'    : '$HOME/MyStuff/myCodes/vim/wiki_template',
-			\ 'template_default' : 'default',
-			\ 'template_ext'     : '.tpl',
-			\ 'css_name'         : 'template/style/main.css'}]
-" \ 'syntax': 'markdown', 'ext':'.md',
-
-"the line below lets vimwiki don't overwrite ft option
-"let g:vimwiki_ext2syntax={}
-
-augroup ft_vimwiki
+augroup ft_markdown
 	autocmd!
-	autocmd Filetype vimwiki  iabbrev  jcode {{{class="brush: java"
-	autocmd Filetype vimwiki  iabbrev  bcode {{{class="brush: bash"
-	autocmd Filetype vimwiki  iabbrev  vcode {{{class="brush: vim"
+	autocmd Filetype markdown  iabbrev  kcode ```kotlin
+	autocmd Filetype markdown  iabbrev  bcode ```bash
 augroup END
 
 "-------[ cursor shape ]--{{{1
@@ -576,69 +585,68 @@ set gfn=JetBrainsMono\ Nerd\ Font:h18:w57
 "set gfw=JetBrainsMono\ Nerd\ Font:h18:w57
 set gfw=PingFang\ SC:26
 
-"-------[ Status bar ]------------------------------------❱----{{{1
-set statusline =%7*[%n]%*
-set statusline +=%1*%F\ %*%8*%m%r%*%1*%h%w%* "filename
-set statusline +=%7*\|%*
-set statusline+=%2*\ %Y: "filetype
-set statusline+=%{&ff}:  "dos/unix
-set statusline+=%{&fenc!=''?&fenc:&enc}\ %* "encoding
+"-------[ Status bar ]----------------------------------------{{{1
 
-"fugitve branch
-set statusline +=%8*%{fugitive#Head()!=''?'['.fugitive#Head().']':''}%2*\ 
+"let [g:sep0, g:sep1, g:sep2] = [ '', '', '']  " forward slash style: item // item // item
+let [g:sep0, g:sep1, g:sep2] = ['', '', '']   " backslask style: item \\ item \\ item
 
-set statusline +=%7*\|%*
-set statusline+=%2*\ ASCII:%b\ %*  " ascii 
-set statusline +=%7*\|%*
-set statusline+=%2*\ row:%l/%*%1*%L%*%2*\ %*%1*%p%%%*%2*\ \ col:%v\ %*
-set statusline +=%7*\|%*
+function! RoAndModifiedStatus()
+  let ro =(&readonly || !&modifiable )? '' : ''
+  let mo = &modified? '' : '' 
+  let st = mo.ro 
+  return (len(st)>0) ? g:sep0 . st . ' '. g:sep1 : ''
+endfunction
+
+function! BranchInfo()
+  let branch =fugitive#Head() 
+  return (len(branch) > 0) ? ( g:sep0.' ' . branch . g:sep1) : ''
+endfunction
+
+set statusline =%2*[%n]%1*             "buffer No
+set statusline+=%7*%{sep1}%8*%{sep1}%* "sep
+
+set statusline+=%1*%F        "filename
+set statusline+=%8*%{sep0}%* "sep
+
+"(below)Modified, RO, using func instead of %m%r for setting the separator dynamically
+set statusline+=%3*%{RoAndModifiedStatus()}%*
+set statusline+=%7*%{sep0} "sep
+
+set statusline+=%2*%{toupper(&ft).sep2.(&ff).sep2.(&fenc!=''?&fenc:&enc)} " Filetype:unix/dos:encoding
+set statusline+=%7*%{sep1}%*                                      "sep
+
+set statusline+=%3*%{BranchInfo()} "git branch
+set statusline+=%7*%{sep0}%*       "sep
+
+set statusline+=%2*Char:\%03.3b     "ascii code
+set statusline+=%7*%{sep1}%{sep0}%* "sep
+
+set statusline+=%2*R:%l/%*%1*%L%*%2*%{sep2}%*%1*%p%% "Row info
+set statusline+=%7*%{sep1}%{sep0}%* "sep
+
+set statusline+=%2*C:%v  "Col info
+set statusline+=%7*%{sep1}%{sep0}%2* "sep
 
 "color in terminal
 hi User1 cterm=bold ctermfg=black ctermbg=67
-hi User2 ctermfg=black ctermbg=246
-hi User7 cterm=bold ctermfg=245 ctermbg=237
-hi User8 ctermfg=black ctermbg=167
+hi User2 cterm=bold ctermfg=black ctermbg=246
+hi User3 ctermfg=245 ctermbg=237
 
 "color in gvim
-hi User1  gui=bold guifg=#000000 guibg=#5B89C7
-hi User2  guifg=#000000 guibg=#949494
-hi User7  gui=bold guifg=#8a8a8a guibg=#3a3a3a
-hi User8  guifg=#000000 guibg=#d75f5f
+hi User1  gui=bold guifg=#002b36 guibg=#5897ad
+hi User2  gui=bold guifg=#002b36 guibg=#999999 
+hi User3  guifg=#114d5c guibg=#d75f5f
+
+hi User7  guifg=#114d5c guibg=#999999
+hi User8  guifg=#5897ad guibg=#114d5c "sep only for the filename field
+hi User9  guifg=#114d5c guibg=#d75f5f
+
 "set statusline=%F%m%r%h%w\ [FORMAT=%{&ff}G\ [TYPE=%Y]\ [ASCII=\%03.3b]\ [HEX=\%02.2B]\ [POS=%04l,%04v][%p%%]\ [LEN=%L]
 set laststatus=2
 
 "set cursor line color
 set cul "highlighting cusor line
-"-------[ plugins related settings ]-------------------------------------{{{1
 
-"===========================================================================
-" Disable json conceal
-"===========================================================================
-let g:vim_json_conceal=0
-"===========================================================================
-" Ag (silver searcher)
-"===========================================================================
-command! AGG exe 'Ag -Q ' . expand('<cword>')
-
-"===========================================================================
-" showmarks
-"===========================================================================
-let showmarks_enable=0
-"lower case marker hl
-hi ShowMarksHLl ctermfg=16 ctermbg=107 cterm=bold guifg=blue guibg=lightblue gui=bold
-"upper case marker hl
-hi ShowMarksHLu ctermfg=16 ctermbg=107 cterm=bold guifg=blue guibg=lightblue gui=bold
-"other marker hl
-hi ShowMarksHLo ctermfg=16 ctermbg=107 cterm=bold guifg=blue guibg=lightblue gui=bold
-"when multi markers on sameline
-"hi ShowMarksHLm ctermfg=black ctermbg=green cterm=bold guifg=blue guibg=lightblue gui=bold
-let showmarks_include = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
-" Hilight lower & upper marks
-"let showmarks_hlline_lower = 0
-"let showmarks_hlline_upper = 0
-
-"-----------[ Indent Blackline (ibl) ]------------{{{2
-call Load_lua_plugin("indent-blackline.lua")
 
 "-------[ Functions ]-------------------------------------{{{1
 
@@ -1019,10 +1027,13 @@ hi link NvimTreeFolderIcon Directory
 hi link NvimTreeFileIcon Title
 
 " for coc-git
-highlight GitAdd    guifg=#009900 ctermfg=2
-highlight GitChange guifg=#6484cc ctermfg=blue
-highlight GitDelete guifg=#ff2222 ctermfg=1
+hi GitAdd    guifg=#009900 ctermfg=2
+hi GitChange guifg=#6484cc ctermfg=blue
+hi GitDelete guifg=#ff2222 ctermfg=1
 let g:python3_host_prog = '/opt/homebrew/bin/python3.13'
+
+"coc diagnostics error
+hi DiagnosticError ctermfg=9 guifg=#DC322F
 
 "coc popup
 hi CocFloating ctermbg=234 guibg=#002b36

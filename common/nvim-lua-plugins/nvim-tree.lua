@@ -10,6 +10,7 @@ vim.g.loaded_netrw = 1
 vim.g.loaded_netrwPlugin = 1
 
 nvimtree.setup({
+  update_focused_file = { enable = true },
   hijack_netrw = false,
   view = {
     width = 35,
@@ -20,14 +21,6 @@ nvimtree.setup({
   renderer = {
     indent_markers = {
       enable = true,
-    },
-    icons = {
-      glyphs = {
-        folder = {
-          arrow_closed = "", -- arrow when folder is closed
-          arrow_open = "", -- arrow when folder is open
-        },
-      },
     },
   },
   -- disable window_picker for

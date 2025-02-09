@@ -7,11 +7,10 @@
   "signature.floatConfig": { "border": true, "rounded": true },
   "outline.autoPreview": true,
   "notification.disabledProgressSources": ["*"],
-  "diagnostic.signOffset": 1,
-  "diagnostic.errorSign": "",
-  "diagnostic.warningSign": "",
-  "diagnostic.infoSign": "┃",
-  "diagnostic.hintSign": "┃",
+  "diagnostic.errorSign": "",
+  "diagnostic.warningSign": "",
+  "diagnostic.infoSign": "",
+  "diagnostic.hintSign": "",
 
   "inlayHint.enable": false,
   "list.alignColumns": true,
@@ -35,7 +34,6 @@
   "git.addGBlameToVirtualText": false,
   "git.addGBlameToBufferVar": true,
   "git.splitWindowCommand": "below 10sp",
-
   "signature.hideOnTextChange": false,
   "suggest.completionItemKindLabels": {
     "constructor": "\ufb25",
@@ -59,10 +57,10 @@
     "field": "\uf9be",
     "unit": "\uf475",
     "event": "\ufacd",
-    //"file": "\uf723",
-    "file": "",
-    //"folder": "\uf114",
-    "folder": "",
+    "file": "\uf723",
+    //"file": "",
+    "folder": "\uf114",
+    //"folder": "",
     "snippet": "\ue60b",
     "typeParameter": "\uf728",
     "default": " "
