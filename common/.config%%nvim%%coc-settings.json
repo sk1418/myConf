@@ -7,8 +7,8 @@
   "signature.floatConfig": { "border": true, "rounded": true },
   "outline.autoPreview": true,
   "notification.disabledProgressSources": ["*"],
-  "diagnostic.errorSign": "",
-  "diagnostic.warningSign": "",
+  "diagnostic.errorSign": "",
+  "diagnostic.warningSign": "",
   "diagnostic.infoSign": "",
   "diagnostic.hintSign": "",
 

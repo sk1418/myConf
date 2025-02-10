@@ -594,7 +594,7 @@ function! RoAndModifiedStatus()
   let ro =(&readonly || !&modifiable )? '' : ''
   let mo = &modified? '' : '' 
   let st = mo.ro 
-  return (len(st)>0) ? g:sep0 . st . ' '. g:sep1 : ''
+  return (len(st)>0) ? g:sep0 . st . ''. g:sep1 : ''
 endfunction
 
 function! BranchInfo()
@@ -603,39 +603,43 @@ function! BranchInfo()
 endfunction
 
 set statusline =%2*[%n]%1*             "buffer No
-set statusline+=%7*%{sep1}%8*%{sep1}%* "sep
+set statusline+=%7*%{sep1}%8*%{sep1}%* "sep level1
 
 set statusline+=%1*%F        "filename
-set statusline+=%8*%{sep0}%* "sep
+set statusline+=%8*%{sep0}%* "sep level1
 
 "(below)Modified, RO, using func instead of %m%r for setting the separator dynamically
 set statusline+=%3*%{RoAndModifiedStatus()}%*
-set statusline+=%7*%{sep0} "sep
+set statusline+=%7*%{sep0} "sep level1
 
 set statusline+=%2*%{toupper(&ft).sep2.(&ff).sep2.(&fenc!=''?&fenc:&enc)} " Filetype:unix/dos:encoding
-set statusline+=%7*%{sep1}%*                                      "sep
+set statusline+=%7*%{sep1}%*                     "sep level1
 
 set statusline+=%3*%{BranchInfo()} "git branch
-set statusline+=%7*%{sep0}%*       "sep
+set statusline+=%7*%{sep0}%*       "sep level1
 
-set statusline+=%2*Char:\%03.3b     "ascii code
-set statusline+=%7*%{sep1}%{sep0}%* "sep
+set statusline+=%2*A:\%03.3b     "ascii code
+"set statusline+=%7*%{sep1}%{sep0}%* "sep level1
+set statusline+=%{sep2}   "sep level2
 
-set statusline+=%2*R:%l/%*%1*%L%*%2*%{sep2}%*%1*%p%% "Row info
-set statusline+=%7*%{sep1}%{sep0}%* "sep
+set statusline+=%1*%p%%%2*  "percentage
+set statusline+=%{sep2}\     "sep level2
+set statusline+=%2*R:%l:%L "Row info
+"set statusline+=%7*%{sep1}%{sep0}%* "sep level1
+set statusline+=%{sep2}\  "sep level2
 
 set statusline+=%2*C:%v  "Col info
 set statusline+=%7*%{sep1}%{sep0}%2* "sep
 
-"color in terminal
+"color in terminal [shouldn't be used]
 hi User1 cterm=bold ctermfg=black ctermbg=67
 hi User2 cterm=bold ctermfg=black ctermbg=246
 hi User3 ctermfg=245 ctermbg=237
 
-"color in gvim
+"color in gvim 
 hi User1  gui=bold guifg=#002b36 guibg=#5897ad
 hi User2  gui=bold guifg=#002b36 guibg=#999999 
-hi User3  guifg=#114d5c guibg=#d75f5f
+hi User3  gui=bold guifg=#114d5c guibg=#d75f5f
 
 hi User7  guifg=#114d5c guibg=#999999
 hi User8  guifg=#5897ad guibg=#114d5c "sep only for the filename field
