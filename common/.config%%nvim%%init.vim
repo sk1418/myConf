@@ -338,6 +338,7 @@ call Load_lua_plugin("indent-blackline.lua")
 let g:ackprg = "ag --vimgrep"
 
 "-----------[ vim-cycle plugin ]------------{{{2
+let g:cycle_no_mappings=1
 let g:cycle_default_groups = [
 			\   [['true', 'false']],
 			\   [['yes', 'no']],
@@ -442,6 +443,8 @@ endif
 call UnmapKey("]d", "N")
 nmap <silent> [e <Plug>(coc-diagnostic-prev)
 nmap <silent> ]e <Plug>(coc-diagnostic-next)
+
+nmap <silent> ]d <c-u>:call CocActionAsync('diagnosticToggleBuffer')<cr>
 
 " GoTo code navigation
 nmap <silent> gd <Plug>(coc-definition)
@@ -989,23 +992,26 @@ augroup publishing
 augroup END
 
 function! Hi_Publish()
-	exec 'hi! Paid  term=bold cterm=bold gui=bold guifg=black guibg=#999999 ctermfg=16 ctermbg=darkgray'
-	exec 'hi! PaymentRequested  term=bold cterm=bold gui=bold  guifg=black guibg=#d07777 ctermfg=16 ctermbg=red'
-	exec 'hi! InEdit  term=bold cterm=bold gui=bold guifg=black guibg=#6484cc ctermfg=16 ctermbg=darkgreen'
-	exec 'hi! Writing  term=bold cterm=bold gui=bold guifg=black guibg=#84a800 ctermfg=16 ctermbg=darkyellow'
-	exec 'hi! Done  term=bold cterm=bold gui=bold guifg=black guibg=#50a070 ctermfg=16 ctermbg=darkblue'
+    exec 'hi! Paid  term=bold cterm=bold gui=bold guifg=black guibg=#999999 ctermfg=16 ctermbg=darkgray'
+    exec 'hi! PaymentRequested  term=bold cterm=bold gui=bold  guifg=black guibg=#d07777 ctermfg=16 ctermbg=red'
+    exec 'hi! InEdit  term=bold cterm=bold gui=bold guifg=black guibg=#6484cc ctermfg=16 ctermbg=darkgreen'
+    exec 'hi! Writing  term=bold cterm=bold gui=bold guifg=black guibg=#84a800 ctermfg=16 ctermbg=darkyellow'
+    exec 'hi! Done  term=bold cterm=bold gui=bold guifg=black guibg=#50a070 ctermfg=16 ctermbg=darkblue'
 
-	call matchadd("Paid", "[Pp]aid")
-	call matchadd("Done", "[Dd]one")
-	call matchadd("PaymentRequested", "[Pp]ayment-[rR]equested[_0-9]*")
-	call matchadd("Writing", "[Ww]riting")
-	call matchadd("InEdit", "[Ii]n[Ee]dit")
-  "show budgets.md in the right split
-  nnoremap <buffer> <leader>$ :vs %:p:h/budgets.md<cr>
+    call matchadd("Paid", "[Pp]aid")
+    call matchadd("Done", "[Dd]one")
+    call matchadd("PaymentRequested", "[Pp]ayment-[rR]equested[_0-9]*")
+    call matchadd("Writing", "[Ww]riting")
+    call matchadd("InEdit", "[Ii]n[Ee]dit")
+    "disable coc diagnostics
+    "
+    "show budgets.md in the right split
+    nnoremap <buffer> <leader>$ :vs %:p:h/budgets.md<cr>
 
-  "quick calculate budget sum of selected articles
-  vnoremap <buffer> ? !gawk '1; /[0-9.]+[$]/{x+=gensub(/.*[ =]([0-9.]+)[$]/, "\\1", "g")}END{print "Sum:"x"$"}'<cr>`>
-	exec 'normal zMgg)'
+    "quick calculate budget sum of selected articles
+    vnoremap <buffer> ? !gawk '1; /[0-9.]+[$]/{x+=gensub(/.*[ =]([0-9.]+)[$]/, "\\1", "g")}END{print "Sum:"x"$"}'<cr>`>
+    exec 'normal zMgg)'
+
 endfunction
 
 augroup budget
