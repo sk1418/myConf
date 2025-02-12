@@ -3,7 +3,7 @@
 set nocompatible
 "remove all autocommand
 autocmd!  
-set listchars=eol:¬,tab:┊\ 
+set listchars=eol:¬,tab:.\ 
 set list
 set shortmess=a
 "backup and undos
@@ -303,8 +303,8 @@ Plug 'bootleq/vim-cycle'
 
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'udalov/kotlin-vim'
-Plug 'Shougo/neosnippet'
-Plug 'Shougo/neosnippet-snippets'
+"Plug 'Shougo/neosnippet'
+"Plug 'Shougo/neosnippet-snippets'
 Plug 'dbakker/vim-projectroot'
 
 " --------    nvim lua plugins --
@@ -312,11 +312,17 @@ Plug 'nvim-lua/plenary.nvim'
 
 Plug 'nvim-tree/nvim-tree.lua'
 Plug 'nvim-tree/nvim-web-devicons' 
+Plug 'nvim-treesitter/nvim-treesitter'
 Plug 'nvim-telescope/telescope.nvim', { 'tag': '0.1.x' }
 Plug 'nvim-telescope/telescope-fzf-native.nvim', {'do' : 'make'}
+Plug 'nvim-telescope/telescope-frecency.nvim'
+
 Plug 'maxmx03/solarized.nvim'
 Plug 'lukas-reineke/indent-blankline.nvim'
 Plug 'tylerw/marks.nvim'
+Plug 'echasnovski/mini.animate'
+Plug 'echasnovski/mini.indentscope'
+Plug 'echasnovski/mini.pairs', { 'branch': 'stable' }
 
 call plug#end()
 filetype plugin indent on  
@@ -382,7 +388,7 @@ nnoremap <C-p> <cmd>Telescope find_files<cr>
 nnoremap <leader>fg <cmd>Telescope live_grep<cr>
 nnoremap <leader>fb <cmd>Telescope buffers<cr>
 nnoremap <leader>fh <cmd>Telescope help_tags<cr>
-nnoremap <leader>fr <cmd>Telescope oldfiles<cr>
+nnoremap <leader>fr <cmd>Telescope frecency<cr>
 "nnoremap <leader>fm <cmd>Telescope marks<cr>
 nnoremap <Leader>fm <cmd>lua require('telescope').extensions.marks_nvim.marks_list_all({'smart'})<cr>
 
@@ -440,11 +446,10 @@ else
 endif
 
 " Use `:CocDiagnostics` to get all diagnostics of current buffer in location list
-call UnmapKey("]d", "N")
+call UnmapKey(",e", "N")
+nmap <silent> <lead>e <c-u>:call CocActionAsync('diagnosticToggleBuffer')<cr>
 nmap <silent> [e <Plug>(coc-diagnostic-prev)
 nmap <silent> ]e <Plug>(coc-diagnostic-next)
-
-nmap <silent> ]d <c-u>:call CocActionAsync('diagnosticToggleBuffer')<cr>
 
 " GoTo code navigation
 nmap <silent> gd <Plug>(coc-definition)
@@ -470,8 +475,9 @@ autocmd CursorHold * silent call CocActionAsync('highlight')
 nmap <leader>rn <Plug>(coc-rename)
 
 " Formatting selected code.
-xmap <leader>=  <Plug>(coc-format-selected)
-nmap <leader>=  <Plug>(coc-format-selected)
+noremap <leader>=  <Plug>(coc-format-selected)
+
+command! -nargs=0 Prettier :CocCommand prettier.forceFormatDocument
 
 augroup cocgroup
 	autocmd!
@@ -480,6 +486,7 @@ augroup cocgroup
 	" Update signature help on jump placeholder.
 	autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
 augroup end
+
 
 " Apply AutoFix to problem on the current line.
 nmap <leader>qf  <Plug>(coc-fix-current)
@@ -518,6 +525,12 @@ command! -nargs=0 OR   :call     CocAction('runCommand', 'editor.action.organize
 " Add (Neo)Vim's native statusline support.
 " NOTE: Please see `:h coc-status` for integrations with external plugins that
 " provide custom statusline: lightline.vim, vim-airline.
+
+"-----------[ treesitter & mini.* plugins  ]------------{{{2
+call Load_lua_plugin("nvim-treesitter.lua")
+call Load_lua_plugin("mini-animate.lua")
+call Load_lua_plugin("mini-indentscope.lua")
+
 
 "-----------[ EasyMotion   ]------------{{{2
 hi EasyMotionTarget ctermbg=none ctermfg=red guifg=red
@@ -584,7 +597,8 @@ endif
 "set gfw=WenQuanYi\ Micro\ Hei\ 12
 
 "set gfn=SF\ Mono:13
-set gfn=JetBrainsMono\ Nerd\ Font:h18:w57
+"set gfn=JetBrainsMono\ Nerd\ Font:h18:w57
+set gfn=BlexMono\ Nerd\ Font:h18:w57
 "set gfw=JetBrainsMono\ Nerd\ Font:h18:w57
 set gfw=PingFang\ SC:26
 
@@ -593,32 +607,45 @@ set gfw=PingFang\ SC:26
 "let [g:sep0, g:sep1, g:sep2] = [ '', '', '']  " forward slash style: item // item // item
 let [g:sep0, g:sep1, g:sep2] = ['', '', '']   " backslask style: item \\ item \\ item
 
+function! SmartFilePath()
+  let maxL =30
+  let path = expand("%")
+  let result = ''
+  if (len(path) == 0)
+    let result = "NEW"
+  else
+    let result = (len(path)>maxL) ? '...'. path[-(maxL-3):] : path
+  endif
+  return result
+endfunction
+
 function! RoAndModifiedStatus()
-  let ro =(&readonly || !&modifiable )? '' : ''
-  let mo = &modified? '' : '' 
+  let ro =(&readonly || !&modifiable )? '󰌾' : ''
+  let mo = &modified? '󰐖' : '' 
+
   let st = mo.ro 
-  return (len(st)>0) ? g:sep0 . st . ''. g:sep1 : ''
+  return (len(st)>0) ? '%9*'. g:sep0 . '%3*'. st . '%9*'. g:sep1 : ''
 endfunction
 
 function! BranchInfo()
-  let branch =fugitive#Head() 
-  return (len(branch) > 0) ? ( g:sep0.' ' . branch . g:sep1) : ''
+  let st =fugitive#Head() 
+  return (len(st)>0) ? '%9*'. g:sep0 . '%3* '. st .'%9*'. g:sep1 : ''
 endfunction
 
 set statusline =%2*[%n]%1*             "buffer No
 set statusline+=%7*%{sep1}%8*%{sep1}%* "sep level1
 
-set statusline+=%1*%F        "filename
+set statusline+=%1*%{SmartFilePath()}        "filename
 set statusline+=%8*%{sep0}%* "sep level1
 
-"(below)Modified, RO, using func instead of %m%r for setting the separator dynamically
-set statusline+=%3*%{RoAndModifiedStatus()}%*
-set statusline+=%7*%{sep0} "sep level1
+"(below)Modified, RO, dynamically. Note: %{%...%}
+set statusline+=%{%RoAndModifiedStatus()%}%*
+set statusline+=%7*%{sep0}  "sep level1
 
-set statusline+=%2*%{toupper(&ft).sep2.(&ff).sep2.(&fenc!=''?&fenc:&enc)} " Filetype:unix/dos:encoding
+set statusline+=%2*%{toupper(&ft).sep2}%{toupper(&fenc!=''?&fenc:&enc)} " Filetype:unix/dos:encoding
 set statusline+=%7*%{sep1}%*                     "sep level1
 
-set statusline+=%3*%{BranchInfo()} "git branch
+set statusline+=%{%BranchInfo()%}  "git branch
 set statusline+=%7*%{sep0}%*       "sep level1
 
 set statusline+=%2*A:\%03.3b     "ascii code
@@ -639,14 +666,16 @@ hi User1 cterm=bold ctermfg=black ctermbg=67
 hi User2 cterm=bold ctermfg=black ctermbg=246
 hi User3 ctermfg=245 ctermbg=237
 
-"color in gvim 
+"color in gvim
 hi User1  gui=bold guifg=#002b36 guibg=#5897ad
-hi User2  gui=bold guifg=#002b36 guibg=#999999 
-hi User3  gui=bold guifg=#114d5c guibg=#d75f5f
+hi User2  gui=bold guifg=#002b36 guibg=PaleTurquoise4
+"hi User3  gui=bold guifg=#114d5c guibg=#d75f5f
+hi User3  gui=bold guifg=IndianRed guibg=black 
 
-hi User7  guifg=#114d5c guibg=#999999
-hi User8  guifg=#5897ad guibg=#114d5c "sep only for the filename field
-hi User9  guifg=#114d5c guibg=#d75f5f
+"#114d5c
+hi User7  guifg=black guibg=PaleTurquoise4
+hi User8  guifg=#5897ad guibg=black "sep only for the filename field
+hi User9  guifg=black guibg=black
 
 "set statusline=%F%m%r%h%w\ [FORMAT=%{&ff}G\ [TYPE=%Y]\ [ASCII=\%03.3b]\ [HEX=\%02.2B]\ [POS=%04l,%04v][%p%%]\ [LEN=%L]
 set laststatus=2
@@ -1048,6 +1077,19 @@ hi DiagnosticError ctermfg=9 guifg=#DC322F
 "coc popup
 hi CocFloating ctermbg=234 guibg=#002b36
 
+" mini-indentscope
+hi MiniIndentscopeSymbol guifg=CadetBlue
 
+"tree-sitter
+hi! @variable guifg=SlateBlue1
+hi! link @constant @string
+hi! link @character Special
+hi! link @boolean @attribute
+hi! @punctuation.bracket gui=bold guifg=DeepSkyBlue3
+hi! link @tag @punctuation.bracket
+
+
+"bracket pairing hi
+hi! MatchParen gui=bold guifg=lightgray guibg=DarkOrange4
 
 " vim: fdm=marker ts=2 sw=2 et

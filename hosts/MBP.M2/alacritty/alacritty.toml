@@ -42,21 +42,37 @@ TERM = "xterm-256color"
 [font]
 size = 18.0
 
+#[font.bold]
+#family = "JetBrainsMono Nerd Font"
+#style = "Regular"
+
+#[font.bold_italic]
+#family = "JetBrainsMono Nerd Font"
+#style = "Regular Italic"
+
+#[font.italic]
+#family = "JetBrainsMono Nerd Font"
+#style = "Thin Italic"
+
+#[font.normal]
+#family = "JetBrainsMono Nerd Font"
+#style = "Thin"
+
 [font.bold]
-family = "JetBrainsMono Nerd Font"
+family = "BlexMono Nerd Font"
 style = "Regular"
 
 [font.bold_italic]
-family = "JetBrainsMono Nerd Font"
-style = "Regular Italic"
+family = "BlexMono Nerd Font"
+style = "Italic"
 
 [font.italic]
-family = "JetBrainsMono Nerd Font"
+family = "BlexMono Nerd Font"
 style = "Thin Italic"
 
 [font.normal]
-family = "JetBrainsMono Nerd Font"
-style = "Thin"
+family = "BlexMono Nerd Font"
+style = "Light"
 
 [selection]
 save_to_clipboard = true
