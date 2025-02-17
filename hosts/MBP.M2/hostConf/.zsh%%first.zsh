@@ -8,6 +8,7 @@ export PATH=$BREW/bin:$BREW/opt/gawk/libexec/gnubin:$BREW/opt/gnu-sed/bin:$BREW/
 alias dircolors="gdircolors"
 alias readlink="greadlink"
 alias sed="/opt/homebrew/bin/gsed"
+alias grep="/opt/homebrew/bin/ggrep"
 alias python=/usr/bin/python3
 
 export CLICOLOR=1

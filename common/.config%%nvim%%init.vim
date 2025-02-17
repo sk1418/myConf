@@ -107,9 +107,8 @@ set foldopen-=undo " don't open folds when you undo stuff
 
 "autocmd FileType java set fdm=syntax
 let g:xml_syntax_folding=1
-autocmd FileType java,javascript,vim,xml,html,xhtml set fdm=syntax
+autocmd FileType java,javascript,vim,xml,html,xhtml,kotlin,lua set fdm=syntax
 "-------[ Auto-Completion Settings ]----------------------------------------{{{1
-"leave autocompletion setting to neocomplete plugin
 
 "increment completion (keep the options when typing)
 set completeopt=longest,menuone
@@ -374,9 +373,6 @@ vnoremap <silent> <Leader>> <Plug>CycleNext
 nnoremap <silent> <Leader>< <Plug>CyclePrev
 vnoremap <silent> <Leader>< <Plug>CyclePrev
 
-"-----------[ maximizer.vim ]------------{{{2
-let g:maximizer_set_default_mapping = 0
-nnoremap <silent><c-w>o :MaximizerToggle<CR>
 
 "-----------[ Scratch.vim ]------------{{{2
 " F3 to toggle scratch window
@@ -414,9 +410,11 @@ set updatetime=300
 set shortmess+=c
 set signcolumn=auto:2
 
+
 nnoremap <silent> ]c <Plug>(coc-git-nextchunk)
 nnoremap <silent> [c <Plug>(coc-git-prevchunk)
-nnoremap <silent> ]i <Plug>(coc-git-chunkinfo)
+call UnmapKey(']d', 'N')
+nnoremap <silent> ]d <Plug>(coc-git-chunkinfo)
 
 " Use tab for trigger completion with characters ahead and navigate
 " NOTE: There's always complete item selected by default, you may want to enable
@@ -447,7 +445,7 @@ endif
 
 " Use `:CocDiagnostics` to get all diagnostics of current buffer in location list
 call UnmapKey(",e", "N")
-nmap <silent> <lead>e <c-u>:call CocActionAsync('diagnosticToggleBuffer')<cr>
+nmap <silent> <Leader>e <c-u>:call CocActionAsync('diagnosticToggleBuffer')<cr>
 nmap <silent> [e <Plug>(coc-diagnostic-prev)
 nmap <silent> ]e <Plug>(coc-diagnostic-next)
 
@@ -536,6 +534,11 @@ call Load_lua_plugin("mini-indentscope.lua")
 hi EasyMotionTarget ctermbg=none ctermfg=red guifg=red
 hi EasyMotionShade  ctermbg=none ctermfg=gray guifg=grey
 
+"-----------[ maximizer.vim ]------------{{{2
+let g:maximizer_set_default_mapping = 0
+nnoremap <silent><c-w>o :MaximizerToggle<CR>
+nnoremap <silent><c-w><c-o> :MaximizerToggle<CR>
+
 "-----------[ markdown & obsidian TODO ]------------{{{2
 
 augroup ft_markdown
@@ -604,8 +607,8 @@ set gfw=PingFang\ SC:26
 
 "-------[ Status bar ]----------------------------------------{{{1
 
-"let [g:sep0, g:sep1, g:sep2] = [ '', '', '']  " forward slash style: item // item // item
-let [g:sep0, g:sep1, g:sep2] = ['', '', '']   " backslask style: item \\ item \\ item
+let [g:sep0, g:sep1, g:sep2] = [ '', '', '']  " forward slash style: item // item // item
+"let [g:sep0, g:sep1, g:sep2] = ['', '', '']   " backslask style: item \\ item \\ item
 
 function! SmartFilePath()
   let maxL =30
@@ -621,7 +624,7 @@ endfunction
 
 function! RoAndModifiedStatus()
   let ro =(&readonly || !&modifiable )? '󰌾' : ''
-  let mo = &modified? '󰐖' : '' 
+  let mo = &modified? '󰐖' : ''
 
   let st = mo.ro 
   return (len(st)>0) ? '%9*'. g:sep0 . '%3*'. st . '%9*'. g:sep1 : ''
@@ -632,17 +635,16 @@ function! BranchInfo()
   return (len(st)>0) ? '%9*'. g:sep0 . '%3* '. st .'%9*'. g:sep1 : ''
 endfunction
 
-set statusline =%2*[%n]%1*             "buffer No
-set statusline+=%7*%{sep1}%8*%{sep1}%* "sep level1
+set statusline=%2*[%n]               "buffer No
+set statusline+=%7*%{sep1}    "sep level 1
+
+set statusline+=%{%RoAndModifiedStatus()%}%* "readonly or modified. Note: %{%...%}
+set statusline+=%8*%{sep1}%*  "sep level1
 
 set statusline+=%1*%{SmartFilePath()}        "filename
-set statusline+=%8*%{sep0}%* "sep level1
+set statusline+=%{sep1}%*%7*%{sep0} "sep level1
 
-"(below)Modified, RO, dynamically. Note: %{%...%}
-set statusline+=%{%RoAndModifiedStatus()%}%*
-set statusline+=%7*%{sep0}  "sep level1
-
-set statusline+=%2*%{toupper(&ft).sep2}%{toupper(&fenc!=''?&fenc:&enc)} " Filetype:unix/dos:encoding
+set statusline+=%2*%{toupper(len(&ft)>0?&ft:'-').sep2}%{toupper(&fenc!=''?&fenc:&enc)} " Filetype:unix/dos:encoding
 set statusline+=%7*%{sep1}%*                     "sep level1
 
 set statusline+=%{%BranchInfo()%}  "git branch
@@ -660,6 +662,7 @@ set statusline+=%{sep2}\  "sep level2
 
 set statusline+=%2*C:%v  "Col info
 set statusline+=%7*%{sep1}%{sep0}%2* "sep
+set statusline+=%<    "truncate line from the end, if it's too long
 
 "color in terminal [shouldn't be used]
 hi User1 cterm=bold ctermfg=black ctermbg=67
@@ -667,14 +670,14 @@ hi User2 cterm=bold ctermfg=black ctermbg=246
 hi User3 ctermfg=245 ctermbg=237
 
 "color in gvim
-hi User1  gui=bold guifg=#002b36 guibg=#5897ad
+hi User1  gui=bold guifg=#002b36 guibg=SkyBlue3
 hi User2  gui=bold guifg=#002b36 guibg=PaleTurquoise4
 "hi User3  gui=bold guifg=#114d5c guibg=#d75f5f
 hi User3  gui=bold guifg=IndianRed guibg=black 
 
 "#114d5c
 hi User7  guifg=black guibg=PaleTurquoise4
-hi User8  guifg=#5897ad guibg=black "sep only for the filename field
+hi User8  guifg=SkyBlue3 guibg=black "sep only for the filename field
 hi User9  guifg=black guibg=black
 
 "set statusline=%F%m%r%h%w\ [FORMAT=%{&ff}G\ [TYPE=%Y]\ [ASCII=\%03.3b]\ [HEX=\%02.2B]\ [POS=%04l,%04v][%p%%]\ [LEN=%L]
@@ -701,7 +704,6 @@ endfunction
 
 " function for autocmd python filetype
 fun! AutoCmd_python()
-	setlocal foldmethod=indent smartindent shiftwidth=4 ts=4 et cinwords=if,elif,else,for,while,try,except,finally,def,class
 	nnoremap <buffer> <F9> :exec '!python' shellescape(@%, 1)<cr>
 	" code
 endf

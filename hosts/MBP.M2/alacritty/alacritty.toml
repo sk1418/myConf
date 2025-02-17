@@ -64,11 +64,11 @@ style = "Regular"
 
 [font.bold_italic]
 family = "BlexMono Nerd Font"
-style = "Italic"
+style = "Italic Regular"
 
 [font.italic]
 family = "BlexMono Nerd Font"
-style = "Thin Italic"
+style = "Light Italic"
 
 [font.normal]
 family = "BlexMono Nerd Font"

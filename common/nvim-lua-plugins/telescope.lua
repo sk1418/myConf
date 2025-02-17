@@ -33,17 +33,15 @@ telescope.setup({
     -- the default case_mode is "smart_case"
   },
     frecency = {
-      auto_validate = true,
-      db_validate_threshold = 50,
+      auto_validate = false,
+      db_validate_threshold = 500,
       hide_current_buffer = true,
       ignore_patterns = {"*/.git", "target/*", "*/.config/nvim/plugged/*", "*/nvim/runtime/doc/*.txt"},
       matcher = "fuzzy",
       path_display = { "smart" }
       -- …… other configs
     }
-
   }
-
 })
 
 -- vim: ts=2 sw=2 et
