@@ -81,11 +81,6 @@ vnoremap <c-k> :m-2<CR>gv=gv
 vnoremap < <gv
 vnoremap > >gv
 
-"quick Editing .vimrc
-nnoremap <Leader>rc :vsplit $MYVIMRC<cr>
-nnoremap <Leader>rt :vsplit $HOME/.tmux.conf<cr>
-nnoremap <Leader>rz :vsplit $HOME/.zshrc<cr>
-
 "easier copy paste to clipboard
 vnoremap <C-C> "+y
 nnoremap <Leader>p :silent set paste<cr>"+P:set nopaste<cr>
@@ -115,6 +110,10 @@ nnoremap <C-l> <C-w>l
 set easymotion
 set surround
 set exchange
+set matchit
+
+"sync with IDE marks
+set ideamarks
 
 nmap  <ESC> <ESC>
 imap  <c-c> <c-c>

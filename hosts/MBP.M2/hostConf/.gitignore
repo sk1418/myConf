@@ -7,3 +7,5 @@
 *.egg-info/*.*
 .idea/
 .vim/
+target/
+.DS_Store

@@ -543,8 +543,8 @@ nnoremap <silent><c-w><c-o> :MaximizerToggle<CR>
 
 augroup ft_markdown
 	autocmd!
-	autocmd Filetype markdown  iabbrev  kcode ```kotlin
-	autocmd Filetype markdown  iabbrev  bcode ```bash
+	autocmd Filetype markdown  iabbrev  kcode ````kotlin
+	autocmd Filetype markdown  iabbrev  bcode ````bash
 augroup END
 
 "-------[ cursor shape ]--{{{1
@@ -969,9 +969,6 @@ command! Delete if delete(expand('%')) |echohl WarningMsg | echo 'deleting file 
 "find matched count 
 command! -range=% -nargs=1 Count <line1>,<line2>s/<args>//gn|nohls
 
-"prepare payment request
-command! PaymentReq %s/## \d\+.*Published/##/ | g/\.\.\./norm! 2dd
-
 "-------[ AutoCmd ]------------------------------------- {{{1
 "add chmod+x if a shbang was found
 autocmd BufWritePost * call AutoCmd_chmodx()
@@ -1019,7 +1016,7 @@ augroup END
 "highlight some keywords in my 'publish.md'
 augroup publishing
 	autocmd!
-	autocmd BufEnter published.md call Hi_Publish()
+	autocmd BufWinEnter published.md call Hi_Publish()
 augroup END
 
 function! Hi_Publish()
@@ -1042,12 +1039,14 @@ function! Hi_Publish()
     "quick calculate budget sum of selected articles
     vnoremap <buffer> ? !gawk '1; /[0-9.]+[$]/{x+=gensub(/.*[ =]([0-9.]+)[$]/, "\\1", "g")}END{print "Sum:"x"$"}'<cr>`>
     exec 'normal zMgg)'
+    "disable diagnostics
+  call CocActionAsync('diagnosticToggleBuffer')
 
 endfunction
 
 augroup budget
 	autocmd!
-	autocmd BufEnter budgets.md call Hi_Budget()
+	autocmd BufWinEnter budgets.md call Hi_Budget()
 augroup END
 
 function! Hi_Budget()
@@ -1056,6 +1055,8 @@ function! Hi_Budget()
 	call matchadd("ArticleType", '\s*\(Java\|Linux\|Kotlin\)\s*')
   nnoremap <buffer> <silent> q :bd<cr>
 	exec 'normal zMgg)'
+  "disable diagnostics
+  call CocActionAsync('diagnosticToggleBuffer')
 endfunction
 
 
@@ -1075,6 +1076,7 @@ let g:python3_host_prog = '/opt/homebrew/bin/python3.13'
 
 "coc diagnostics error
 hi DiagnosticError ctermfg=9 guifg=#DC322F
+hi DiagnosticWarn guifg=darkyellow
 
 "coc popup
 hi CocFloating ctermbg=234 guibg=#002b36
