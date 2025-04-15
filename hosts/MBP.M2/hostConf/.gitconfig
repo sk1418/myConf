@@ -72,6 +72,7 @@
 	unstage = reset HEAD
     pushf = push --force-with-lease
     conflicted = "!nvim +Conflicted"
+    delRemoteBranch = "!git push origin --delete \"$1\" #"
 
 [push]
     default = current
