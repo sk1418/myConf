@@ -314,14 +314,13 @@ Plug 'nvim-tree/nvim-web-devicons'
 Plug 'nvim-treesitter/nvim-treesitter'
 Plug 'nvim-telescope/telescope.nvim', { 'tag': '0.1.x' }
 Plug 'nvim-telescope/telescope-fzf-native.nvim', {'do' : 'make'}
-Plug 'nvim-telescope/telescope-frecency.nvim'
 
 Plug 'maxmx03/solarized.nvim'
 Plug 'lukas-reineke/indent-blankline.nvim'
 Plug 'tylerw/marks.nvim'
 Plug 'echasnovski/mini.animate'
 Plug 'echasnovski/mini.indentscope'
-Plug 'echasnovski/mini.pairs', { 'branch': 'stable' }
+Plug 'echasnovski/mini.pairs'
 
 call plug#end()
 filetype plugin indent on  
@@ -363,7 +362,7 @@ let g:cycle_default_groups = [
 			\   [['with', 'without']],
 			\   [["exclude", "include"]],
 			\   [["asc", "desc"]],
-      \   [["Writing", "InEdit", "Done", "Payment-Requested", "Paid"], {'hard_case': 1}],
+            \   [["Writing", "InEdit", "Done", "Payment-Ready",  "Payment-Requested", "Paid"], {'hard_case': 1}],
 			\   [['{:}', '[:]', '(:)'], 'sub_pairs'],
 			\   [['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday',
 			\     'Friday', 'Saturday'], 'hard_case', {'name': 'Days'}],
@@ -384,7 +383,7 @@ nnoremap <C-p> <cmd>Telescope find_files<cr>
 nnoremap <leader>fg <cmd>Telescope live_grep<cr>
 nnoremap <leader>fb <cmd>Telescope buffers<cr>
 nnoremap <leader>fh <cmd>Telescope help_tags<cr>
-nnoremap <leader>fr <cmd>Telescope frecency<cr>
+nnoremap <leader>fr <cmd>Telescope oldfiles<cr>
 "nnoremap <leader>fm <cmd>Telescope marks<cr>
 nnoremap <Leader>fm <cmd>lua require('telescope').extensions.marks_nvim.marks_list_all({'smart'})<cr>
 
@@ -591,9 +590,35 @@ if $DISPLAY != "" && !has("termguicolors")
   colorscheme desert
 else
 	set t_Co=256
-  colorscheme last256
+  colorscheme solarized
+  "colorscheme last256
+endif
+
+if g:colors_name == 'solarized'
+  hi! Search         ctermfg=0 ctermbg=11 guifg=#002b30 guibg=#d7af5f
+  hi! Underlined     guifg=#8be9ff cterm=underline
+  hi! Type     guifg=#268BD2 cterm=bold gui=bold
+  hi! Function     guifg=#b23d7e cterm=bold 
+
+  hi! Todo           guifg=#002b30 guibg=#5faf5f 
+  hi! FIXME          cterm=bold gui=bold guifg=#d7ffaf guibg=#d75f5f
+  hi! MK1            guifg=#002b30 guibg=#5f87ff
+  hi! MK2            guifg=#002b30 guibg=#8787ff
+  hi! MK3            guifg=#002b30 guibg=#d78700
+  hi! Important      cterm=bold gui=bold guifg=#002b30 guibg=#d75f5f
+
+
+  "add autocommands
+  autocmd BufWinEnter * call matchadd("Important","!Important!")
+  autocmd BufWinEnter * call matchadd("MK1","!MARK1")
+  autocmd BufWinEnter * call matchadd("MK2","!MARK2")
+  autocmd BufWinEnter * call matchadd("MK3","!MARK3")
+  autocmd BufWinEnter * call matchadd("FIXME","FIXME")
+  autocmd BufWinEnter * call matchadd("Todo","TODO")
+  autocmd BufWinEnter * call matchadd("Todo","Todo")
 
 endif
+
 
 "Monaco style
 "set gfn=Monaco\ 13
@@ -1022,15 +1047,17 @@ augroup END
 function! Hi_Publish()
     exec 'hi! Paid  term=bold cterm=bold gui=bold guifg=black guibg=#999999 ctermfg=16 ctermbg=darkgray'
     exec 'hi! PaymentRequested  term=bold cterm=bold gui=bold  guifg=black guibg=#d07777 ctermfg=16 ctermbg=red'
-    exec 'hi! InEdit  term=bold cterm=bold gui=bold guifg=black guibg=#6484cc ctermfg=16 ctermbg=darkgreen'
-    exec 'hi! Writing  term=bold cterm=bold gui=bold guifg=black guibg=#84a800 ctermfg=16 ctermbg=darkyellow'
-    exec 'hi! Done  term=bold cterm=bold gui=bold guifg=black guibg=#50a070 ctermfg=16 ctermbg=darkblue'
+    exec 'hi! Writing  term=bold cterm=bold gui=bold guifg=black guibg=darkyellow ctermfg=16 ctermbg=DarkYellow'
+    exec 'hi! InEdit term=bold cterm=bold gui=bold guifg=black guibg=#6484cc ctermfg=16 ctermbg=darkgreen'
+    exec 'hi! Done  term=bold cterm=bold gui=bold guifg=black guibg=#84a800 ctermfg=16 ctermbg=darkyellow'
+    exec 'hi! PaymentReady  term=bold cterm=bold gui=bold guifg=black guibg=#50a070 ctermfg=16 ctermbg=darkblue'
 
     call matchadd("Paid", "[Pp]aid")
     call matchadd("Done", "[Dd]one")
     call matchadd("PaymentRequested", "[Pp]ayment-[rR]equested[_0-9]*")
     call matchadd("Writing", "[Ww]riting")
     call matchadd("InEdit", "[Ii]n[Ee]dit")
+    call matchadd("PaymentReady", "[Pp]ayment-[rR]eady")
     "disable coc diagnostics
     "
     "show budgets.md in the right split
@@ -1096,4 +1123,5 @@ hi! link @tag @punctuation.bracket
 "bracket pairing hi
 hi! MatchParen gui=bold guifg=lightgray guibg=DarkOrange4
 
+call Load_lua_plugin("ft-hi.lua")    
 " vim: fdm=marker ts=2 sw=2 et

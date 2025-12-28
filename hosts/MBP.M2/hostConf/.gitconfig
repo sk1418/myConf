@@ -73,6 +73,8 @@
     pushf = push --force-with-lease
     conflicted = "!nvim +Conflicted"
     delRemoteBranch = "!git push origin --delete \"$1\" #"
+    #fzf required
+    br="!switchBranch(){ git checkout $(git branch -a --no-color| sed 's#remotes/origin/##;s#^[*]# #'|awk '!a[$0]++' |fzf --query=\"$1\" --bind 'shift-tab:up,tab:down' -0 -1) ;}; switchBranch \"$1\""
 
 [push]
     default = current

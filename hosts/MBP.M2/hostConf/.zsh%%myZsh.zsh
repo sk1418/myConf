@@ -19,6 +19,8 @@ alias akserver='ssh kent@akcloud.gleeze.com  -p 9222 "/AK-Server-Storage/scripts
 alias python='/opt/homebrew/bin/python3'
 alias ncalc='numi-cli'
 
+
+
 #proxy setting
 #export JAVA_TOOL_OPTIONS
 #gnu bc default config file
@@ -37,19 +39,20 @@ export TDSVER=7.0
 #
 if [[ "${TERM}" != "" && "${TERM}" == "alacritty" ]]
 then
-    precmd()
-    {
-        # output on which level (%L) this shell is running on.
-        # append the current directory (%~), substitute home directories with a tilde.
-        # "\a" bell (man 1 echo)
-        # "print" must be used here; echo cannot handle prompt expansions (%L)
-        print -Pn "\e]0; %~\a"
-    }
+  precmd()
+  {
+    # output on which level (%L) this shell is running on.
+    # append the current directory (%~), substitute home directories with a tilde.
+    # "\a" bell (man 1 echo)
+    # "print" must be used here; echo cannot handle prompt expansions (%L)
+    print -Pn "\e]0; %~\a"
+  }
 
-    preexec()
-    {
-        # output current executed command with parameters
-        echo -en "\e]0; ${1}\a"
-    }
+preexec()
+{
+  # output current executed command with parameters
+  echo -en "\e]0; ${1}\a"
+}
 fi
 
+# vim: fdm=marker ts=2 sw=2 et

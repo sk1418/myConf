@@ -247,6 +247,22 @@ function calc {
   echo "scale=2;$*"|bc|sed 's/\.0*$//'
 }
 
+function repo {
+  gurl=$(git remote get-url origin)
+  case "$gurl" in
+    https://*)
+      open $(sed 's#[.]git$##' <<< "$gurl")
+      ;;
+    git@*)
+      open $(sed 's#[.].git$##; s#:#/#; s#git@#https://#' <<< "$gurl")
+      ;;
+    *)
+      echo "❌ Not a git repo?"
+      return 1
+      ;;
+  esac
+}
+
 
 #functions to set prompt pwd color
 __PROMPT_PWD="$pfg_magenta%~$pR"
@@ -561,3 +577,7 @@ setopt LISTPACKED
 ### END OF FILE #################################################################
 #
 # vim: ft=zsh ts=2 sw=2 et ai
+
+
+# Load Angular CLI autocompletion.
+source <(ng completion script)
