@@ -100,14 +100,14 @@ set wildignore+=lib
 " search tags file from opened file directory up to / (root)
 set tags+=./tags;/,
 "-------[ Folding Settings ]----------------------------------------{{{1
-set foldmethod=marker
+"set foldmethod=marker
 set foldlevel=100 " Don't autofold anything (but I can still fold manually)
 set foldopen-=search " don't open folds when you search into them
 set foldopen-=undo " don't open folds when you undo stuff
 
-"autocmd FileType java set fdm=syntax
+""autocmd FileType java set fdm=syntax
 let g:xml_syntax_folding=1
-autocmd FileType java,javascript,vim,xml,html,xhtml,kotlin,lua set fdm=syntax
+
 "-------[ Auto-Completion Settings ]----------------------------------------{{{1
 
 "increment completion (keep the options when typing)
@@ -216,7 +216,8 @@ nnoremap <Leader>rz :vsplit $HOME/.zshrc<cr>
 "easier copy paste to clipboard
 vnoremap <C-C> "+y
 
-nnoremap <Leader>p :silent set paste<cr>"+P:set nopaste<cr>
+nnoremap <Leader>p :silent set paste<cr>"+p:set nopaste<cr>
+nnoremap <Leader>P :silent set paste<cr>"+P:set nopaste<cr>
 
 "format codes without changing screen
 nnoremap <Leader>= moHmpgg=G`pzt`o
@@ -527,7 +528,6 @@ command! -nargs=0 OR   :call     CocAction('runCommand', 'editor.action.organize
 call Load_lua_plugin("nvim-treesitter.lua")
 call Load_lua_plugin("mini-animate.lua")
 call Load_lua_plugin("mini-indentscope.lua")
-
 
 "-----------[ EasyMotion   ]------------{{{2
 hi EasyMotionTarget ctermbg=none ctermfg=red guifg=red
@@ -1041,34 +1041,28 @@ augroup END
 "highlight some keywords in my 'publish.md'
 augroup publishing
 	autocmd!
-	autocmd BufWinEnter published.md call Hi_Publish()
+	autocmd BufWinEnter published.md call Publish_Specific()
 augroup END
 
-function! Hi_Publish()
-    exec 'hi! Paid  term=bold cterm=bold gui=bold guifg=black guibg=#999999 ctermfg=16 ctermbg=darkgray'
-    exec 'hi! PaymentRequested  term=bold cterm=bold gui=bold  guifg=black guibg=#d07777 ctermfg=16 ctermbg=red'
-    exec 'hi! Writing  term=bold cterm=bold gui=bold guifg=black guibg=darkyellow ctermfg=16 ctermbg=DarkYellow'
-    exec 'hi! InEdit term=bold cterm=bold gui=bold guifg=black guibg=#6484cc ctermfg=16 ctermbg=darkgreen'
-    exec 'hi! Done  term=bold cterm=bold gui=bold guifg=black guibg=#84a800 ctermfg=16 ctermbg=darkyellow'
-    exec 'hi! PaymentReady  term=bold cterm=bold gui=bold guifg=black guibg=#50a070 ctermfg=16 ctermbg=darkblue'
+function! Publish_Specific() abort
+  call Load_lua_plugin('baeldung-writing.lua')
+  call Publish_mapping()
 
-    call matchadd("Paid", "[Pp]aid")
-    call matchadd("Done", "[Dd]one")
-    call matchadd("PaymentRequested", "[Pp]ayment-[rR]equested[_0-9]*")
-    call matchadd("Writing", "[Ww]riting")
-    call matchadd("InEdit", "[Ii]n[Ee]dit")
-    call matchadd("PaymentReady", "[Pp]ayment-[rR]eady")
-    "disable coc diagnostics
-    "
-    "show budgets.md in the right split
-    nnoremap <buffer> <leader>$ :vs %:p:h/budgets.md<cr>
+  function! Price(lvl, wordCnt, ...) abort
+    let factor = a:0 >= 1 ? a:1 : 1
+    return luaeval("calcBudget(_A[1], _A[2], _A[3])", [a:lvl, a:wordCnt, factor])
+  endfunction
 
-    "quick calculate budget sum of selected articles
-    vnoremap <buffer> ? !gawk '1; /[0-9.]+[$]/{x+=gensub(/.*[ =]([0-9.]+)[$]/, "\\1", "g")}END{print "Sum:"x"$"}'<cr>`>
-    exec 'normal zMgg)'
-    "disable diagnostics
+endfunction
+
+function! Publish_mapping()
+  "show budgets.md in the right split
+  nnoremap <buffer> <leader>$ :vs %:p:h/budgets.md<cr>
+  "quick calculate budget sum of selected articles
+  vnoremap <buffer> ? !gawk '1; /[0-9.]+[$]/{x+=gensub(/.*[ =]([0-9.]+)[$]/, "\\1", "g")}END{print "Sum:"x"$"}'<cr>`>
+  exec 'normal zMgg)'
+  "disable diagnostics
   call CocActionAsync('diagnosticToggleBuffer')
-
 endfunction
 
 augroup budget
@@ -1078,7 +1072,6 @@ augroup END
 
 function! Hi_Budget()
 	exec 'hi! ArticleType  term=bold cterm=bold gui=bold guifg=black guibg=#7080c0 ctermfg=16 ctermbg=darkgreen'
-
 	call matchadd("ArticleType", '\s*\(Java\|Linux\|Kotlin\)\s*')
   nnoremap <buffer> <silent> q :bd<cr>
 	exec 'normal zMgg)'
@@ -1119,9 +1112,13 @@ hi! link @boolean @attribute
 hi! @punctuation.bracket gui=bold guifg=DeepSkyBlue3
 hi! link @tag @punctuation.bracket
 
-
 "bracket pairing hi
 hi! MatchParen gui=bold guifg=lightgray guibg=DarkOrange4
+augroup ftfoldgroup
+  autocmd!
+  autocmd FileType java,javascript,vim,xml,html,xhtml,kotlin setlocal fdm=syntax
+  autocmd FileType lua nested ++once setlocal fdm=expr foldexpr=nvim_treesitter#foldexpr()
+augroup end
 
 call Load_lua_plugin("ft-hi.lua")    
 " vim: fdm=marker ts=2 sw=2 et

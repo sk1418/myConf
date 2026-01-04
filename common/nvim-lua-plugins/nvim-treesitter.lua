@@ -9,6 +9,7 @@ treesitter.setup({
   highlight = { enable = true, },
   -- enable indentation
   indent = { enable = true },
+  fold = { enable = true },
   -- ensure these language parsers are installed
   ensure_installed = {
     "python",
@@ -33,6 +34,7 @@ treesitter.setup({
     "tmux",
     "toml",
   },
+
   --incremental_selection = {
     --enable = true,
     --keymaps = {
