@@ -127,3 +127,11 @@ imap  <C-b> <C-b>
 vnoremap <D-C> "+y
 nnoremap <D-v> :silent set paste<cr>"+p:set nopaste<cr>
 inoremap <D-v> <esc>:silent set paste<cr>"+p:set nopaste<cr>a
+" Sweep AI Tab completion mapping
+map <Tab> :action dev.sweep.assistant.autocomplete.edit.AcceptEditCompletionAction<CR>
+
+" Sweep AI Tab completion mapping
+map <Tab> :action dev.sweep.assistant.autocomplete.edit.AcceptEditCompletionAction<CR>
+
+" Sweep AI Tab completion mapping
+map <Tab> :action dev.sweep.assistant.autocomplete.edit.AcceptEditCompletionAction<CR>

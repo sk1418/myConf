@@ -34,6 +34,7 @@ yellow = "0xb58900"
 
 [colors.primary]
 background = "0x002b36"
+#background = "0x082f39"
 foreground = "0x93a1a1"
 
 [env]

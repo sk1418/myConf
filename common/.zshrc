@@ -400,9 +400,16 @@ zle -N edit-command-line
 bindkey '^X^e' edit-command-line
 
 #ctrl-] to search next char in command line same as 'f' in vim
-bindkey '^]' vi-find-next-char
-#alt-] to search previous char in command line same as 'F' in vim
-bindkey '\e]' vi-find-prev-char
+#ctrl: ^
+#alt: ^[
+bindkey '^[]' vi-find-next-char
+#ctrl-] to search previous char in command line same as 'F' in vim
+bindkey '^[[' vi-find-prev-char
+bindkey '^[;' vi-repeat-find
+# alt-, is insert last command from history by default
+bindkey '^[,' vi-rev-repeat-find
+
+bindkey ' ' magic-space # expand !! by tab
 
 #adding sudo to command
 function sudo-command-line {
@@ -413,6 +420,9 @@ function sudo-command-line {
 zle -N sudo-command-line
 # [Esc] [Esc]
 bindkey '\e\e' sudo-command-line
+
+# remove [esc] then a (emacs' binding, same as Enter)
+bindkey -r '\ea'
 
 autoload -U url-quote-magic
 zle -N self-insert url-quote-magic
@@ -456,6 +466,9 @@ alias ports="netstat -tupln"
 #[Esc][h] man 当前命令时，显示简短说明 
 alias run-help >&/dev/null && unalias run-help
 autoload run-help
+
+# batch moving/renaming
+autoload zmv 
 #历史命令 top10
 alias top10='print -l  ${(o)history%% *} | uniq -c | sort -nr | head -n 10'
 
@@ -547,10 +560,6 @@ autoload -Uz history-beginning-search-menu
 zle -N history-beginning-search-menu
 bindkey '^X^X' history-beginning-search-menu
 
-autoload -Uz copy-earlier-word
-zle -N copy-earlier-word
-bindkey "^[," copy-earlier-word
-
 #}}}
 
 
@@ -581,3 +590,10 @@ setopt LISTPACKED
 
 # Load Angular CLI autocompletion.
 source <(ng completion script)
+
+# bun completions
+[ -s "/Users/U533276/.bun/_bun" ] && source "/Users/U533276/.bun/_bun"
+
+# bun
+export BUN_INSTALL="$HOME/.bun"
+export PATH="$BUN_INSTALL/bin:$PATH"

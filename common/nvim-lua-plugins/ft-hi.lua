@@ -8,10 +8,11 @@ vim.api.nvim_set_hl(0, "markdownH2", { fg = "#cccccc", bold = true })
 vim.api.nvim_set_hl(0, "markdownH3", { fg = "#aaaaaa", bold = true })
 
 ---- Markdown Links
-vim.api.nvim_set_hl(0, "markdownLink", { fg = "#58c379", underline = true })
+vim.api.nvim_set_hl(0, "markdownLinkText", { fg = "#58c379", underline = true })
 
 -- Inline Code backticks (e.g., `code`)
-vim.api.nvim_set_hl(0, "markdownCode", { fg = "#8be9fd", bg = "#2c323c" })
+vim.api.nvim_set_hl(0, "markdownCode", { fg = "#268bd2" })
+vim.api.nvim_set_hl(0, "markdownUrl", { fg = "#5f87ff" })
 --vim.api.nvim_set_hl(0, "markdownCode", { fg = "#5f87ff" })
 --vim.api.nvim_set_hl(0, "@markup.link.url.markdown_inline", { fg = "#5f87ff" })
 --vim.api.nvim_set_hl(0, "Underlined", { fg = "#8be9fd", bg = "#2c323c", underline = true })

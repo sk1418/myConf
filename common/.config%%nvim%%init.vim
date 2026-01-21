@@ -76,7 +76,7 @@ set guioptions-=T              " GUI: Disable Toolbar
 
 "-------[ wildmenu settings ]----------------------------------------{{{1
 set wildmenu
-set wildmode=list:longest,longest:full,full
+set wildmode=longest:full,list:longest,full
 set wildignore+=.hg,.git,.svn                    " Version control
 set wildignore+=*.aux,*.out,*.toc                " LaTeX intermediate files
 set wildignore+=*.jpg,*.bmp,*.gif,*.png,*.jpeg   " binary images
@@ -100,7 +100,7 @@ set wildignore+=lib
 " search tags file from opened file directory up to / (root)
 set tags+=./tags;/,
 "-------[ Folding Settings ]----------------------------------------{{{1
-"set foldmethod=marker
+set foldmethod=marker
 set foldlevel=100 " Don't autofold anything (but I can still fold manually)
 set foldopen-=search " don't open folds when you search into them
 set foldopen-=undo " don't open folds when you undo stuff
@@ -1052,7 +1052,6 @@ function! Publish_Specific() abort
     let factor = a:0 >= 1 ? a:1 : 1
     return luaeval("calcBudget(_A[1], _A[2], _A[3])", [a:lvl, a:wordCnt, factor])
   endfunction
-
 endfunction
 
 function! Publish_mapping()
@@ -1071,8 +1070,8 @@ augroup budget
 augroup END
 
 function! Hi_Budget()
-	exec 'hi! ArticleType  term=bold cterm=bold gui=bold guifg=black guibg=#7080c0 ctermfg=16 ctermbg=darkgreen'
-	call matchadd("ArticleType", '\s*\(Java\|Linux\|Kotlin\)\s*')
+	exec 'hi! ArticleGroup  term=bold cterm=bold gui=bold guifg=black guibg=#7080c0 ctermfg=16 ctermbg=darkgreen'
+	call matchadd("ArticleGroup", '^\s\+\(Java\|Linux\|Kotlin\)\s\+$')
   nnoremap <buffer> <silent> q :bd<cr>
 	exec 'normal zMgg)'
   "disable diagnostics
@@ -1117,7 +1116,7 @@ hi! MatchParen gui=bold guifg=lightgray guibg=DarkOrange4
 augroup ftfoldgroup
   autocmd!
   autocmd FileType java,javascript,vim,xml,html,xhtml,kotlin setlocal fdm=syntax
-  autocmd FileType lua nested ++once setlocal fdm=expr foldexpr=nvim_treesitter#foldexpr()
+  autocmd BufWinEnter *.lua setlocal fdm=expr foldexpr=nvim_treesitter#foldexpr()
 augroup end
 
 call Load_lua_plugin("ft-hi.lua")    

@@ -50,7 +50,7 @@ function calcBudget(myLevel, myWordCnt, factor)
 
     local price = wordToPriceTable[bestWordCount]
     local result = (factor==1) and (" %.2f$"):format(price)
-      or (" %.2f * %.1f = %.2f$"):format(price, factor, price*factor)
+    or (" %.2f * %.1f = %.2f$"):format(price, factor, price*factor)
     return result
 end
 
@@ -59,51 +59,51 @@ end
 local setHi = vim.api.nvim_set_hl
 
 setHi(0, "Paid", {
-  bold = true,
-  fg = "black",
-  bg = "#999999",
-  ctermfg = 16,
-  ctermbg = "darkgray",
+    bold = true,
+    fg = "black",
+    bg = "#999999",
+    ctermfg = 16,
+    ctermbg = "darkgray",
 })
 
 setHi(0, "PaymentRequested", {
-  bold = true,
-  fg = "black",
-  bg = "#d07777",
-  ctermfg = 16,
-  ctermbg = "red",
+    bold = true,
+    fg = "black",
+    bg = "#d07777",
+    ctermfg = 16,
+    ctermbg = "red",
 })
 
 setHi(0, "Writing", {
-  bold = true,
-  fg = "black",
-  bg = "darkyellow",
-  ctermfg = 16,
-  ctermbg = "DarkYellow",
+    bold = true,
+    fg = "black",
+    bg = "darkyellow",
+    ctermfg = 16,
+    ctermbg = "DarkYellow",
 })
 
 setHi(0, "InEdit", {
-  bold = true,
-  fg = "black",
-  bg = "#6484cc",
-  ctermfg = 16,
-  ctermbg = "darkgreen",
+    bold = true,
+    fg = "black",
+    bg = "#6484cc",
+    ctermfg = 16,
+    ctermbg = "darkgreen",
 })
 
 setHi(0, "Done", {
-  bold = true,
-  fg = "black",
-  bg = "#84a800",
-  ctermfg = 16,
-  ctermbg = "darkyellow",
+    bold = true,
+    fg = "black",
+    bg = "#84a800",
+    ctermfg = 16,
+    ctermbg = "darkyellow",
 })
 
 setHi(0, "PaymentReady", {
-  bold = true,
-  fg = "black",
-  bg = "#50a070",
-  ctermfg = 16,
-  ctermbg = "darkblue",
+    bold = true,
+    fg = "black",
+    bg = "#50a070",
+    ctermfg = 16,
+    ctermbg = "darkblue",
 })
 
 vim.fn.matchadd("Paid", "[Pp]aid")
@@ -113,5 +113,13 @@ vim.fn.matchadd("Writing", "[Ww]riting")
 vim.fn.matchadd("InEdit", "[Ii]n[Ee]dit")
 vim.fn.matchadd("PaymentReady", "[Pp]ayment-[rR]eady")
 
+setHi(0, "ArticleType", {
+    bold = true,
+    fg = "#509dbf",
+    --bg = "",
+    ctermfg = 16,
+    ctermbg = "darkblue",
+})
+vim.fn.matchadd("ArticleType", "\\[[^]]*\\]")
 
--- vim: fdm=expr ts=2 sw=2 et
+-- vim: fdm=expr ts=4 sw=4 et
