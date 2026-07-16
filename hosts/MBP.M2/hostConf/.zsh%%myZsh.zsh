@@ -5,7 +5,7 @@ export MAVEN_HOME=$DEV_HOME/maven3
 export MAVEN_OPTS=
 export TOMCAT_HOME=$DEV_HOME/tomcat5
 export PYTHON2_BIN=$HOME/.pyenv/shims
-export PATH=$PATH:$DEV_HOME/maven3/bin:$HOME/bin:$DEV_HOME/.npm_modules/bin:$DEV_HOME/Desktop/Projects/Aviatar/openshift/:$PYTHON2_BIN
+export PATH=$PATH:$DEV_HOME/maven3/bin:$HOME/bin:$DEV_HOME/.npm_modules/bin:$DEV_HOME/Desktop/Projects/Aviatar/openshift/:$PYTHON2_BIN:/opt/homebrew/sbin
 #export TERM=xterm-256color
 ##### podman
 #export DOCKER_HOST='unix:///var/folders/pt/07m3hc_s21900q5yz2t5d_8h0000gp/T/podman/podman-machine-default-api.sock'
@@ -18,6 +18,7 @@ alias df='df -h'
 alias akserver='ssh kent@akcloud.gleeze.com  -p 9222 "/AK-Server-Storage/scripts/st.py"'
 alias python='/opt/homebrew/bin/python3'
 alias ncalc='numi-cli'
+alias akbackup='~/MyStuff/backups/backup.sh'
 
 
 
@@ -55,4 +56,21 @@ preexec()
 }
 fi
 
+
+
+# Load Angular CLI autocompletion.
+source <(ng completion script)
+
+# bun completions
+[ -s "/Users/U533276/.bun/_bun" ] && source "/Users/U533276/.bun/_bun"
+
+# bun
+export BUN_INSTALL="$HOME/.bun"
+export PATH="$BUN_INSTALL/bin:$PATH"
+
+# The next line updates PATH for the Google Cloud SDK.
+if [ -f "$HOME/google-cloud-sdk/path.zsh.inc" ]; then . "$HOME/google-cloud-sdk/path.zsh.inc"; fi
+
+# The next line enables shell command completion for gcloud.
+if [ -f "$HOME/google-cloud-sdk/completion.zsh.inc" ]; then . "$HOME/google-cloud-sdk/completion.zsh.inc"; fi
 # vim: fdm=marker ts=2 sw=2 et

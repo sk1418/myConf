@@ -1,5 +1,5 @@
 [colors]
-draw_bold_text_with_bright_colors = true
+draw_bold_text_with_bright_colors = false #default
 
 [[mouse.bindings]]
 action = "PasteSelection"
@@ -7,35 +7,64 @@ mouse = "Middle"
 
 [general]
 live_config_reload = true
+#-------
 
-[colors.bright]
-black = "0x002b36"
-blue = "0x268bd2"
-cyan = "0x2aa198"
-green = "0x859900"
-magenta = "0x6c71c4"
-red = "0xdc322f"
-white = "0xfdf6e3"
-yellow = "0xb58900"
+ [colors.primary]
+ background = "#002b36"   # base03
+ foreground = "#839496"   # base0
+ 
+ [colors.cursor]
+ text       = "#002b36"
+ cursor     = "#839496"
+ 
+ [colors.normal]
+ black      = "#073642"   # base02
+ red        = "#dc322f"
+ green      = "#859900"
+ yellow     = "#b58900"
+ blue       = "#268bd2"
+ magenta    = "#d33682"
+ cyan       = "#2aa198"
+ white      = "#eee8d5"   # base2
+ 
+ [colors.bright]
+ black      = "#586e75"   # base01  ← annotations land here
+ red        = "#cb4b16"
+ green      = "#586e75"   # base01
+ yellow     = "#657b83"   # base00
+ blue       = "#839496"   # base0
+ magenta    = "#6c71c4"
+ cyan       = "#93a1a1"   # base1
+ white      = "#fdf6e3"   # base3
 
-[colors.cursor]
-cursor = "0x93a1a1"
-text = "0x002b36"
+#-------
+#[colors.bright]
+#black = "#7f7f7f"
+#blue = "#268bd2"
+#cyan = "#2aa198"
+#green = "#859900"
+#magenta = "#6c71c4"
+#red = "#dc322f"
+#white = "#fdf6e3"
+#yellow = "#b58900"
 
-[colors.normal]
-black = "0x002b36"
-blue = "0x268bd2"
-cyan = "0x2aa198"
-green = "0x859900"
-magenta = "0x6c71c4"
-red = "0xdc322f"
-white = "0x93a1a1"
-yellow = "0xb58900"
+#[colors.cursor]
+#cursor = "#93a1a1"
+#text = "#002b36"
 
-[colors.primary]
-background = "0x002b36"
-#background = "0x082f39"
-foreground = "0x93a1a1"
+#[colors.normal]
+#black = "#666666"
+#blue = "#268bd2"
+#cyan = "#2aa198"
+#green = "#859900"
+#magenta = "#6c71c4"
+#red = "#dc322f"
+#white = "#93a1a1"
+#yellow = "#b58900"
+
+#[colors.primary]
+#background = "#082f39"
+#foreground = "#93a1a1"
 
 [env]
 TERM = "xterm-256color"
@@ -94,3 +123,8 @@ x = 5
 y = 2
 
 [mouse]
+
+[[keyboard.bindings]]
+key = "Return"
+mods = "Shift"
+chars = "\u001B\r"

@@ -45,6 +45,7 @@ setopt auto_menu
 setopt complete_in_word     #stays where it is and completion is done from both ends e.g. /v/c/p/p => /var/cache/pacman/pkg
 setopt always_to_end
 setopt magic_equal_subst #complete identifier=path format 
+fpath=($MY_ZSH_DIR/completion $fpath)
 autoload -U compinit
 compinit
 
@@ -127,6 +128,7 @@ hosts=(
   localhost
 )
 zstyle ':completion:*:hosts' hosts $hosts
+
 #}}}
 #====[ Color and Terminal ]========================================================# {{{
 #set 256color for TERM
@@ -493,9 +495,6 @@ alias t='$HOME/lib/todo.txt-cli/todo.sh -d $HOME/.todo/todo.cfg'
 compdef t="todo.sh"
 # }}}
 
-#====[ ag completion ]=============================================# {{{
-source $MY_ZSH_DIR/completion/*
-# }}}
 #
 #====[ fzf config]=============================================# {{{
 
@@ -503,37 +502,9 @@ source $MY_ZSH_DIR/completion/*
 
 [[ -f /usr/share/fzf/key-bindings.zsh ]] && source /usr/share/fzf/key-bindings.zsh
 [[ -f $HOME/.fzf.zsh ]] && source $HOME/.fzf.zsh
-
+[[ -f $HOME/.zsh/my-fzf/my-fzf.sh ]] && source $HOME/lib/my-fzf/my-fzf.sh
 eval "$(fzf --zsh)"
 
-export FZF_DEFAULT_OPTS='--tmux --height 70% --reverse --border --walker-skip=.git,target,node_modules,.idea'
-export FZF_DEFAULT_COMMAND='fd --type f'
-
-fzf_switch_support="--bind 'ctrl-d:reload(fd --type d),ctrl-f:reload(eval "$FZF_DEFAULT_COMMAND")'"
-      
-if command -v bat &> /dev/null; then
-  show_file_or_dir_preview="if [ -d {} ]; then tree -C {} | head -200; else bat -n --color=always --line-range :500 {}; fi"
-  export FZF_CTRL_T_OPTS="$fzf_switch_support --preview '$show_file_or_dir_preview'"
-else
-  export FZF_CTRL_T_OPTS="$fzf_switch_support --preview '(highlight -O ansi -l {} 2> /dev/null || cat {} || tree -C {}) 2> /dev/null | head -200'"
-fi
-
-#support switch dir/file
-alias fzf2="fzf $fzf_switch_support"
-
-#alt-c
-export FZF_ALT_C_COMMAND=""
-export FZF_ALT_C_OPTS="--preview 'tree -C {}'"
-
-fkill() {
-  local pid
-  pid=$(ps -ef | sed 1d | fzf -m | awk '{print $2}')
-
-  if [ "x$pid" != "x" ]
-  then
-    echo $pid | xargs kill -${1:-9}
-  fi
-}
 #}}}
 #
 #====[ fasd fast jump conf ]=============================================# {{{1
@@ -570,12 +541,19 @@ export BAT_THEME="Solarized (dark)"
 SYNTAX_HL_ZSH=$MY_ZSH_DIR/syn-highlighting.zsh
 [ -f $SYNTAX_HL_ZSH ] && source $SYNTAX_HL_ZSH
 
+
+# }}}
 #environment variable
 source $MY_ZSH_DIR/myZsh.zsh
+
 
 #tab setting (4 spaces)
 tabs -4
 
+#}}}
+
+#====[ my completion ]=============================================# {{{
+source $MY_ZSH_DIR/completion/myCompletion.sh
 #}}}
 
 #CHANGES still in TESTING# {{{
@@ -585,15 +563,4 @@ setopt LISTPACKED
 #
 ### END OF FILE #################################################################
 #
-# vim: ft=zsh ts=2 sw=2 et ai
-
-
-# Load Angular CLI autocompletion.
-source <(ng completion script)
-
-# bun completions
-[ -s "/Users/U533276/.bun/_bun" ] && source "/Users/U533276/.bun/_bun"
-
-# bun
-export BUN_INSTALL="$HOME/.bun"
-export PATH="$BUN_INSTALL/bin:$PATH"
+# vim: ft=sh ts=2 sw=2 et ai

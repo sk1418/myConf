@@ -14,7 +14,7 @@ relink_rule(){
 
   gawk -F '-->' -v home="$HOME" -v bkDir="$bkDir" \
     -v lnsf='test -f "%s" && ln -svf "%s" "%s"\n' \
-    -v lnsd='ln -svf "%s"* "%s"\n' \
+    -v lnsd='mkdir -p "%s" && ln -svf "%s"* "%s"\n' \
     -v echo='echo "[^_^] %s"\n' \
       '/^#/ || !NF{ next }    #skip comments and empty lines
       {
@@ -22,7 +22,7 @@ relink_rule(){
           target =  home "/" $1 
           conf = bkDir "/" $NF 
           if($1 ~ /.*[/]$/)
-            printf lnsd, conf , target
+            printf lnsd, target, conf , target
           else
             printf lnsf, conf, conf , target
           }

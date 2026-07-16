@@ -231,7 +231,7 @@ nnoremap <Leader>w :w!<cr>
 " nnoremap <Leader>su :w !sudo tee %>/dev/null <cr>
 " Sudo plugin settings
 nnoremap <Leader>su :SudaWrite<cr>
-let g:suda#prompt = 'sudo Password'
+let g:suda#prompt = 'sudo Password:'
 
 "add empty line above/below current line
 nnoremap <leader>o mzo<ESC>`z
@@ -479,7 +479,7 @@ command! -nargs=0 Prettier :CocCommand prettier.forceFormatDocument
 
 augroup cocgroup
 	autocmd!
-	" Setup formatexpr specified filetype(s).
+	" Setup formatexpr specified filetype(s). gq to format
 	autocmd FileType typescript,json setl formatexpr=CocAction('formatSelected')
 	" Update signature help on jump placeholder.
 	autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
@@ -609,13 +609,13 @@ if g:colors_name == 'solarized'
 
 
   "add autocommands
-  autocmd BufWinEnter * call matchadd("Important","!Important!")
-  autocmd BufWinEnter * call matchadd("MK1","!MARK1")
-  autocmd BufWinEnter * call matchadd("MK2","!MARK2")
-  autocmd BufWinEnter * call matchadd("MK3","!MARK3")
-  autocmd BufWinEnter * call matchadd("FIXME","FIXME")
-  autocmd BufWinEnter * call matchadd("Todo","TODO")
-  autocmd BufWinEnter * call matchadd("Todo","Todo")
+  autocmd BufEnter * call matchadd("Important","!Important!")
+  autocmd BufEnter * call matchadd("MK1","!MARK1")
+  autocmd BufEnter * call matchadd("MK2","!MARK2")
+  autocmd BufEnter * call matchadd("MK3","!MARK3")
+  autocmd BufEnter * call matchadd("FIXME","FIXME")
+  autocmd BufEnter * call matchadd("Todo","TODO")
+  autocmd BufEnter * call matchadd("Todo","Todo")
 
 endif
 
@@ -1041,7 +1041,7 @@ augroup END
 "highlight some keywords in my 'publish.md'
 augroup publishing
 	autocmd!
-	autocmd BufWinEnter published.md call Publish_Specific()
+  autocmd BufEnter published.md call Publish_Specific()
 augroup END
 
 function! Publish_Specific() abort
@@ -1066,7 +1066,7 @@ endfunction
 
 augroup budget
 	autocmd!
-	autocmd BufWinEnter budgets.md call Hi_Budget()
+	autocmd BufEnter budgets.md call Hi_Budget()
 augroup END
 
 function! Hi_Budget()
@@ -1116,8 +1116,9 @@ hi! MatchParen gui=bold guifg=lightgray guibg=DarkOrange4
 augroup ftfoldgroup
   autocmd!
   autocmd FileType java,javascript,vim,xml,html,xhtml,kotlin setlocal fdm=syntax
-  autocmd BufWinEnter *.lua setlocal fdm=expr foldexpr=nvim_treesitter#foldexpr()
+  autocmd BufEnter *.lua setlocal fdm=expr foldexpr=nvim_treesitter#foldexpr()
 augroup end
 
 call Load_lua_plugin("ft-hi.lua")    
+
 " vim: fdm=marker ts=2 sw=2 et

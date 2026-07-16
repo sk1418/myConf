@@ -17,7 +17,7 @@ function git_prompt {
 
 if [[ "$OSTYPE" == "darwin"* ]]; then
     #company Mac, without Host, user
-    export PROMPT='%F{240}%K{251}%BLHT- %K{reset} %F{red}%B%*% %F{yellow} %/
+    export PROMPT='%F{240}%K{251}%BLHT- %K{reset} %F{red}%B%*% %b%F{yellow} %/
 %F{green}$%b $(git_prompt)'
 
 else 

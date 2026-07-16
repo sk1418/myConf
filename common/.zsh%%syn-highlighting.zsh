@@ -4,4 +4,5 @@ SYNTAX_HL=$LIB_DIR/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 [ -f $SYNTAX_HL ] && source $SYNTAX_HL
 ZSH_HIGHLIGHT_HIGHLIGHTERS+=(brackets line)
 ZSH_HIGHLIGHT_STYLES[line]='bold'
+ZSH_HIGHLIGHT_STYLES[comment]="fg=240,bold" #avoid black on black, e.g., $> $XYZ or $> #comment
 

@@ -48,12 +48,12 @@
         ]
       },
       {
-        "description": "SpaceFN: Space+b to Space (hold to repeat)",
+        "description": "SpaceFN: Space+v to Space (hold to repeat)",
         "manipulators": [
           {
             "type": "basic",
             "from": {
-              "key_code": "b",
+              "key_code": "v",
               "modifiers": {
                 "optional": [
                   "any"

@@ -17,6 +17,7 @@ base.vimrc
 .bcrc
 firefoxProxy.pac
 .zsh/completion/
+.zsh/my-fzf/
 .zsh/promptrc --> .zsh%%promptrc
 .zsh/syn-highlighting.zsh --> .zsh%%syn-highlighting.zsh
 .zsh/fzf-fasd.zsh --> .zsh%%fzf-fasd.zsh
